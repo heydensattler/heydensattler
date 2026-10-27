@@ -79,7 +79,7 @@ p { margin: 0; }
   white-space: nowrap;
   transition: background-color .2s;
 }
-.btn:hover { background: var(--tuerkis); }
+.btn:hover { background: var(--tuerkis); color: var(--weiss); }
 
 /* Kopfzeile */
 .topbar { font-size: 13px; line-height: 20px; color: var(--gruen); border-bottom: 1px solid rgba(22, 60, 55, .1); }
@@ -209,7 +209,8 @@ section.abschnitt { padding: clamp(64px, 9vw, 110px) 0 0; }
 .kontakt-box p.text { margin-top: 12px; }
 .kontakt-box h3 { font-size: 15px; color: var(--tuerkis); margin-bottom: 6px; }
 .kontakt-box a { color: var(--gruen); text-decoration: none; }
-.kontakt-box a:hover { color: var(--tuerkis); }
+/* Buttons ausgenommen: sonst türkise Schrift auf türkisem Hover-Grund */
+.kontakt-box a:not(.btn):hover { color: var(--tuerkis); }
 .kontakt-box address { font-style: normal; }
 .kontakt-box .btn { margin-top: 20px; color: var(--weiss); }
 
@@ -396,7 +397,8 @@ footer a:hover { color: var(--weiss); }
 }
 .energieskala-balken {
   list-style: none; margin: 0; padding: 0; display: flex; height: 34px;
-  background: linear-gradient(90deg, #009A3E 0%, #52B747 18%, #B5D334 34%, #FFED00 50%, #FBB900 64%, #EF7D00 80%, #E30613 100%);
+  /* Ampelfarben des Energieausweises, entsättigt und aufgehellt; Klassenbuchstaben mind. 4,5:1 */
+  background: linear-gradient(90deg, #5FB17F 0%, #92BD8E 18%, #BDCA87 34%, #DBD470 50%, #DBBE6E 64%, #D9A367 80%, #DE858A 100%);
 }
 .energieskala-balken li {
   flex: 0 0 var(--breite); display: grid; place-items: center;

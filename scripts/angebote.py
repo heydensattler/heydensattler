@@ -13,8 +13,8 @@ Welche Objekte erscheinen:
 Nie ausgegeben werden private Bilder, Straße und Hausnummer, Koordinaten, Eigentümer-, Makler- und
 Kontaktdaten sowie interne Felder: die Seiten nutzen nur die Felder, die unten ausdrücklich genannt sind.
 
-Das Skript spricht die Propstack-API V2 an. Lehnt V2 den Schlüssel ab (ein Schlüssel nur für V1), lädt es
-dieselben Daten über V1.
+Standard ist die Propstack-API V1 (dafür ist der hinterlegte Schlüssel). Mit PROPSTACK_API_VERSION=2 und einem
+Schlüssel für V2 nutzt das Skript V2; nur dort gibt es den Filter nach Portal und die Abfrage der Schlüssel-Rechte.
 
 Aufruf:
   python3 scripts/angebote.py                 schreibt in site/ (im Build auf GitHub)
@@ -306,19 +306,15 @@ def rechte_pruefen(rechte):
                 "Objekte, Status, Portale und Veröffentlichungen; bitte die Rechte des Schlüssels einschränken.")
 
 
-def aus_api(schluessel, portal_id):
+def aus_api(schluessel, portal_id, version):
     """Lädt Status und Objekte; gibt (status, objekte, veröffentlichte Objekt-IDs oder None) zurück."""
     ps = Propstack(schluessel)
-    try:
-        rechte = ps.holen("/v2/rights")
-    except urllib.error.HTTPError as fehler:
-        if fehler.code not in (401, 403):
-            raise Abbruch(f"Propstack antwortet auf GET /v2/rights mit HTTP {fehler.code}.")
-        warnung(f"Propstack-API V2 lehnt den Schlüssel ab (HTTP {fehler.code}), vermutlich ein Schlüssel nur für V1. "
-                "Lade über API V1.")
+    if version != "2":
+        log("Propstack-API V1")
         return aus_api_v1(ps, portal_id)
 
-    rechte_pruefen(rechte)
+    log("Propstack-API V2")
+    rechte_pruefen(ps.holen("/v2/rights"))
     status = liste(ps.holen("/v2/property_statuses"))
     veroeffentlicht = None
     if portal_id:
@@ -335,16 +331,10 @@ def aus_api(schluessel, portal_id):
 
 
 def aus_api_v1(ps, portal_id):
-    try:
-        status = liste(ps.holen("/v1/property_statuses"))
-    except urllib.error.HTTPError as fehler:
-        if fehler.code in (401, 403):
-            raise Abbruch(f"Propstack lehnt den Schlüssel auch bei API V1 ab (HTTP {fehler.code}). Bitte das Secret "
-                          "PROPSTACK_API_KEY prüfen.")
-        raise
+    status = liste(ps.holen("/v1/property_statuses"))
     if portal_id:
-        warnung("PROPSTACK_PORTAL_ID ist gesetzt, aber der Filter nach Portal braucht einen Schlüssel für API V2. "
-                "Gefiltert wird stattdessen nach öffentlichem Status.")
+        warnung("PROPSTACK_PORTAL_ID ist gesetzt, aber der Filter nach Portal gibt es nur in API V2 "
+                "(PROPSTACK_API_VERSION=2). Gefiltert wird stattdessen nach öffentlichem Status.")
     uebersicht = [v1_normal(o) for o in ps.seiten("/v1/units", per=100, with_meta=1)]
     kandidaten = vorauswahl(uebersicht, status, None)
     objekte = [v1_normal(ps.holen(f"/v1/units/{o['id']}", new=1)) for o in kandidaten]
@@ -362,7 +352,9 @@ def v1_normal(o):
     bilder = []
     for b in o.get("images") or []:
         b = dict(b)
-        b["urls"] = {k: b.get(f"{k}_url") for k in ("big", "medium", "thumb") if b.get(f"{k}_url")}
+        b["urls"] = {k: b.get(f"{k}_url") or b.get(k) for k in ("big", "medium", "thumb")
+                     if isinstance(b.get(f"{k}_url") or b.get(k), str)}
+        b["url"] = b.get("url") or b.get("original")
         bilder.append(b)
     o["images"] = bilder
     return o
@@ -1121,6 +1113,7 @@ def main():
     if args.beispiel and ziel == QUELLE:
         raise Abbruch("--beispiel schreibt nie in site/, sonst ersetzen Beispielobjekte die echten Angebote")
     portal_id = os.environ.get("PROPSTACK_PORTAL_ID", "").strip()
+    version = os.environ.get("PROPSTACK_API_VERSION", "").strip().lower().lstrip("v") or "1"
 
     if args.beispiel:
         log(f"Beispieldaten aus {BEISPIEL.relative_to(WURZEL)}")
@@ -1129,7 +1122,7 @@ def main():
         schluessel = os.environ.get("PROPSTACK_API_KEY", "").strip()
         if not schluessel:
             raise Abbruch("PROPSTACK_API_KEY fehlt. Für die lokale Ansicht: --beispiel")
-        status, objekte, _ = aus_api(schluessel, portal_id)
+        status, objekte, _ = aus_api(schluessel, portal_id, version)
 
     status_namen = {text(s.get("id")): text(s.get("name")) for s in status}
     bilder = bilder_vorbereiten(objekte, portal_id)
@@ -1181,7 +1174,13 @@ if __name__ == "__main__":
         print(f"::error::{fehler}", file=sys.stderr)
         sys.exit(1)
     except urllib.error.HTTPError as fehler:
-        print(f"::error::Propstack antwortet mit HTTP {fehler.code} ({fehler.url.split('?')[0]})", file=sys.stderr)
+        hinweis = {
+            401: "Der Schlüssel wird nicht angenommen; bitte das Secret PROPSTACK_API_KEY prüfen.",
+            402: "Propstack verlangt für diesen Zugriff ein anderes Paket oder einen anderen Schlüssel.",
+            403: "Der Schlüssel darf das nicht lesen (bei V2: Rechte des Schlüssels; passt die API-Version?).",
+        }.get(fehler.code, "")
+        print(f"::error::Propstack antwortet mit HTTP {fehler.code} ({fehler.url.split('?')[0]}). {hinweis}",
+              file=sys.stderr)
         sys.exit(1)
     except urllib.error.URLError as fehler:
         print(f"::error::Propstack nicht erreichbar: {fehler.reason}", file=sys.stderr)

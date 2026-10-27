@@ -47,6 +47,7 @@ jobs:
         env:
           PROPSTACK_API_KEY: ${{ secrets.PROPSTACK_API_KEY }}
           PROPSTACK_PORTAL_ID: ${{ vars.PROPSTACK_PORTAL_ID }}
+          PROPSTACK_API_VERSION: ${{ vars.PROPSTACK_API_VERSION }}
         run: |
           if [ -z "$PROPSTACK_API_KEY" ]; then
             echo "::notice::Kein Secret PROPSTACK_API_KEY, die eingecheckten Angebote bleiben."

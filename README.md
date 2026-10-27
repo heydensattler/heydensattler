@@ -55,18 +55,20 @@ Beim Build (und alle 30 Minuten) lädt `scripts/angebote.py` die Objekte aus der
 Ein verkauftes Objekt verschwindet beim nächsten Lauf; alte Links zeigen dann `404.html` („Dieses Angebot ist nicht
 mehr verfügbar“).
 
-**Schlüssel:** Repository-Secret `PROPSTACK_API_KEY` (Settings → Secrets and variables → Actions). Am besten ein nur
-lesender Schlüssel für die API V2; zu Beginn schreibt der Build Name und Rechte des Schlüssels ins Log und warnt,
-wenn er schreiben oder Kontakte lesen darf. Ein Schlüssel nur für V1 funktioniert auch: lehnt V2 ihn ab, lädt das
-Skript über V1 (mit Warnung im Log). Ohne Secret bleibt der eingecheckte Stand der Startseite. Ist Propstack nicht
-erreichbar, scheitert der Lauf, und die zuletzt veröffentlichte Seite bleibt online.
+**Schlüssel:** Repository-Secret `PROPSTACK_API_KEY` (Settings → Secrets and variables → Actions). Standard ist die
+Propstack-API V1; dafür ist der hinterlegte Schlüssel. Für die API V2 die Repository-Variable `PROPSTACK_API_VERSION`
+auf `2` setzen und einen V2-Schlüssel hinterlegen (am besten nur lesend); dann schreibt der Build Name und Rechte des
+Schlüssels ins Log und warnt, wenn er schreiben oder Kontakte lesen darf. Ohne Secret bleibt der eingecheckte Stand
+der Startseite. Ist Propstack nicht erreichbar, scheitert der Lauf, und die zuletzt veröffentlichte Seite bleibt
+online.
 
 **Welche Objekte erscheinen:**
 
 - Ist die Repository-Variable `PROPSTACK_PORTAL_ID` gesetzt (Settings → Secrets and variables → Actions →
   Variables), nur Objekte, die in Propstack auf diesem Portal veröffentlicht sind, und davon nur die Bilder, die für
   dieses Portal freigegeben sind. Dafür die Website in Propstack als eigenes Portal anlegen und Objekte dort wie bei
-  ImmoScout freigeben; die ID des Portals steht im Log, wenn die Variable falsch ist. Braucht einen V2-Schlüssel.
+  ImmoScout freigeben; die ID des Portals steht im Log, wenn die Variable falsch ist. Geht nur mit API V2
+  (`PROPSTACK_API_VERSION=2`); mit V1 filtert der Build nach Status und warnt im Log.
 - Ohne Variable alle nicht archivierten Objekte in einem öffentlichen Status (`nonpublic` = nein, z. B. „Verfügbar“
   und „Reserviert“).
 

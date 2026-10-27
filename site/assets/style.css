@@ -362,6 +362,42 @@ footer a:hover { color: var(--weiss); }
 .galerie-vorschau a:hover { border-color: var(--tuerkis); }
 .galerie-vorschau img { width: 68px; height: 68px; object-fit: cover; }
 
+/* Vollbild der Galerie (galerie.js): Bild groß, unten die Vorschauleiste */
+.galerie-liste img { cursor: zoom-in; }
+.galerie-knopf.galerie-gross { top: 12px; right: 12px; transform: none; }
+html.vollbild-offen { overflow: hidden; }
+.vollbild {
+  position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0;
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto; background: #0E2421; color: var(--weiss);
+}
+.vollbild:not([open]) { display: none; }
+.vollbild::backdrop { background: #0E2421; }
+.vollbild-kopf { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px var(--gutter); font-size: 14px; line-height: 20px; }
+.vollbild-zaehler { font-variant-numeric: tabular-nums; color: var(--mint-hell); margin-right: 8px; }
+.vollbild-knopf {
+  width: 44px; height: 44px; flex: none; display: grid; place-items: center; padding: 0; border: 0; cursor: pointer;
+  background: rgba(255, 255, 255, .14); color: var(--weiss); border-radius: var(--radius);
+}
+.vollbild-knopf:hover { background: var(--tuerkis); }
+.vollbild-knopf[hidden] { display: none; }
+.vollbild-knopf svg { width: 18px; height: 18px; }
+.vollbild-buehne { position: relative; min-height: 0; overflow: hidden; touch-action: pan-y; }
+/* Absolut in der Bühne: so begrenzt deren Höhe das Bild in jedem Browser */
+.vollbild-buehne img {
+  position: absolute; inset: 0; margin: auto; max-width: calc(100% - 152px); max-height: 100%; width: auto; height: auto;
+  user-select: none; -webkit-user-drag: none;
+}
+.vollbild-buehne.plan img { background: var(--weiss); padding: 12px; }
+.vollbild-zurueck, .vollbild-weiter { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(14, 36, 33, .7); }
+.vollbild-zurueck { left: 16px; }
+.vollbild-weiter { right: 16px; }
+.vollbild-leiste { list-style: none; margin: 0; padding: 12px var(--gutter) 16px; display: flex; justify-content: safe center; gap: 8px; overflow-x: auto; scrollbar-width: thin; }
+.vollbild-leiste li { flex: none; }
+.vollbild-leiste button { display: block; padding: 0; border: 2px solid transparent; background: none; cursor: pointer; opacity: .55; transition: opacity .2s; }
+.vollbild-leiste button:hover { opacity: 1; }
+.vollbild-leiste button[aria-current="true"] { border-color: var(--mint); opacity: 1; }
+.vollbild-leiste img { width: 64px; height: 64px; object-fit: cover; }
+
 .expose-karte {
   position: sticky; top: calc(var(--kopf) + 54px);
   background: var(--weiss); box-shadow: var(--schatten); border-radius: var(--radius); padding: 28px;
@@ -429,6 +465,11 @@ footer a:hover { color: var(--weiss); }
   .galerie-zurueck { left: 8px; }
   .galerie-weiter { right: 8px; }
   .expose-karte { padding: 22px; }
+  .vollbild-buehne img { max-width: 100%; }
+  .vollbild-zurueck, .vollbild-weiter { width: 38px; height: 38px; }
+  .vollbild-zurueck { left: 8px; }
+  .vollbild-weiter { right: 8px; }
+  .vollbild-leiste img { width: 52px; height: 52px; }
 }
 
 /* Seite nicht gefunden */

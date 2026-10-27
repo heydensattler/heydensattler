@@ -57,6 +57,14 @@ jobs:
           fi
           python3 scripts/angebote.py
 
+      # Solange der Schritt oben aus ist: nur Status und Anzahlen ins Log (schreibt nichts)
+      - name: Propstack-Status prüfen
+        if: vars.ANGEBOTE_AUS_PROPSTACK != 'true'
+        env:
+          PROPSTACK_API_KEY: ${{ secrets.PROPSTACK_API_KEY }}
+        run: |
+          if [ -n "$PROPSTACK_API_KEY" ]; then python3 scripts/angebote.py --diagnose || true; fi
+
       - name: Seite für den Pages-Unterpfad bauen
         run: python3 scripts/pages.py "${{ steps.pages.outputs.base_path }}"
 

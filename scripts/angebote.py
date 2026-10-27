@@ -725,8 +725,9 @@ def energieausweis(a):
     kennwert = zahl(w("thermal_characteristic")) or zahl(w("energy_efficiency_value"))
     erstellt = text(w("energy_certificate_creation_date")).upper()
     if erstellt:
-        erstellt = "vor dem 1. Mai 2014" if "BEFORE" in erstellt else (
-            "ab 1. Mai 2014" if re.search(r"FROM|AFTER|SINCE", erstellt) else uebersetzt({}, erstellt, "energy_certificate_creation_date"))
+        erstellt = "vor dem 1. Mai 2014" if re.search(r"BEFORE|VOR", erstellt) else (
+            "ab 1. Mai 2014" if re.search(r"FROM|AFTER|SINCE|AB ", erstellt) else
+            uebersetzt({}, text(w("energy_certificate_creation_date")), "energy_certificate_creation_date"))
     traeger = text(w("firing_types"))
     traeger = ", ".join(filter(None, (uebersetzt(ENERGIETRAEGER, t.strip(), "firing_types")
                                       for t in re.split(r"[,;]", traeger.strip("[]").replace('"', "")) if t.strip())))
@@ -1112,6 +1113,42 @@ def llms(inhalt, angebote, heute):
 
 # ---------------------------------------------------------------------------------------------------------
 
+def diagnose(ps):
+    """Zeigt je Status, wie viele Objekte es gibt und wie viele davon öffentliche Bilder haben.
+    Nur Namen, IDs und Anzahlen; keine Adressen, Preise oder Kontakte."""
+    status = liste(ps.holen("/v1/property_statuses"))
+    objekte = [v1_normal(o) for o in ps.seiten("/v1/units", per=100, with_meta=1, expand=1)]
+    zaehler = {}
+    for o in objekte:
+        sid = text(o.get("property_status_id")) or "ohne"
+        z = zaehler.setdefault(sid, [0, 0, 0, 0])
+        z[0] += 1
+        z[1] += wahr(o.get("archived"))
+        z[2] += any(not wahr(b.get("is_private")) for b in o.get("images") or [])
+        z[3] += bool(text(o.get("unit_id")))
+    zeilen = [f"{len(objekte)} Objekte in GET /v1/units. Je Status: Anzahl | archiviert | mit öffentlichem Bild | "
+              "mit Objekt-Nr."]
+    for s in sorted(status, key=lambda s: zahl(s.get("position")) or 0):
+        z = zaehler.pop(text(s.get("id")), [0, 0, 0, 0])
+        zeilen.append(f"{text(s.get('id'))} „{text(s.get('name'))}“ nonpublic={wahr(s.get('nonpublic'))}: "
+                      f"{z[0]} | {z[1]} | {z[2]} | {z[3]}")
+    for sid, z in zaehler.items():
+        zeilen.append(f"{sid} (kein bekannter Status): {z[0]} | {z[1]} | {z[2]} | {z[3]}")
+    namen = {text(s.get("id")): text(s.get("name")) for s in status}
+    bekannt = {"20260703", "20260708", "20251227"}
+    zeilen.append("Bekannt öffentliche Objekte: " + ", ".join(
+        f"{text(o.get('unit_id'))} → {namen.get(text(o.get('property_status_id')), text(o.get('property_status_id')))}"
+        for o in objekte if text(o.get("unit_id")) in bekannt))
+    markierungen = sorted({k for o in objekte for k in o
+                           if re.search(r"publish|portal|homepage|website|public|iframe|visib|connection|expose|group",
+                                        k, re.I)})
+    zeilen.append("Felder zu Freigabe/Gruppen: " + (", ".join(markierungen) or "keine"))
+    for zeile in zeilen:
+        log(zeile)
+    # Als Hinweis im Lauf sichtbar (Annotations sind ohne Anmeldung lesbar)
+    print("::notice title=Propstack-Status::" + " %0A".join(zeilen), flush=True)
+
+
 def heute_in_augsburg():
     try:
         from zoneinfo import ZoneInfo
@@ -1124,6 +1161,8 @@ def main():
     teiler = argparse.ArgumentParser(description="Angebote aus Propstack in die Website schreiben")
     teiler.add_argument("--beispiel", action="store_true", help="Beispieldaten statt API (schreibt nicht in site/)")
     teiler.add_argument("--ziel", help="Zielordner; wird als Kopie von site/ angelegt")
+    teiler.add_argument("--diagnose", action="store_true",
+                        help="nur Status und Anzahlen ins Log, schreibt nichts (für die Wahl des Filters)")
     args = teiler.parse_args()
 
     ziel = Path(args.ziel).resolve() if args.ziel else (WURZEL / "_beispiel" if args.beispiel else QUELLE)
@@ -1131,6 +1170,13 @@ def main():
         raise Abbruch("--beispiel schreibt nie in site/, sonst ersetzen Beispielobjekte die echten Angebote")
     portal_id = os.environ.get("PROPSTACK_PORTAL_ID", "").strip()
     version = os.environ.get("PROPSTACK_API_VERSION", "").strip().lower().lstrip("v") or "1"
+
+    if args.diagnose:
+        schluessel = os.environ.get("PROPSTACK_API_KEY", "").strip()
+        if not schluessel:
+            raise Abbruch("PROPSTACK_API_KEY fehlt")
+        diagnose(Propstack(schluessel))
+        return
 
     if args.beispiel:
         log(f"Beispieldaten aus {BEISPIEL.relative_to(WURZEL)}")

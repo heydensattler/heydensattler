@@ -48,7 +48,7 @@ INHALTE = WURZEL / "inhalte" / "blog"
 BEISPIEL = WURZEL / "scripts" / "beispiel-blog"
 DOMAIN = "https://heydensattler.com"
 FIRMA = DOMAIN + "/#firma"
-TELEFON = ("+4982199982940", "0821 999 8294 0")
+TELEFON = ("+4982199982940", "0821 999 829 40")
 MAIL = "info@heydensattler.com"
 ZEITZONE = "Europe/Berlin"
 # Ersatzbild für Open Graph, wenn ein Beitrag kein eigenes Bild hat (Hero der Startseite)

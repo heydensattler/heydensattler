@@ -45,7 +45,7 @@ BEISPIEL = WURZEL / "scripts" / "beispiel-angebote.json"
 DOMAIN = "https://heydensattler.com"
 API = "https://api.propstack.de"
 FIRMA = DOMAIN + "/#firma"
-TELEFON = ("+4982199982940", "0821 999 8294 0")
+TELEFON = ("+4982199982940", "0821 999 829 40")
 MAIL = "info@heydensattler.com"
 
 

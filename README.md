@@ -12,7 +12,8 @@ Corporate Identity (Schriften, Farben, Bilder); neu sind das responsive Layout, 
   - `robots.txt`, `sitemap.xml`, `llms.txt`
   - `wp-content/uploads/2022/05/` – Hero-Bild als WebP/JPEG und die Schriften, unter denselben Pfaden wie auf dem
     bisherigen Server
-- `docs/screenshots/` – Vorher/Nachher und Ansichten der Seiten
+- `site/assets/` – gemeinsames CSS und JavaScript aller Seiten
+- `docs/screenshots/` – Vorher/Nachher und Ansichten der Seiten (Desktop 1440 px, Handy 390 px)
 - `scripts/schriften.sh` – holt die lizenzierten Söhne-Schriften vom Live-Server (nicht im Repository)
 
 ## Lokal ansehen

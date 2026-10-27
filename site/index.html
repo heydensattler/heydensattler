@@ -163,278 +163,7 @@
 <link rel="preload" href="/wp-content/uploads/2022/05/soehne-buch.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/wp-content/uploads/2022/05/soehne-breit-kraftig.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" type="image/webp" fetchpriority="high" imagesrcset="/wp-content/uploads/2022/05/cover3-800.webp 800w, /wp-content/uploads/2022/05/cover3-1400.webp 1400w, /wp-content/uploads/2022/05/cover3-2048.webp 2048w" imagesizes="100vw">
-<style>
-  @font-face {
-    font-family: "PrimaryCustomFont";
-    src: url("/wp-content/uploads/2022/05/soehne-buch.woff2") format("woff2");
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "SecondaryCustomFont";
-    src: url("/wp-content/uploads/2022/05/soehne-breit-kraftig.woff2") format("woff2");
-    font-weight: 600;
-    font-display: swap;
-  }
-
-  /* CI-Farben der bestehenden Seite */
-  :root {
-    --gruen: #163C37;
-    --mint: #69E1A4;
-    --tuerkis: #66C0AA;
-    --text: #696969;
-    --weiss: #FFFFFF;
-    --flaeche: #F7F7F7;
-    --linie: #E6E6E6;
-    --schatten: 0 10px 35px rgba(38, 42, 76, .1);
-    --radius: 1px;
-
-    --wrap: 1170px;
-    --gutter: clamp(16px, 4vw, 30px);
-    --kopf: 76px;
-  }
-
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: var(--kopf); -webkit-text-size-adjust: 100%; }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
-  body {
-    margin: 0;
-    font-family: "PrimaryCustomFont", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 15px;
-    line-height: 24px;
-    color: var(--text);
-    background: var(--weiss);
-    -webkit-font-smoothing: antialiased;
-  }
-  img { display: block; max-width: 100%; height: auto; }
-  a { color: inherit; }
-  :focus-visible { outline: 2px solid var(--gruen); outline-offset: 3px; }
-  .skip { position: absolute; left: -9999px; top: 8px; z-index: 100; background: var(--gruen); color: var(--weiss); padding: 8px 14px; }
-  .skip:focus { left: 8px; }
-
-  h1, h2, h3, h4 {
-    font-family: "SecondaryCustomFont", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: 600;
-    color: var(--gruen);
-    margin: 0;
-    hyphens: auto;
-    overflow-wrap: break-word;
-  }
-  h1 { hyphens: manual; font-size: clamp(2rem, 1.2rem + 3.6vw, 3.45rem); line-height: 1.3; letter-spacing: -.01em; }
-  h2 { font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.65rem); line-height: 1.25; letter-spacing: -.01em; }
-  h3 { font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem); line-height: 1.3; }
-  p { margin: 0; }
-
-  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
-
-  .btn {
-    display: inline-block;
-    padding: 10px 34px;
-    background: var(--mint);
-    color: var(--weiss);
-    border-radius: var(--radius);
-    font-size: 16px;
-    line-height: 24px;
-    text-decoration: none;
-    white-space: nowrap;
-    transition: background-color .2s;
-  }
-  .btn:hover { background: var(--tuerkis); }
-
-  /* Kopfzeile */
-  .topbar { font-size: 13px; line-height: 20px; color: var(--gruen); border-bottom: 1px solid rgba(22, 60, 55, .1); }
-  .topbar .wrap { display: flex; }
-  .topbar a, .topbar span {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 16px; text-decoration: none;
-    border-right: 1px solid rgba(22, 60, 55, .1);
-  }
-  .topbar a:first-child { padding-left: 0; }
-  .topbar a:hover { color: var(--tuerkis); }
-  .topbar svg { width: 14px; height: 14px; flex: none; }
-
-  header.kopf {
-    position: sticky; top: 0; z-index: 30;
-    background: var(--weiss);
-    transition: box-shadow .2s;
-  }
-  header.kopf.gescrollt { box-shadow: 0 2px 20px rgba(38, 42, 76, .08); }
-  .kopf .leiste { display: flex; align-items: center; justify-content: space-between; height: var(--kopf); gap: 20px; }
-  .logo img { width: 234px; height: auto; }
-  nav.haupt { display: flex; align-items: center; gap: 28px; }
-  nav.haupt > ul { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; }
-  nav.haupt a { text-decoration: none; color: var(--gruen); }
-  nav.haupt > ul > li > a:hover, .untermenue a:hover { color: var(--tuerkis); }
-  .hat-unter { position: relative; }
-  .hat-unter > button {
-    font: inherit; color: var(--gruen); background: none; border: 0; padding: 0; cursor: pointer;
-    display: inline-flex; align-items: center; gap: 6px;
-  }
-  .hat-unter > button svg { width: 10px; height: 10px; transition: transform .2s; }
-  .hat-unter > button[aria-expanded="true"] svg { transform: rotate(180deg); }
-  .untermenue {
-    list-style: none; margin: 0; padding: 10px 0;
-    position: absolute; top: calc(100% + 14px); left: -20px; min-width: 200px;
-    background: var(--weiss); box-shadow: var(--schatten); border-radius: var(--radius);
-    display: none;
-  }
-  .hat-unter.offen .untermenue { display: block; }
-  .untermenue a { display: block; padding: 8px 20px; }
-  .menu-knopf { display: none; background: none; border: 0; padding: 10px; margin-right: -10px; cursor: pointer; color: var(--gruen); }
-  .menu-knopf svg { width: 26px; height: 26px; display: block; }
-
-  /* Hero */
-  .hero { position: relative; isolation: isolate; }
-  .hero-bild { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
-  .hero-bild picture { display: contents; }
-  .hero-bild img { width: 100%; height: 100%; object-fit: cover; object-position: left center; }
-  .hero .wrap { padding-top: clamp(64px, 12vw, 170px); padding-bottom: clamp(140px, 14vw, 200px); }
-  .hero h1 { max-width: 14ch; }
-  .hero .unterzeile {
-    font-family: "SecondaryCustomFont", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: clamp(15px, 1.1vw + 10px, 18px); line-height: 1.5;
-    color: var(--gruen); margin-top: 24px; max-width: 34em;
-  }
-
-  /* Leistungskarten, überlappen den Hero wie bisher */
-  .karten { display: grid; grid-template-columns: repeat(2, minmax(0, 360px)); gap: 30px; margin-top: -110px; position: relative; }
-  .karte {
-    display: block; text-decoration: none; text-align: center;
-    background: var(--weiss); box-shadow: var(--schatten); border-radius: var(--radius);
-    padding: 40px; color: var(--text);
-    transition: transform .2s, box-shadow .2s;
-  }
-  .karte:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(38, 42, 76, .14); }
-  .karte svg { width: 40px; height: 40px; margin: 0 auto 18px; color: var(--gruen); }
-  .karte h2 { font-size: 20px; line-height: 1.3; color: var(--tuerkis); margin-bottom: 12px; }
-
-  /* Abschnitte */
-  section.abschnitt { padding: clamp(64px, 9vw, 110px) 0 0; }
-  .abschnitt > .wrap > h2 { margin-bottom: clamp(32px, 4vw, 50px); }
-
-  /* Team */
-  .person { display: grid; grid-template-columns: 200px 1fr; gap: 0 clamp(24px, 4vw, 40px); align-items: start; }
-  .person + .person { margin-top: 40px; }
-  .person img { width: 200px; aspect-ratio: 251 / 300; object-fit: cover; }
-  .person ul { list-style: none; margin: 18px 0 0; padding: 0; }
-  .person li { position: relative; padding-left: 26px; margin: 0 0 4px; }
-  .person li::before {
-    content: ""; position: absolute; left: 0; top: 4px;
-    width: 16px; height: 16px; border-radius: 50%;
-    background: var(--gruen) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.3l2.2 2.2 4.8-5' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat;
-  }
-  .person .rolle { color: var(--tuerkis); font-style: italic; margin-top: 16px; }
-  .team-aktion { margin-top: 40px; text-align: right; }
-
-  /* Angebote */
-  .angebote { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-  .objekt { display: block; height: 100%; text-decoration: none; background: var(--weiss); box-shadow: var(--schatten); border-radius: var(--radius); }
-  .objekt .bild { aspect-ratio: 3 / 2; overflow: hidden; background: var(--flaeche); }
-  .objekt img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
-  .objekt:hover img { transform: scale(1.03); }
-  .objekt .info { padding: 16px 20px 20px; }
-  .objekt h3 { font-size: 16px; line-height: 1.4; display: flex; gap: 6px; align-items: center; }
-  .objekt h3 svg { width: 14px; height: 14px; flex: none; color: var(--tuerkis); }
-  .objekt dl { margin: 10px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; font-size: 14px; }
-  .objekt dt { color: var(--text); }
-  .objekt dd { margin: 0; color: var(--gruen); }
-  .stand { margin-top: 20px; font-size: 13px; }
-
-  /* Fragen */
-  .faq { border-top: 1px solid var(--linie); max-width: 900px; }
-  .faq details { border-bottom: 1px solid var(--linie); }
-  .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 20px 0; }
-  .faq summary::-webkit-details-marker { display: none; }
-  .faq summary h3 { font-size: 17px; line-height: 1.4; }
-  .faq summary::after {
-    content: ""; flex: none; width: 12px; height: 12px;
-    background:
-      linear-gradient(var(--mint), var(--mint)) center / 12px 2px no-repeat,
-      linear-gradient(var(--mint), var(--mint)) center / 2px 12px no-repeat;
-    transition: transform .2s;
-  }
-  .faq details[open] summary::after { transform: rotate(45deg); }
-  .faq details p { padding: 0 0 22px; max-width: 70ch; }
-  .faq a { color: var(--gruen); }
-
-  /* Kontakt */
-  .kontakt-box {
-    display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 30px;
-    background: var(--weiss); box-shadow: var(--schatten); border-radius: var(--radius);
-    padding: clamp(28px, 4vw, 50px);
-  }
-  .kontakt-box h2 { font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.1rem); }
-  .kontakt-box p.text { margin-top: 12px; }
-  .kontakt-box h3 { font-size: 15px; color: var(--tuerkis); margin-bottom: 6px; }
-  .kontakt-box a { color: var(--gruen); text-decoration: none; }
-  .kontakt-box a:hover { color: var(--tuerkis); }
-  .kontakt-box address { font-style: normal; }
-  .kontakt-box .btn { margin-top: 20px; color: var(--weiss); }
-
-  /* Fuß */
-  footer { margin-top: clamp(64px, 9vw, 110px); background: var(--flaeche); font-size: 14px; }
-  footer .wrap { padding-top: 28px; padding-bottom: 28px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 0; text-align: center; }
-  footer span + span::before { content: "|"; padding: 0 10px; color: #BBBBBB; }
-  footer a { text-decoration: none; }
-  footer a:hover { color: var(--gruen); }
-
-  .nach-oben {
-    position: fixed; right: 20px; bottom: 20px; z-index: 20;
-    width: 40px; height: 40px; display: grid; place-items: center;
-    background: var(--weiss); color: var(--gruen); box-shadow: var(--schatten); border-radius: var(--radius);
-    opacity: 0; pointer-events: none; transition: opacity .2s;
-  }
-  .nach-oben.sichtbar { opacity: 1; pointer-events: auto; }
-  .nach-oben svg { width: 14px; height: 14px; }
-
-  /* Tablet */
-  @media (max-width: 991px) {
-    .topbar span { display: none; }
-    nav.haupt { display: none; }
-    .menu-knopf { display: block; }
-    header.kopf.offen nav.haupt {
-      display: flex; flex-direction: column; align-items: stretch; gap: 16px;
-      position: absolute; top: 100%; left: 0; right: 0;
-      background: var(--weiss); box-shadow: 0 12px 20px rgba(38, 42, 76, .08);
-      padding: 8px var(--gutter) 24px;
-      max-height: calc(100dvh - var(--kopf)); overflow-y: auto;
-    }
-    header.kopf.offen nav.haupt > ul { flex-direction: column; gap: 0; }
-    header.kopf.offen nav.haupt > ul > li { border-bottom: 1px solid var(--linie); }
-    header.kopf.offen nav.haupt > ul > li > a,
-    header.kopf.offen .hat-unter > button { display: flex; width: 100%; justify-content: space-between; padding: 14px 0; font-size: 17px; }
-    header.kopf.offen .untermenue { position: static; box-shadow: none; padding: 0 0 10px; min-width: 0; }
-    header.kopf.offen .untermenue a { padding: 8px 16px; }
-    .btn { text-align: center; }
-    .angebote { grid-template-columns: repeat(2, 1fr); }
-    .kontakt-box { grid-template-columns: 1fr 1fr; }
-    .kontakt-box > :first-child { grid-column: 1 / -1; }
-  }
-
-  /* Mobil */
-  @media (max-width: 640px) {
-    :root { --kopf: 64px; }
-    .topbar a { padding: 6px 12px; }
-    .topbar .mail-text { display: none; }
-    .logo img { width: 180px; }
-    .hero-bild::after {
-      /* Auf schmalen Bildschirmen liegt der Text über dem Gebäude: leichter Schleier für Lesbarkeit */
-      content: ""; position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.2) 70%, rgba(255,255,255,0));
-    }
-    .hero .wrap { padding-top: 48px; padding-bottom: 120px; }
-    .karten { grid-template-columns: 1fr; gap: 20px; margin-top: -80px; }
-    .karte { padding: 28px 24px; }
-    .person { grid-template-columns: 1fr; }
-    .person img { width: 160px; margin-bottom: 18px; }
-    .person h3 { font-size: 1.4rem; }
-    .team-aktion { text-align: left; }
-    .team-aktion .btn { display: block; }
-    .angebote { grid-template-columns: 1fr; gap: 20px; }
-    .kontakt-box { grid-template-columns: 1fr; }
-    footer .wrap { flex-direction: column; }
-    footer span + span::before { content: none; }
-  }
-</style>
+<link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
 <a class="skip" href="#inhalt">Zum Inhalt springen</a>
@@ -457,7 +186,7 @@
     </div>
   </div>
   <div class="wrap leiste">
-    <a class="logo" href="https://heydensattler.com/" aria-label="HeydenSattler, zur Startseite">
+    <a class="logo" href="/" aria-label="HeydenSattler, zur Startseite">
       <img src="https://heydensattler.com/wp-content/uploads/2023/03/HeydenSattler_CombiLogo_DarkGreen-Cropped.png" alt="HeydenSattler" width="906" height="88">
     </a>
     <button class="menu-knopf" aria-expanded="false" aria-controls="hauptnav" aria-label="Menü öffnen">
@@ -470,15 +199,15 @@
             <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
           </button>
           <ul class="untermenue" id="untermenue-leistungen">
-            <li><a href="https://heydensattler.com/leistungen/vermieten/">Vermieten</a></li>
-            <li><a href="https://heydensattler.com/leistungen/verkaufen/">Verkaufen</a></li>
+            <li><a href="/leistungen/vermieten/">Vermieten</a></li>
+            <li><a href="/leistungen/verkaufen/">Verkaufen</a></li>
           </ul>
         </li>
-        <li><a href="#team">Über uns</a></li>
-        <li><a href="#angebote">Angebote</a></li>
-        <li><a href="#fragen">Fragen</a></li>
+        <li><a href="/#team">Über uns</a></li>
+        <li><a href="/#angebote">Angebote</a></li>
+        <li><a href="/#fragen">Fragen</a></li>
       </ul>
-      <a class="btn" href="#kontakt">Kontakt aufnehmen</a>
+      <a class="btn" href="/#kontakt">Kontakt aufnehmen</a>
     </nav>
   </div>
 </header>
@@ -500,8 +229,8 @@
   </section>
 
   <div class="wrap">
-    <div class="karten">
-      <a class="karte" href="https://heydensattler.com/leistungen/vermieten/">
+    <div class="karten" id="leistungen">
+      <a class="karte" href="/leistungen/vermieten/">
         <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M31 15a12 12 0 0 0-21.5-3"/><path d="M9 6v6h6"/>
           <path d="M9 25a12 12 0 0 0 21.5 3"/><path d="M31 34v-6h-6"/>
@@ -509,7 +238,7 @@
         <h2>Vermieten</h2>
         <p>Sie möchten Ihr Objekt vermieten?<br>Wir helfen Ihnen, den geeigneten Mieter zu finden!</p>
       </a>
-      <a class="karte" href="https://heydensattler.com/leistungen/verkaufen/">
+      <a class="karte" href="/leistungen/verkaufen/">
         <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="20" cy="20" r="15"/>
           <path d="M25 14.5a7 7 0 1 0 0 11"/><path d="M12 18h9M12 22h9"/>
@@ -528,7 +257,7 @@
         <img src="https://heydensattler.com/wp-content/uploads/2022/08/DSC09558b-e1694595155471-251x300.jpg" alt="Cedric Heyden, Immobilienmakler bei HeydenSattler in Augsburg" width="251" height="300" loading="lazy" decoding="async">
         <div>
           <h3>Cedric Heyden, M. Eng.</h3>
-          <ul>
+          <ul class="haken">
             <li>Zertifizierter Immobilienmakler (IHK)</li>
             <li>Zertifizierter Immobilienverwalter (DFI)</li>
             <li>Mehrere Jahre Berufserfahrung in Architektur und Stadtplanung</li>
@@ -544,7 +273,7 @@
         <img src="https://heydensattler.com/wp-content/uploads/2023/08/DSC00735-scaled-e1694546678891-251x300.jpg" alt="Anna Heyden, Immobilienmaklerin bei HeydenSattler in Augsburg" width="251" height="300" loading="lazy" decoding="async">
         <div>
           <h3>Anna Heyden, M. Eng.</h3>
-          <ul>
+          <ul class="haken">
             <li>Zertifizierte Immobilienmaklerin (IHK)</li>
             <li>Zertifizierte Immobilienverwalterin (DFI)</li>
             <li>Mehrere Jahre Berufserfahrung in der Projektsteuerung</li>
@@ -668,40 +397,6 @@
   <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M2 9l5-5 5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
 </a>
 
-<script>
-  const kopf = document.querySelector("header.kopf");
-  const knopf = document.querySelector(".menu-knopf");
-  const unter = document.querySelector(".hat-unter");
-  const unterKnopf = unter.querySelector("button");
-
-  knopf.addEventListener("click", () => {
-    const offen = kopf.classList.toggle("offen");
-    knopf.setAttribute("aria-expanded", offen);
-    knopf.setAttribute("aria-label", offen ? "Menü schließen" : "Menü öffnen");
-  });
-  unterKnopf.addEventListener("click", e => {
-    e.stopPropagation();
-    unterKnopf.setAttribute("aria-expanded", unter.classList.toggle("offen"));
-  });
-  document.addEventListener("click", e => {
-    if (!unter.contains(e.target)) { unter.classList.remove("offen"); unterKnopf.setAttribute("aria-expanded", false); }
-  });
-  document.addEventListener("keydown", e => {
-    if (e.key !== "Escape") return;
-    unter.classList.remove("offen"); unterKnopf.setAttribute("aria-expanded", false);
-    kopf.classList.remove("offen"); knopf.setAttribute("aria-expanded", false);
-  });
-  document.querySelectorAll("#hauptnav a").forEach(a => a.addEventListener("click", () => {
-    kopf.classList.remove("offen"); knopf.setAttribute("aria-expanded", false);
-  }));
-
-  const nachOben = document.querySelector(".nach-oben");
-  const beimScrollen = () => {
-    kopf.classList.toggle("gescrollt", scrollY > 10);
-    nachOben.classList.toggle("sichtbar", scrollY > 600);
-  };
-  addEventListener("scroll", beimScrollen, { passive: true });
-  beimScrollen();
-</script>
+<script src="/assets/site.js" defer></script>
 </body>
 </html>

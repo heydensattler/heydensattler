@@ -175,7 +175,8 @@ inhalte/blog` die echten Beiträge, ebenfalls in `_beispiel-blog/`. Zusammen mit
 | Überschriften | Söhne Breit Kräftig (`SecondaryCustomFont`) |
 | Text | Söhne Buch (`PrimaryCustomFont`), 15/24 px |
 | Dunkelgrün | `#163C37` |
-| Mint (Buttons) | `#69E1A4` |
+| Mint | `#69E1A4` (nur noch Zierlinien) |
+| Buttons | Dunkelgrün `#163C37`, weiße Schrift; Hover Türkis |
 | Türkis (Akzente) | `#1F7B64` (CI-Türkis `#66C0AA` abgedunkelt, siehe unten) |
 | Textgrau | `#696969` |
 
@@ -183,8 +184,8 @@ Die Schriften müssen von derselben Domain wie die Seite kommen, sonst blockiert
 
 Das CI-Türkis `#66C0AA` hat auf Weiß nur 2,2:1 Kontrast. Die EU-Norm EN 301 549 verlangt nach WCAG 2.1 AA
 4,5:1 für Text und 3:1 für Symbole; die Seite nutzt darum `#1F7B64` (gleicher Farbton, 5,15:1 auf Weiß, 4,54:1 auf
-der grauen Fläche). Das Mint der Buttons (`#69E1A4`) mit weißer Schrift erreicht nur 1,6:1 und ist noch nicht
-angepasst.
+der grauen Fläche). Weiße Schrift auf dem Mint (`#69E1A4`) hätte nur 1,6:1; die Buttons sind darum dunkelgrün
+(12,1:1), die Plus-Zeichen im FAQ türkis.
 
 ## Offen
 

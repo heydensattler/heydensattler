@@ -69,7 +69,8 @@ p { margin: 0; }
 .btn {
   display: inline-block;
   padding: 10px 34px;
-  background: var(--mint);
+  /* Dunkelgrün statt Mint: weiße Schrift auf Mint hätte nur 1,6:1, so 12,1:1 (WCAG 2.1 AA) */
+  background: var(--gruen);
   color: var(--weiss);
   border-radius: var(--radius);
   font-size: 16px;
@@ -103,6 +104,7 @@ header.kopf.gescrollt { box-shadow: 0 2px 20px rgba(38, 42, 76, .08); }
 nav.haupt { display: flex; align-items: center; gap: 28px; }
 nav.haupt > ul { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; }
 nav.haupt a { text-decoration: none; color: var(--gruen); }
+nav.haupt .btn { color: var(--weiss); }
 nav.haupt > ul > li > a:hover, .untermenue a:hover { color: var(--tuerkis); }
 .hat-unter { position: relative; }
 .hat-unter > button {
@@ -189,8 +191,8 @@ section.abschnitt { padding: clamp(64px, 9vw, 110px) 0 0; }
 .faq summary::after {
   content: ""; flex: none; width: 12px; height: 12px;
   background:
-    linear-gradient(var(--mint), var(--mint)) center / 12px 2px no-repeat,
-    linear-gradient(var(--mint), var(--mint)) center / 2px 12px no-repeat;
+    linear-gradient(var(--tuerkis), var(--tuerkis)) center / 12px 2px no-repeat,
+    linear-gradient(var(--tuerkis), var(--tuerkis)) center / 2px 12px no-repeat;
   transition: transform .2s;
 }
 .faq details[open] summary::after { transform: rotate(45deg); }

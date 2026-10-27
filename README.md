@@ -77,7 +77,9 @@ online.
   die Anzahl der Objekte, ohne etwas zu schreiben.
 
 In beiden Fällen gilt: nie als privat markierte Bilder, nie Straße, Hausnummer oder Koordinaten (nur PLZ und Ort),
-nie Eigentümer-, Makler- oder Kontaktdaten; „Preis auf Anfrage“, wenn der Preis in Propstack verborgen ist.
+nie Eigentümer-, Makler- oder Kontaktdaten; „Preis auf Anfrage“, wenn in Propstack „Preis auf Anfrage“ gesetzt
+oder „Preis im Exposé anzeigen“ ausgeschaltet ist (so entschieden am 27.10.2026, obwohl Propstacks eigene öffentliche
+Ansicht den Preis dann trotzdem zeigt).
 
 **Lokal ansehen ohne Schlüssel** (schreibt nach `_beispiel/`, nie nach `site/`):
 

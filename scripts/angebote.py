@@ -770,13 +770,48 @@ def energieausweis(a):
     return [(k, v) for k, v in z if v]
 
 
-def skala(klasse):
-    if not klasse:
+# Skala wie im Energieausweis für Wohngebäude (GEG): Klassengrenzen in kWh/(m²·a), Balken bis 275 (H = über 250)
+KLASSENGRENZEN = [("A+", 0, 30), ("A", 30, 50), ("B", 50, 75), ("C", 75, 100), ("D", 100, 130), ("E", 130, 160),
+                  ("F", 160, 200), ("G", 200, 250), ("H", 250, 275)]
+SKALA_ENDE = 275
+
+
+def skala(a):
+    klasse = effizienzklasse(a.wert("energy_efficiency_class"))
+    kennwert = zahl(a.wert("thermal_characteristic")) or zahl(a.wert("energy_efficiency_value"))
+    if not klasse and not kennwert:
         return ""
-    aktuell = ' aria-current="true"'
-    stufen = "".join(f"<li{aktuell if k == klasse else ''}>{e(k)}</li>" for k in EFFIZIENZKLASSEN)
-    return (f'<ol class="effizienz" aria-label="Energieeffizienzklasse {e(klasse)} auf der Skala von A+ bis H">'
-            f"{stufen}</ol>")
+    typ = uebersetzt(AUSWEISTYP, a.wert("building_energy_rating_type"), "building_energy_rating_type")
+    art = {"Bedarfsausweis": "Endenergiebedarf", "Verbrauchsausweis": "Endenergieverbrauch"}.get(typ, "Energiekennwert")
+
+    def prozent(wert):
+        return f"{min(max(wert, 0), SKALA_ENDE - 4) / SKALA_ENDE * 100:.2f}%"
+
+    aktuell, neben = ' aria-current="true"', ' class="neben"'
+    stufen = "".join(
+        f'<li style="--breite: {(bis - von) / SKALA_ENDE * 100:.2f}%"{aktuell if k == klasse else ""}>{e(k)}</li>'
+        for k, von, bis in KLASSENGRENZEN)
+    zahlen = "".join(
+        f'<li{neben if w % 50 else ""} style="--pos: {w / SKALA_ENDE * 100:.2f}%">{"&gt;250" if w == 250 else w}</li>'
+        for w in range(0, 251, 25))
+
+    beschreibung = []
+    if kennwert:
+        position = kennwert
+        wert_text = f"{de_zahl(kennwert)} kWh/(m²·a)"
+        beschreibung.append(f"{art} {wert_text}")
+    else:
+        von, bis = next((von, bis) for k, von, bis in KLASSENGRENZEN if k == klasse)
+        position, wert_text = (von + bis) / 2, f"Klasse {klasse}"
+    if klasse:
+        beschreibung.insert(0, f"Energieeffizienzklasse {klasse}")
+    seite = " rechts" if position > SKALA_ENDE / 2 else ""
+    return (f'<figure class="energieskala" role="img" aria-label="{e(", ".join(beschreibung))} auf der Skala '
+            f'von A+ bis H">'
+            f'<p class="energieskala-wert{seite}" style="--pos: {prozent(position)}">'
+            f"<span>{e(art)} dieses Gebäudes</span><strong>{e(wert_text)}</strong></p>"
+            f'<ol class="energieskala-balken">{stufen}</ol>'
+            f'<ol class="energieskala-zahlen">{zahlen}</ol></figure>')
 
 
 def galerie(a):
@@ -942,8 +977,7 @@ def detailseite(a, kopf, fuss):
               if a.status and re.search(r"reserv", a.status, re.I) else "")
 
     energie = energieausweis(a)
-    klasse = effizienzklasse(a.wert("energy_efficiency_class"))
-    energie_html = (skala(klasse) + tabelle(energie)) if energie else \
+    energie_html = (skala(a) + tabelle(energie)) if energie else \
         "<p>Angaben zum Energieausweis erhalten Sie auf Anfrage.</p>"
 
     texte = []

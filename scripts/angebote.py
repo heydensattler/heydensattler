@@ -554,6 +554,10 @@ class Angebot:
         betrag = zahl(o.get("price") if self.kauf else o.get("base_rent"))
         verborgen = wahr(o.get("price_on_inquiry")) or falsch(o.get("show_price_in_expose"))
         self.preis = None if verborgen or not betrag else betrag
+        if verborgen and betrag:
+            print(f"::notice title=Preis auf Anfrage::Objekt {self.nr}: price_on_inquiry="
+                  f"{roh(o.get('price_on_inquiry'))!r}, show_price_in_expose={roh(o.get('show_price_in_expose'))!r}",
+                  flush=True)
         self.preis_text = euro(self.preis) if self.preis else "Preis auf Anfrage"
 
         if self.typ == "APARTMENT" or self.typ == "HOUSE":

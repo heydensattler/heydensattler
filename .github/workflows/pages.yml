@@ -1,0 +1,55 @@
+# Baut site/ und veröffentlicht es als Vorschau auf GitHub Pages.
+# Läuft bei jedem Push auf main, der die Seite betrifft, und lässt sich von Hand starten.
+name: GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "scripts/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Immer nur ein Deploy; ein neuerer Push ersetzt einen wartenden.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: pages
+        uses: actions/configure-pages@v5
+
+      # Die Söhne-Schriften sind lizenziert und nicht im Repository. Nur wenn die Repository-Variable
+      # SCHRIFTEN_LADEN auf true steht, holt der Build sie vom Live-Server; sonst zeigt die Vorschau
+      # die Ersatzschrift (Helvetica/Arial).
+      - name: Schriften vom Live-Server holen
+        if: vars.SCHRIFTEN_LADEN == 'true'
+        run: scripts/schriften.sh
+
+      - name: Seite für den Pages-Unterpfad bauen
+        run: python3 scripts/pages.py "${{ steps.pages.outputs.base_path }}"
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

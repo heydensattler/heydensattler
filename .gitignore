@@ -1,3 +1,4 @@
 .DS_Store
 # Lizenzierte Schriften: per scripts/schriften.sh holen
 site/wp-content/uploads/2022/05/soehne-*.woff2
+_site/

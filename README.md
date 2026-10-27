@@ -15,6 +15,17 @@ Corporate Identity (Schriften, Farben, Bilder); neu sind das responsive Layout, 
 - `site/assets/` – gemeinsames CSS und JavaScript aller Seiten
 - `docs/screenshots/` – Vorher/Nachher und Ansichten der Seiten (Desktop 1440 px, Handy 390 px)
 - `scripts/schriften.sh` – holt die lizenzierten Söhne-Schriften vom Live-Server (nicht im Repository)
+- `scripts/pages.py` – baut die Vorschau für GitHub Pages (Unterpfad, noindex)
+- `.github/workflows/pages.yml` – veröffentlicht `site/` bei jedem Push auf `main` auf GitHub Pages
+
+## Vorschau auf GitHub Pages
+
+https://svenfritsch.github.io/heydensattler/
+
+Die Vorschau ist für Suchmaschinen gesperrt, damit sie nicht mit heydensattler.com konkurriert. Die Söhne-Schriften
+lädt der Build nur, wenn die Repository-Variable `SCHRIFTEN_LADEN` auf `true` steht (Settings → Secrets and
+variables → Actions → Variables); sonst zeigt die Vorschau die Ersatzschrift. Einmalig nötig: Settings → Pages →
+Source „GitHub Actions“.
 
 ## Lokal ansehen
 

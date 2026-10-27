@@ -1,0 +1,29 @@
+# Suchmaschinen und KI-Suchdienste dürfen die Seite lesen,
+# damit HeydenSattler in Suchergebnissen und KI-Antworten erscheint.
+User-agent: *
+Allow: /
+Disallow: /wp-admin/
+Allow: /wp-admin/admin-ajax.php
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://heydensattler.com/sitemap.xml

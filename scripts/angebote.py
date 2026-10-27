@@ -335,9 +335,26 @@ def aus_api_v1(ps, portal_id):
     if portal_id:
         warnung("PROPSTACK_PORTAL_ID ist gesetzt, aber der Filter nach Portal gibt es nur in API V2 "
                 "(PROPSTACK_API_VERSION=2). Gefiltert wird stattdessen nach öffentlichem Status.")
-    uebersicht = [v1_normal(o) for o in ps.seiten("/v1/units", per=100, with_meta=1)]
+    # expand=1 liefert das ausführliche JSON schon in der Liste
+    uebersicht = [v1_normal(o) for o in ps.seiten("/v1/units", per=100, with_meta=1, expand=1)]
     kandidaten = vorauswahl(uebersicht, status, None)
-    objekte = [v1_normal(ps.holen(f"/v1/units/{o['id']}", new=1)) for o in kandidaten]
+    if kandidaten:
+        # Nur Feldnamen, keine Werte: zeigt im Log, was Propstack liefert
+        felder = sorted({k for o in kandidaten for k, v in o.items() if v not in (None, "", [], {})})
+        log("Felder in GET /v1/units: " + ", ".join(felder))
+    objekte, einzeln = [], True
+    for o in kandidaten:
+        if einzeln:
+            try:
+                objekte.append(v1_normal(ps.holen(f"/v1/units/{o['id']}", new=1)))
+                continue
+            except urllib.error.HTTPError as fehler:
+                if fehler.code not in (401, 403):
+                    raise
+                einzeln = False
+                log(f"GET /v1/units/:id ist für diesen Schlüssel gesperrt (HTTP {fehler.code}); "
+                    "die Seiten nutzen die Daten aus der Liste.")
+        objekte.append(o)
     return status, objekte, None
 
 

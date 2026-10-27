@@ -1,6 +1,6 @@
 # HeydenSattler
 
-> HeydenSattler GmbH ist ein Immobilienmakler in Augsburg. Das Unternehmen verkauft und vermietet Wohnungen, Häuser und Gewerbeflächen in Augsburg und Umgebung (z. B. Neusäß). Geschäftsführer sind Cedric Heyden und Anna Heyden, beide Master of Engineering, zertifizierte Immobilienmakler (IHK) und zertifizierte Immobilienverwalter (DFI).
+> HeydenSattler GmbH ist ein Immobilienmakler in Augsburg. Das Unternehmen verkauft und vermietet Wohnungen, Häuser und Gewerbeflächen in Augsburg und Umgebung. Geschäftsführer sind Cedric Heyden und Anna Heyden, beide Master of Engineering, zertifizierte Immobilienmakler (IHK) und zertifizierte Immobilienverwalter (DFI).
 
 ## Kontakt
 

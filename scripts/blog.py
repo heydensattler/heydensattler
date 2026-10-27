@@ -428,7 +428,7 @@ def kontakt(betreff, querlinks):
         </div>
         <div>
           <h3>Unsere Region</h3>
-          <p>Augsburg und Umgebung,<br>zum Beispiel Neusäß</p>
+          <p>Augsburg und Umgebung</p>
         </div>
       </div>
 {querlinks}    </div>

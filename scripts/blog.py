@@ -427,9 +427,8 @@ def kontakt(betreff, querlinks):
           <p>Montag bis Freitag<br>9:00 bis 17:00 Uhr</p>
         </div>
         <div>
-          <h3>Büro</h3>
-          <address>HeydenSattler GmbH<br>Alpenstraße 9<br>86159 Augsburg</address>
-          <p style="margin-top:8px"><a href="https://www.openstreetmap.org/?mlat=48.35865&amp;mlon=10.89500#map=18/48.35865/10.89500" target="_blank" rel="noopener">Auf der Karte ansehen</a></p>
+          <h3>Unsere Region</h3>
+          <p>Augsburg und Umgebung,<br>zum Beispiel Neusäß</p>
         </div>
       </div>
 {querlinks}    </div>
@@ -444,7 +443,7 @@ def json_ld(daten):
 def firma_ld():
     return {"@type": "RealEstateAgent", "@id": FIRMA, "name": "HeydenSattler GmbH", "url": DOMAIN + "/",
             "telephone": "+49 821 99982940", "email": MAIL, "address": {
-                "@type": "PostalAddress", "streetAddress": "Alpenstraße 9", "postalCode": "86159",
+                "@type": "PostalAddress", "postalCode": "86159",
                 "addressLocality": "Augsburg", "addressRegion": "Bayern", "addressCountry": "DE"}}
 
 

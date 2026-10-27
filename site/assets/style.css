@@ -16,7 +16,8 @@
 :root {
   --gruen: #163C37;
   --mint: #69E1A4;
-  --tuerkis: #66C0AA;
+  /* Türkis der CI (#66C0AA) abgedunkelt: 5,15:1 auf Weiß, 4,54:1 auf --flaeche (WCAG 2.1 AA, EN 301 549) */
+  --tuerkis: #1F7B64;
   --mint-hell: #97E6C9;
   --gruen-text: #316E65;
   --text: #696969;

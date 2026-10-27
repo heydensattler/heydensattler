@@ -12,11 +12,16 @@ Corporate Identity (Schriften, Farben, Bilder); neu sind das responsive Layout, 
   - `robots.txt`, `sitemap.xml`, `llms.txt`
   - `wp-content/uploads/2022/05/` – Hero-Bild als WebP/JPEG und die Schriften, unter denselben Pfaden wie auf dem
     bisherigen Server
-- `site/assets/` – gemeinsames CSS und JavaScript aller Seiten
+  - `404.html` – Seite für nicht mehr vorhandene Adressen (z. B. verkaufte Angebote)
+  - `angebote/<slug>/` – eine Detailseite pro Immobilie; entsteht beim Build und ist nicht im Repository
+- `site/assets/` – gemeinsames CSS und JavaScript aller Seiten, `galerie.js` nur auf den Angebotsseiten
 - `docs/screenshots/` – Vorher/Nachher und Ansichten der Seiten (Desktop 1440 px, Handy 390 px)
 - `scripts/schriften.sh` – holt die lizenzierten Söhne-Schriften vom Live-Server (nicht im Repository)
+- `scripts/angebote.py` – erzeugt Angebote und Detailseiten aus Propstack (siehe unten)
+- `scripts/beispiel-angebote.json` – drei Beispielobjekte in der Struktur der Propstack-API V2
 - `scripts/pages.py` – baut die Vorschau für GitHub Pages (Unterpfad, noindex)
-- `.github/workflows/pages.yml` – veröffentlicht `site/` bei jedem Push auf `main` auf GitHub Pages
+- `.github/workflows/pages.yml` – veröffentlicht `site/` bei jedem Push auf `main` und alle 30 Minuten auf GitHub
+  Pages
 
 ## Vorschau auf GitHub Pages
 
@@ -36,6 +41,50 @@ python3 -m http.server 8731 --directory site
 
 Dann http://localhost:8731 öffnen.
 
+## Angebote aus Propstack
+
+Beim Build (und alle 30 Minuten) lädt `scripts/angebote.py` die Objekte aus der Propstack-API und schreibt:
+
+- auf der Startseite die Liste unter `#angebote` und das JSON-LD `ItemList`, jeweils nur zwischen den Markierungen
+  `<!-- angebote:…:start -->` und `<!-- angebote:…:ende -->` (von Hand dort Geändertes wird überschrieben),
+- pro Objekt eine Detailseite `/angebote/<objektart>-<ort>-<objektnummer>/` mit Galerie (Bilder und Grundrisse),
+  Eckdaten, Energieausweis, Beschreibung, Ausstattung, Lage, Kontakt, Open-Graph-Vorschau und JSON-LD
+  `RealEstateListing`. Die Adresse ändert sich nicht, wenn sich der Preis ändert; den Link kann man Kunden schicken,
+- die Angebote in `sitemap.xml` und `llms.txt`.
+
+Ein verkauftes Objekt verschwindet beim nächsten Lauf; alte Links zeigen dann `404.html` („Dieses Angebot ist nicht
+mehr verfügbar“).
+
+**Schlüssel:** Repository-Secret `PROPSTACK_API_KEY` (Settings → Secrets and variables → Actions). Am besten ein nur
+lesender Schlüssel für die API V2; zu Beginn schreibt der Build Name und Rechte des Schlüssels ins Log und warnt,
+wenn er schreiben oder Kontakte lesen darf. Ein Schlüssel nur für V1 funktioniert auch: lehnt V2 ihn ab, lädt das
+Skript über V1 (mit Warnung im Log). Ohne Secret bleibt der eingecheckte Stand der Startseite. Ist Propstack nicht
+erreichbar, scheitert der Lauf, und die zuletzt veröffentlichte Seite bleibt online.
+
+**Welche Objekte erscheinen:**
+
+- Ist die Repository-Variable `PROPSTACK_PORTAL_ID` gesetzt (Settings → Secrets and variables → Actions →
+  Variables), nur Objekte, die in Propstack auf diesem Portal veröffentlicht sind, und davon nur die Bilder, die für
+  dieses Portal freigegeben sind. Dafür die Website in Propstack als eigenes Portal anlegen und Objekte dort wie bei
+  ImmoScout freigeben; die ID des Portals steht im Log, wenn die Variable falsch ist. Braucht einen V2-Schlüssel.
+- Ohne Variable alle nicht archivierten Objekte in einem öffentlichen Status (`nonpublic` = nein, z. B. „Verfügbar“
+  und „Reserviert“).
+
+In beiden Fällen gilt: nie als privat markierte Bilder, nie Straße, Hausnummer oder Koordinaten (nur PLZ und Ort),
+nie Eigentümer-, Makler- oder Kontaktdaten; „Preis auf Anfrage“, wenn der Preis in Propstack verborgen ist.
+
+**Lokal ansehen ohne Schlüssel** (schreibt nach `_beispiel/`, nie nach `site/`):
+
+```bash
+python3 scripts/angebote.py --beispiel
+```
+
+```bash
+python3 -m http.server 8731 --directory _beispiel
+```
+
+Mit `PROPSTACK_PORTAL_ID=4711` davor zeigt das Beispiel den Filter nach Portal.
+
 ## Corporate Identity
 
 | Rolle | Wert |
@@ -51,5 +100,6 @@ Die Schriften müssen von derselben Domain wie die Seite kommen, sonst blockiert
 
 ## Offen
 
-- Angebote sind ein Stand vom 27.10.2026; im Betrieb aus der Propstack-API erzeugen.
+- Die eingecheckte Startseite enthält noch die Angebote vom 27.10.2026 (mit Links zu Propstack); im Build ersetzt
+  sie `scripts/angebote.py`.
 - Impressum und Datenschutzerklärung verlinken noch auf die bestehenden Seiten.

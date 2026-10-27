@@ -1,5 +1,6 @@
 # Baut site/ und veröffentlicht es als Vorschau auf GitHub Pages.
-# Läuft bei jedem Push auf main, der die Seite betrifft, und lässt sich von Hand starten.
+# Läuft bei jedem Push auf main, der die Seite betrifft, alle 30 Minuten (frische Angebote aus Propstack)
+# und lässt sich von Hand starten.
 name: GitHub Pages
 
 on:
@@ -10,6 +11,8 @@ on:
       - "scripts/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"
 
 permissions:
   contents: read
@@ -36,6 +39,20 @@ jobs:
       - name: Schriften vom Live-Server holen
         if: vars.SCHRIFTEN_LADEN == 'true'
         run: scripts/schriften.sh
+
+      # Angebote und Detailseiten aus der Propstack-API erzeugen (scripts/angebote.py). Ohne das Secret
+      # PROPSTACK_API_KEY bleibt der eingecheckte Stand. Ist Propstack nicht erreichbar, scheitert der Lauf
+      # und die zuletzt veröffentlichte Seite bleibt online. Die erzeugten Dateien werden nicht committet.
+      - name: Angebote aus Propstack laden
+        env:
+          PROPSTACK_API_KEY: ${{ secrets.PROPSTACK_API_KEY }}
+          PROPSTACK_PORTAL_ID: ${{ vars.PROPSTACK_PORTAL_ID }}
+        run: |
+          if [ -z "$PROPSTACK_API_KEY" ]; then
+            echo "::notice::Kein Secret PROPSTACK_API_KEY, die eingecheckten Angebote bleiben."
+            exit 0
+          fi
+          python3 scripts/angebote.py
 
       - name: Seite für den Pages-Unterpfad bauen
         run: python3 scripts/pages.py "${{ steps.pages.outputs.base_path }}"

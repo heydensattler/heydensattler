@@ -14,6 +14,12 @@
 - [Immobilie verkaufen](https://heydensattler.com/leistungen/verkaufen/): Ermittlung des Verkaufswerts, Unterlagen (Energieausweis, Grundriss), Bilder und 360-Grad-Rundgang, Exposé, Vorauswahl der Interessenten, Besichtigungen, regelmäßiges Reporting, Vertragsverhandlung, Vertrag mit dem Notar, Begleitung zum Notartermin, Übergabe.
 - [Immobilie vermieten](https://heydensattler.com/leistungen/vermieten/): Objektaufnahme mit Bildern, Aufbereitung des Grundrisses, Mietpreisfindung nach den gesetzlichen Vorgaben, Exposé auf den gängigen Plattformen, Vorauswahl, Besichtigungen, Selbstauskunft und Bonitätscheck, Mietvertrag, Wohnungsübergabe mit Protokoll (optional).
 
+## Aktuelle Angebote
+
+<!-- angebote:liste:start -->
+Die aktuellen Angebote stehen auf https://heydensattler.com/#angebote.
+<!-- angebote:liste:ende -->
+
 ## Team
 
 - Cedric Heyden, M. Eng.: Fachmann für Immobilienbewertung und Marketing. Mehrere Jahre Berufserfahrung in Architektur und Stadtplanung. Master „Energie Effizienz Design“, Bachelor „Energieeffizientes Planen und Bauen“.

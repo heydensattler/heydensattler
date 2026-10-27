@@ -29,9 +29,7 @@
 <link rel="icon" href="https://heydensattler.com/favicon.ico">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
-<!-- Strukturierte Daten: Firma, Personen, Leistungen, Angebote, FAQ.
-     Die Angebote (ItemList) und das FAQ müssen mit dem sichtbaren Inhalt übereinstimmen;
-     im Livebetrieb beim Build aus Propstack erzeugen. -->
+<!-- Strukturierte Daten: Firma, Personen, Leistungen, FAQ. Das FAQ muss mit dem sichtbaren Inhalt übereinstimmen. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -131,20 +129,6 @@
       "dateModified": "2026-10-27"
     },
     {
-      "@type": "ItemList",
-      "name": "Aktuelle Immobilienangebote von HeydenSattler",
-      "numberOfItems": 7,
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "item": { "@type": "Offer", "name": "1-Zimmer-Wohnung in Neusäß, 31,6 m²", "price": 139000, "priceCurrency": "EUR", "url": "https://crm.propstack.de/public/iframes/je4DLQ7j2cVWMNqKkigCNQ7c/PBX1RQx2SxVNRxVR7juxC13C", "availableAtOrFrom": { "@type": "Place", "address": { "@type": "PostalAddress", "postalCode": "86356", "addressLocality": "Neusäß", "addressCountry": "DE" } } } },
-        { "@type": "ListItem", "position": 2, "item": { "@type": "Offer", "name": "3-Zimmer-Wohnung in Augsburg, 70,6 m²", "price": 315000, "priceCurrency": "EUR", "url": "https://crm.propstack.de/public/iframes/je4DLQ7j2cVWMNqKkigCNQ7c/BJTUovUziB2U1zJ2xbaoDiEi", "availableAtOrFrom": { "@type": "Place", "address": { "@type": "PostalAddress", "postalCode": "86154", "addressLocality": "Augsburg", "addressCountry": "DE" } } } },
-        { "@type": "ListItem", "position": 3, "item": { "@type": "Offer", "name": "Büro- und Wohnfläche in Augsburg, 117 m²", "price": 350000, "priceCurrency": "EUR", "url": "https://crm.propstack.de/public/iframes/je4DLQ7j2cVWMNqKkigCNQ7c/sEbCqnK58XBJ7hGJQSY4xxph", "availableAtOrFrom": { "@type": "Place", "address": { "@type": "PostalAddress", "postalCode": "86152", "addressLocality": "Augsburg", "addressCountry": "DE" } } } },
-        { "@type": "ListItem", "position": 4, "item": { "@type": "Offer", "name": "1-Zimmer-Wohnung in Augsburg, 32,3 m²", "price": 159000, "priceCurrency": "EUR", "url": "https://crm.propstack.de/public/iframes/je4DLQ7j2cVWMNqKkigCNQ7c/U4UTfE6tw7xSkSPx6v1gSrVp", "availableAtOrFrom": { "@type": "Place", "address": { "@type": "PostalAddress", "postalCode": "86152", "addressLocality": "Augsburg", "addressCountry": "DE" } } } },
-        { "@type": "ListItem", "position": 5, "item": { "@type": "Offer", "name": "3-Zimmer-Wohnung in Augsburg, 50,1 m²", "price": 239000, "priceCurrency": "EUR", "url": "https://crm.propstack.de/public/iframes/je4DLQ7j2cVWMNqKkigCNQ7c/39Jt1EtAj3KVJmv1Yt73t3f4", "availableAtOrFrom": { "@type": "Place", "address": { "@type": "PostalAddress", "postalCode": "86150", "addressLocality": "Augsburg", "addressCountry": "DE" } } } },
-        { "@type": "ListItem", "position": 6, "item": { "@type": "Offer", "name": "2-Zimmer-Wohnung in Augsburg, 52,7 m²", "price": 225000, "priceCurrency": "EUR", "url": "https://crm.propstack.de/public/iframes/je4DLQ7j2cVWMNqKkigCNQ7c/woXWDQSDRpvorQ1hXg6gEzuY", "availableAtOrFrom": { "@type": "Place", "address": { "@type": "PostalAddress", "postalCode": "86152", "addressLocality": "Augsburg", "addressCountry": "DE" } } } },
-        { "@type": "ListItem", "position": 7, "item": { "@type": "Offer", "name": "3-Zimmer-Wohnung in Augsburg, 53,4 m²", "price": 225000, "priceCurrency": "EUR", "url": "https://crm.propstack.de/public/iframes/je4DLQ7j2cVWMNqKkigCNQ7c/t8DsYYKdGNYwocW2YkePHxnh", "availableAtOrFrom": { "@type": "Place", "address": { "@type": "PostalAddress", "postalCode": "86154", "addressLocality": "Augsburg", "addressCountry": "DE" } } } }
-      ]
-    },
-    {
       "@type": "FAQPage",
       "mainEntity": [
         { "@type": "Question", "name": "In welchen Orten ist HeydenSattler als Immobilienmakler tätig?", "acceptedAnswer": { "@type": "Answer", "text": "Wir verkaufen und vermieten Immobilien in Augsburg und Umgebung, zum Beispiel in Neusäß. Unser Büro liegt in der Alpenstraße 9 im Augsburger Bismarckviertel." } },
@@ -158,6 +142,161 @@
   ]
 }
 </script>
+
+<!-- Angebote als eigene Liste; beim Build aus Propstack erzeugt (scripts/angebote.py) -->
+<!-- angebote:jsonld:start -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": "https://heydensattler.com/#angebote",
+  "name": "Aktuelle Immobilienangebote von HeydenSattler",
+  "numberOfItems": 7,
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+        "@type": "Offer",
+        "name": "1-Zimmer-Wohnung in Neusäß, 31,6 m²",
+        "price": 139000,
+        "priceCurrency": "EUR",
+        "url": "https://crm.propstack.de/public/iframes/je4DLQ7j2cVWMNqKkigCNQ7c/PBX1RQx2SxVNRxVR7juxC13C",
+        "availableAtOrFrom": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "postalCode": "86356",
+            "addressLocality": "Neusäß",
+            "addressCountry": "DE"
+          }
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+        "@type": "Offer",
+        "name": "3-Zimmer-Wohnung in Augsburg, 70,6 m²",
+        "price": 315000,
+        "priceCurrency": "EUR",
+        "url": "https://crm.propstack.de/public/iframes/je4DLQ7j2cVWMNqKkigCNQ7c/BJTUovUziB2U1zJ2xbaoDiEi",
+        "availableAtOrFrom": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "postalCode": "86154",
+            "addressLocality": "Augsburg",
+            "addressCountry": "DE"
+          }
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+        "@type": "Offer",
+        "name": "Büro- und Wohnfläche in Augsburg, 117 m²",
+        "price": 350000,
+        "priceCurrency": "EUR",
+        "url": "https://crm.propstack.de/public/iframes/je4DLQ7j2cVWMNqKkigCNQ7c/sEbCqnK58XBJ7hGJQSY4xxph",
+        "availableAtOrFrom": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "postalCode": "86152",
+            "addressLocality": "Augsburg",
+            "addressCountry": "DE"
+          }
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "Offer",
+        "name": "1-Zimmer-Wohnung in Augsburg, 32,3 m²",
+        "price": 159000,
+        "priceCurrency": "EUR",
+        "url": "https://crm.propstack.de/public/iframes/je4DLQ7j2cVWMNqKkigCNQ7c/U4UTfE6tw7xSkSPx6v1gSrVp",
+        "availableAtOrFrom": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "postalCode": "86152",
+            "addressLocality": "Augsburg",
+            "addressCountry": "DE"
+          }
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+        "@type": "Offer",
+        "name": "3-Zimmer-Wohnung in Augsburg, 50,1 m²",
+        "price": 239000,
+        "priceCurrency": "EUR",
+        "url": "https://crm.propstack.de/public/iframes/je4DLQ7j2cVWMNqKkigCNQ7c/39Jt1EtAj3KVJmv1Yt73t3f4",
+        "availableAtOrFrom": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "postalCode": "86150",
+            "addressLocality": "Augsburg",
+            "addressCountry": "DE"
+          }
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 6,
+      "item": {
+        "@type": "Offer",
+        "name": "2-Zimmer-Wohnung in Augsburg, 52,7 m²",
+        "price": 225000,
+        "priceCurrency": "EUR",
+        "url": "https://crm.propstack.de/public/iframes/je4DLQ7j2cVWMNqKkigCNQ7c/woXWDQSDRpvorQ1hXg6gEzuY",
+        "availableAtOrFrom": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "postalCode": "86152",
+            "addressLocality": "Augsburg",
+            "addressCountry": "DE"
+          }
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 7,
+      "item": {
+        "@type": "Offer",
+        "name": "3-Zimmer-Wohnung in Augsburg, 53,4 m²",
+        "price": 225000,
+        "priceCurrency": "EUR",
+        "url": "https://crm.propstack.de/public/iframes/je4DLQ7j2cVWMNqKkigCNQ7c/t8DsYYKdGNYwocW2YkePHxnh",
+        "availableAtOrFrom": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "postalCode": "86154",
+            "addressLocality": "Augsburg",
+            "addressCountry": "DE"
+          }
+        }
+      }
+    }
+  ]
+}
+</script>
+<!-- angebote:jsonld:ende -->
 
 <!-- CI-Schriften, wie auf der bestehenden Seite (Söhne von Klim). Sie müssen von derselben Domain kommen, sonst blockiert der Browser sie. -->
 <link rel="preload" href="/wp-content/uploads/2022/05/soehne-buch.woff2" as="font" type="font/woff2" crossorigin>
@@ -293,7 +432,9 @@
     <div class="wrap">
       <h2>Unsere aktuellen Immobilienangebote:</h2>
       <!-- Statt des Propstack-iFrames: die Angebote stehen als HTML in der Seite, damit Suchmaschinen und
-           KI-Suchdienste sie lesen können. Im Livebetrieb beim Build oder per Cronjob aus der Propstack-API erzeugen. -->
+           KI-Suchdienste sie lesen können. Den Bereich zwischen den Markierungen erzeugt scripts/angebote.py beim
+           Build aus der Propstack-API; von Hand Geändertes wird dabei überschrieben. -->
+<!-- angebote:liste:start -->
       <ul class="angebote">
         <li><a class="objekt" href="https://crm.propstack.de/public/iframes/je4DLQ7j2cVWMNqKkigCNQ7c/PBX1RQx2SxVNRxVR7juxC13C" target="_blank" rel="noopener">
           <div class="bild"><img src="https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/n56NDRQGGockE5bn3b2bef63/medium_CAM03122G0-PR0066-STILL016.jpg" alt="1-Zimmer-Wohnung in Neusäß" width="600" height="400" loading="lazy" decoding="async"></div>
@@ -325,6 +466,7 @@
         </a></li>
       </ul>
       <p class="stand">Stand: <time datetime="2026-10-27">27.10.2026</time>. Ein Klick öffnet das vollständige Exposé.</p>
+<!-- angebote:liste:ende -->
     </div>
   </section>
 

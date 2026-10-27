@@ -6,7 +6,7 @@ absolut auf / wie später auf heydensattler.com. Dieses Skript kopiert site/ nac
 - sperrt die Vorschau für Suchmaschinen (noindex, robots.txt), damit sie nicht mit heydensattler.com
   konkurriert.
 
-Aufruf: python3 scripts/pages.py /heydensattler
+Aufruf: python3 scripts/pages.py /heydensattler [Quellordner, Standard site/]
 """
 import re
 import shutil
@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 
 wurzel = Path(__file__).resolve().parent.parent
-quelle = wurzel / "site"
+quelle = Path(sys.argv[2]).resolve() if len(sys.argv) > 2 else wurzel / "site"
 ziel = wurzel / "_site"
 basis = sys.argv[1].rstrip("/") if len(sys.argv) > 1 else ""
 

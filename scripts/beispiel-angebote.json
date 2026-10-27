@@ -1,0 +1,941 @@
+{
+  "rights": {
+    "data": {
+      "name": "Website (Beispiel)",
+      "permissions": [
+        "properties:read",
+        "property_statuses:read",
+        "portals:read",
+        "publishings:read"
+      ],
+      "created_at": "2026-10-27T10:00:00.000+01:00"
+    }
+  },
+  "portals": {
+    "data": [
+      {
+        "id": 4711,
+        "name": "heydensattler.com (Beispiel)",
+        "format": "FEED"
+      },
+      {
+        "id": 123,
+        "name": "ImmoScout24 (Beispiel)",
+        "format": "IS24"
+      }
+    ]
+  },
+  "publishings": {
+    "data": [
+      {
+        "id": 1,
+        "property_id": 910001,
+        "portal_id": 4711,
+        "publish_date": "2026-07-03"
+      },
+      {
+        "id": 2,
+        "property_id": 910002,
+        "portal_id": 4711,
+        "publish_date": "2026-07-08"
+      },
+      {
+        "id": 3,
+        "property_id": 910003,
+        "portal_id": 4711,
+        "publish_date": "2025-12-27"
+      },
+      {
+        "id": 4,
+        "property_id": 910003,
+        "portal_id": 123,
+        "publish_date": "2025-12-27"
+      }
+    ]
+  },
+  "_hinweis": "Beispieldaten für python3 scripts/angebote.py --beispiel. Struktur wie Propstack-API V2: GET /v2/rights, /v2/portals, /v2/publishings, /v2/property_statuses und GET /v2/properties/{id}; Werte aus der öffentlichen Propstack-Ansicht vom 27.10.2026. Straße, Hausnummer und Koordinaten sind Platzhalter, um zu prüfen, dass sie nie ausgegeben werden; ein Bild ist als privat markiert, eines nur für ein anderes Portal (4711 ist das Beispiel-Portal der Website).",
+  "property_statuses": {
+    "data": [
+      {
+        "id": 274,
+        "name": "Verfügbar",
+        "position": 1,
+        "color": "#009cde",
+        "nonpublic": false
+      },
+      {
+        "id": 275,
+        "name": "In Vorbereitung",
+        "position": 2,
+        "color": "#ed892b",
+        "nonpublic": true
+      },
+      {
+        "id": 276,
+        "name": "Reserviert",
+        "position": 3,
+        "color": "#f55753",
+        "nonpublic": false
+      },
+      {
+        "id": 278,
+        "name": "Verkauft",
+        "position": 5,
+        "color": "#10cfbd",
+        "nonpublic": true
+      }
+    ]
+  },
+  "properties": [
+    {
+      "id": "910001",
+      "name": "20260703",
+      "unit_id": "20260703",
+      "exposee_id": "",
+      "title": "Urban Wohnen - im Grünen entspannen: 3-Zimmer-Wohnung nahe der Wertach",
+      "archived": "false",
+      "marketing_type": "BUY",
+      "object_type": "LIVING",
+      "rs_type": "APARTMENT",
+      "rs_category": "APARTMENT",
+      "street": "Beispielstraße",
+      "house_number": "0",
+      "zip_code": "86154",
+      "city": "Augsburg",
+      "country": "DEU",
+      "address": "Beispielstraße 0, 86154 Augsburg, Deutschland",
+      "short_address": "Beispielstraße 0, 86154 Augsburg",
+      "lat": 48.0,
+      "lng": 10.0,
+      "property_status_id": "274",
+      "hide_address": "true",
+      "price_on_inquiry": "false",
+      "show_price_in_expose": "true",
+      "construction_year": 1970,
+      "interior_quality": "NORMAL",
+      "free_from": "sofort",
+      "price": 315000,
+      "parking_space_price": 40000,
+      "heating_costs": 175,
+      "service_charge": 107,
+      "courtage": "3,57 % inkl. MwSt.",
+      "rent_subsidy": "412",
+      "maintenance_reserve": 208522.92,
+      "floor": "1",
+      "number_of_floors": 3,
+      "number_of_rooms": 3,
+      "number_of_bed_rooms": 2,
+      "number_of_bath_rooms": 1,
+      "living_space": 70.62,
+      "property_space_value": 70.62,
+      "cellar": true,
+      "built_in_kitchen": true,
+      "balcony": true,
+      "energy_certificate_availability": "AVAILABLE",
+      "building_energy_rating_type": "ENERGY_CONSUMPTION",
+      "energy_certificate_start_date": "2018-11-16",
+      "energy_certificate_creation_date": "FROM_MAY_2014",
+      "energy_certificate_end_date": "2028-11-15",
+      "thermal_characteristic": 126.3,
+      "heating_type": "CENTRAL_HEATING",
+      "firing_types": "OIL",
+      "energy_efficiency_class": "D",
+      "equipment_technology_construction_year": 1991,
+      "description_note": "Die gepflegte 3-Zimmer-Wohnung mit ca. 70 m² Wohnfläche befindet sich im 1. Obergeschoss eines Mehrfamilienhauses aus dem Jahr 1970 und überzeugt durch ein angenehmes Wohngefühl sowie eine durchdachte Raumaufteilung. Helle Wohnräume schaffen eine freundliche Atmosphäre, während der Balkon mit grünem Ausblick einen ruhigen Rückzugsort im Freien bietet und den Wohnbereich harmonisch erweitert.\nDie separate Küche fügt sich funktional in das Gesamtbild ein. Das Badezimmer ist mit Dusche, Waschmaschinenanschluss und Handtuchheizkörper ausgestattet. Eine praktische Abstellkammer sorgt zusätzlich für wertvollen Stauraum im Alltag.\nErgänzt wird das Angebot durch ein eigenes Kellerabteil, einen Duplex-Stellplatz für zwei Fahrzeuge sowie einen zusätzlichen Außenstellplatz. Die Wohnung ist leerstehend und kurzfristig bezugsfrei – ideal sowohl für Eigennutzer als auch für Kapitalanleger, die eine solide Immobilie in angenehmer Wohnlage suchen.",
+      "furnishing_note": "* Ca. 70 m² Wohnfläche\n* 3-Zimmer-Wohnung im 1. Obergeschoss\n* Gepflegtes Mehrfamilienhaus (Baujahr 1970)\n* Heller Wohnbereich mit Balkon und Blick ins Grüne\n* Separate Küche\n* Badezimmer mit Dusche\n* Handtuchheizkörper\n* Waschmaschinenanschluss im Bad\n* Praktische Abstellkammer\n* Zweifach verglaste Kunststofffenster\n* Öl-Zentralheizung (Heizkessel 2022 erneuert)\n* Eigenes Kellerabteil\n* Duplex-Stellplatz für zwei Pkw\n* Zusätzlicher Außenstellplatz\n* Gemeinschaftlicher Wäschetrocknungsraum\n* Leerstehend und kurzfristig bezugsfrei",
+      "location_note": "Augsburg zählt mit rund 300.000 Einwohnern zu den bedeutendsten Städten Bayerns und überzeugt durch die gelungene Verbindung von historischem Charme und modernem Stadtleben.\nDie Wohnung befindet sich im Stadtteil Oberhausen mit guter Nahversorgung und hervorragender Verkehrsanbindung. Die Straßenbahnhaltestelle „Zollernstraße“ ist in wenigen Gehminuten erreichbar, ebenso der Bahnhof Augsburg-Oberhausen.\nEinkaufsmöglichkeiten, Schulen und weitere Einrichtungen des täglichen Bedarfs befinden sich in der Umgebung. Die nahegelegene Wertach sowie das Landschaftsschutzgebiet Wolfzahnau bieten vielfältige Möglichkeiten zur Erholung und Freizeitgestaltung.\nDie Lage verbindet urbanes Wohnen mit naturnahem Umfeld und bietet beste Voraussetzungen für eine nachhaltige Wertentwicklung.",
+      "other_note": null,
+      "broker_id": "1",
+      "openimmo_firstname": "Anna",
+      "openimmo_lastname": "Heyden",
+      "custom_fields": {},
+      "images": [
+        {
+          "id": "900001",
+          "title": "Wohnen",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/vf98G7vHtoecUmWiR1WM9GjU/CAM03122G0-PR0065-STILL011.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/vf98G7vHtoecUmWiR1WM9GjU/CAM03122G0-PR0065-STILL011.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/vf98G7vHtoecUmWiR1WM9GjU/big_CAM03122G0-PR0065-STILL011.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/vf98G7vHtoecUmWiR1WM9GjU/medium_CAM03122G0-PR0065-STILL011.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/vf98G7vHtoecUmWiR1WM9GjU/thumb_CAM03122G0-PR0065-STILL011.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/vf98G7vHtoecUmWiR1WM9GjU/small_thumb_CAM03122G0-PR0065-STILL011.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/vf98G7vHtoecUmWiR1WM9GjU/square_CAM03122G0-PR0065-STILL011.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 1,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900002",
+          "title": "Schlafen",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/4RGwfB3xzPvfnrrq57bKQUP1/CAM03122G0-PR0065-STILL002.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/4RGwfB3xzPvfnrrq57bKQUP1/CAM03122G0-PR0065-STILL002.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/4RGwfB3xzPvfnrrq57bKQUP1/big_CAM03122G0-PR0065-STILL002.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/4RGwfB3xzPvfnrrq57bKQUP1/medium_CAM03122G0-PR0065-STILL002.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/4RGwfB3xzPvfnrrq57bKQUP1/thumb_CAM03122G0-PR0065-STILL002.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/4RGwfB3xzPvfnrrq57bKQUP1/small_thumb_CAM03122G0-PR0065-STILL002.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/4RGwfB3xzPvfnrrq57bKQUP1/square_CAM03122G0-PR0065-STILL002.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 2,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900003",
+          "title": "Flur",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Z3xHsUWdfk6DrGsLcGb2nEuT/CAM03122G0-PR0065-STILL015.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Z3xHsUWdfk6DrGsLcGb2nEuT/CAM03122G0-PR0065-STILL015.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Z3xHsUWdfk6DrGsLcGb2nEuT/big_CAM03122G0-PR0065-STILL015.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Z3xHsUWdfk6DrGsLcGb2nEuT/medium_CAM03122G0-PR0065-STILL015.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Z3xHsUWdfk6DrGsLcGb2nEuT/thumb_CAM03122G0-PR0065-STILL015.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Z3xHsUWdfk6DrGsLcGb2nEuT/small_thumb_CAM03122G0-PR0065-STILL015.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Z3xHsUWdfk6DrGsLcGb2nEuT/square_CAM03122G0-PR0065-STILL015.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 3,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900004",
+          "title": "Bad",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/NRQR51bmUHu1P12WMFjgwinL/CAM03122G0-PR0065-STILL022.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/NRQR51bmUHu1P12WMFjgwinL/CAM03122G0-PR0065-STILL022.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/NRQR51bmUHu1P12WMFjgwinL/big_CAM03122G0-PR0065-STILL022.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/NRQR51bmUHu1P12WMFjgwinL/medium_CAM03122G0-PR0065-STILL022.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/NRQR51bmUHu1P12WMFjgwinL/thumb_CAM03122G0-PR0065-STILL022.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/NRQR51bmUHu1P12WMFjgwinL/small_thumb_CAM03122G0-PR0065-STILL022.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/NRQR51bmUHu1P12WMFjgwinL/square_CAM03122G0-PR0065-STILL022.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 4,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900005",
+          "title": "Schlafen",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/iK4h8fpbuH96WQkk39BvfVSA/CAM03122G0-PR0065-STILL006.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/iK4h8fpbuH96WQkk39BvfVSA/CAM03122G0-PR0065-STILL006.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/iK4h8fpbuH96WQkk39BvfVSA/big_CAM03122G0-PR0065-STILL006.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/iK4h8fpbuH96WQkk39BvfVSA/medium_CAM03122G0-PR0065-STILL006.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/iK4h8fpbuH96WQkk39BvfVSA/thumb_CAM03122G0-PR0065-STILL006.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/iK4h8fpbuH96WQkk39BvfVSA/small_thumb_CAM03122G0-PR0065-STILL006.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/iK4h8fpbuH96WQkk39BvfVSA/square_CAM03122G0-PR0065-STILL006.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 5,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900006",
+          "title": "Wohnen",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/cjMfruUDwaBEEpg77zhhhCzq/CAM03122G0-PR0065-STILL007.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/cjMfruUDwaBEEpg77zhhhCzq/CAM03122G0-PR0065-STILL007.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/cjMfruUDwaBEEpg77zhhhCzq/big_CAM03122G0-PR0065-STILL007.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/cjMfruUDwaBEEpg77zhhhCzq/medium_CAM03122G0-PR0065-STILL007.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/cjMfruUDwaBEEpg77zhhhCzq/thumb_CAM03122G0-PR0065-STILL007.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/cjMfruUDwaBEEpg77zhhhCzq/small_thumb_CAM03122G0-PR0065-STILL007.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/cjMfruUDwaBEEpg77zhhhCzq/square_CAM03122G0-PR0065-STILL007.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 6,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900007",
+          "title": "Arbeiten / Kind / Essen",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Bp747QT2Nd5ToV1UJRGnv8Tt/CAM03122G0-PR0065-STILL017.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Bp747QT2Nd5ToV1UJRGnv8Tt/CAM03122G0-PR0065-STILL017.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Bp747QT2Nd5ToV1UJRGnv8Tt/big_CAM03122G0-PR0065-STILL017.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Bp747QT2Nd5ToV1UJRGnv8Tt/medium_CAM03122G0-PR0065-STILL017.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Bp747QT2Nd5ToV1UJRGnv8Tt/thumb_CAM03122G0-PR0065-STILL017.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Bp747QT2Nd5ToV1UJRGnv8Tt/small_thumb_CAM03122G0-PR0065-STILL017.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Bp747QT2Nd5ToV1UJRGnv8Tt/square_CAM03122G0-PR0065-STILL017.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 7,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900008",
+          "title": "Balkon",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/dbV4X4FGR1iR6tov78Cwkect/CAM03122G0-PR0065-STILL012.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/dbV4X4FGR1iR6tov78Cwkect/CAM03122G0-PR0065-STILL012.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/dbV4X4FGR1iR6tov78Cwkect/big_CAM03122G0-PR0065-STILL012.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/dbV4X4FGR1iR6tov78Cwkect/medium_CAM03122G0-PR0065-STILL012.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/dbV4X4FGR1iR6tov78Cwkect/thumb_CAM03122G0-PR0065-STILL012.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/dbV4X4FGR1iR6tov78Cwkect/small_thumb_CAM03122G0-PR0065-STILL012.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/dbV4X4FGR1iR6tov78Cwkect/square_CAM03122G0-PR0065-STILL012.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 8,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900009",
+          "title": "Duplexgarage",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/PNAL1m7KRBk2sBkmqyDtG7DE/CAM03122G0-PR0065-STILL027.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/PNAL1m7KRBk2sBkmqyDtG7DE/CAM03122G0-PR0065-STILL027.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/PNAL1m7KRBk2sBkmqyDtG7DE/big_CAM03122G0-PR0065-STILL027.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/PNAL1m7KRBk2sBkmqyDtG7DE/medium_CAM03122G0-PR0065-STILL027.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/PNAL1m7KRBk2sBkmqyDtG7DE/thumb_CAM03122G0-PR0065-STILL027.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/PNAL1m7KRBk2sBkmqyDtG7DE/small_thumb_CAM03122G0-PR0065-STILL027.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/PNAL1m7KRBk2sBkmqyDtG7DE/square_CAM03122G0-PR0065-STILL027.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": true,
+          "tags": null,
+          "position": 9,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900010",
+          "title": "Ansicht",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/CS1ykDFbcLYSdCdNDxXpa2gZ/CAM03122G0-PR0065-STILL024.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/CS1ykDFbcLYSdCdNDxXpa2gZ/CAM03122G0-PR0065-STILL024.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/CS1ykDFbcLYSdCdNDxXpa2gZ/big_CAM03122G0-PR0065-STILL024.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/CS1ykDFbcLYSdCdNDxXpa2gZ/medium_CAM03122G0-PR0065-STILL024.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/CS1ykDFbcLYSdCdNDxXpa2gZ/thumb_CAM03122G0-PR0065-STILL024.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/CS1ykDFbcLYSdCdNDxXpa2gZ/small_thumb_CAM03122G0-PR0065-STILL024.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/CS1ykDFbcLYSdCdNDxXpa2gZ/square_CAM03122G0-PR0065-STILL024.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 10,
+          "connection_ids": [
+            123
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900011",
+          "title": "Grundriss",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Dj8uyB7Wdbx1s9AwhJE7xsju/CAM03122G0-PR0065-BUILD01-FLOOR00.png",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Dj8uyB7Wdbx1s9AwhJE7xsju/CAM03122G0-PR0065-BUILD01-FLOOR00.png",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Dj8uyB7Wdbx1s9AwhJE7xsju/big_CAM03122G0-PR0065-BUILD01-FLOOR00.png",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Dj8uyB7Wdbx1s9AwhJE7xsju/medium_CAM03122G0-PR0065-BUILD01-FLOOR00.png",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Dj8uyB7Wdbx1s9AwhJE7xsju/thumb_CAM03122G0-PR0065-BUILD01-FLOOR00.png",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Dj8uyB7Wdbx1s9AwhJE7xsju/small_thumb_CAM03122G0-PR0065-BUILD01-FLOOR00.png",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Dj8uyB7Wdbx1s9AwhJE7xsju/square_CAM03122G0-PR0065-BUILD01-FLOOR00.png"
+          },
+          "is_floorplan": true,
+          "is_private": false,
+          "tags": null,
+          "position": 11,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        }
+      ],
+      "links": [],
+      "public_expose_url": null,
+      "created_at": "2026-07-03T10:00:00.000+02:00",
+      "updated_at": "2026-10-20T10:00:00.000+02:00"
+    },
+    {
+      "id": "910002",
+      "name": "20260708",
+      "unit_id": "20260708",
+      "exposee_id": "",
+      "title": "Attraktive Kapitalanlage in gefragter Wohnlage von Neusäß",
+      "archived": "false",
+      "marketing_type": "BUY",
+      "object_type": "LIVING",
+      "rs_type": "APARTMENT",
+      "rs_category": "APARTMENT",
+      "street": "Beispielstraße",
+      "house_number": "0",
+      "zip_code": "86356",
+      "city": "Neusäß",
+      "country": "DEU",
+      "property_status_id": "274",
+      "hide_address": "true",
+      "price_on_inquiry": "false",
+      "show_price_in_expose": "true",
+      "construction_year": 1967,
+      "condition": "WELL_KEPT",
+      "interior_quality": "NORMAL",
+      "last_refurbishment": 2018,
+      "rented": true,
+      "free_from": "nach Absprache",
+      "price": 139000,
+      "base_rent": 640,
+      "heating_costs": 90,
+      "service_charge": 45,
+      "total_rent": 775,
+      "courtage": "3,57 % inkl. MwSt.",
+      "rent_subsidy": "233",
+      "maintenance_reserve": 510330,
+      "floor": "4",
+      "number_of_floors": 4,
+      "number_of_rooms": 1,
+      "number_of_bed_rooms": 1,
+      "number_of_bath_rooms": 1,
+      "living_space": 31.61,
+      "property_space_value": 31.61,
+      "cellar": true,
+      "built_in_kitchen": true,
+      "energy_certificate_availability": "AVAILABLE",
+      "building_energy_rating_type": "ENERGY_CONSUMPTION",
+      "energy_certificate_start_date": "2018-04-20",
+      "energy_certificate_creation_date": "FROM_MAY_2014",
+      "energy_certificate_end_date": "2028-04-19",
+      "thermal_characteristic": 132.8,
+      "heating_type": "OIL_HEATING",
+      "firing_types": "OIL",
+      "energy_efficiency_class": "E",
+      "equipment_technology_construction_year": 2000,
+      "description_note": "Die gepflegte 1-Zimmer-Wohnung mit einer Wohnfläche von ca. 32 m² befindet sich im zweiten Obergeschoss eines im Jahr 1967 errichteten Mehrfamilienhauses. Das Gebäude umfasst insgesamt acht Wohneinheiten, verteilt auf drei Etagen. Die Eigentümergemeinschaft besteht aus 12 Mehrfamilienhäusern mit insgesamt 120 Wohneinheiten und vermittelt einen gepflegten sowie nachhaltig verwalteten Gesamteindruck.\nZur Wohnung gehört ein separates Kellerabteil, das praktischen Stauraum bietet. Darüber hinaus stehen den Bewohnern eine gemeinschaftliche Waschküche sowie ein Fahrradkeller zur Verfügung.\nDer durchdachte Grundriss beginnt mit einem zentralen Eingangsbereich, der Platz für eine Garderobe bietet. Eine Tür mit Glaseinsatz sorgt für einen angenehmen Lichteinfall und schafft bereits im Flur eine helle und freundliche Atmosphäre. Herzstück der Wohnung ist der großzügige Wohn- und Schlafbereich, der durch ein großformatiges Südfenster lichtdurchflutet wird. Die separate Küche verfügt ebenfalls über ein Südfenster und bietet ausreichend Platz für eine moderne Einbauküche mit Stauraummöglichkeiten. Das Badezimmer ist mit einer Duschkabine sowie einem Handtuchheizkörper ausgestattet.\nDie Beheizung erfolgt über Fernwärme aus dem Jahr 2024 (Energieausweis bezieht sich auf alte Heizungsanlage). In allen Räumen sorgen Heizkörper für eine angenehme Wärme. Zweifach verglaste Kunststofffenster tragen zu einem guten Wohnkomfort und einer soliden Energieeffizienz bei. Das Badezimmer, die Küche sowie die Innentüren wurden vor rund acht Jahren modernisiert und präsentieren sich in einem gepflegten Zustand.\nDie Wohnung wird teilweise möbliert verkauft. Zum Ausstattungsumfang gehören eine neuwertige Einbauküche einschließlich Spülmaschine, Kühlschrank, Herd und Kochfeld. Ergänzt wird das Inventar durch einen Wohnzimmerschrank, einen Schuhschrank sowie einen Badezimmerschrank mit Spiegelschrank.\nDie Wohnung ist derzeit vermietet und erzielt eine monatliche Kaltmiete von 640 €.\nDamit bietet die Immobilie attraktive Voraussetzungen für Kapitalanleger, die auf der Suche nach einer bereits vermieteten Eigentumswohnung mit solider Mietrendite sind.",
+      "furnishing_note": "- ca. 32 m2 Wohnfläche\n- Gepflegte 1-Zimmer-Wohnung im 2. Obergeschoss\n- Heller Wohn- und Schlafbereich mit großem Südfenster\n- Separate Küche\n- Neuwertige Einbauküche inkl. Elektrogeräte\n- Bad mit Dusche und Handtuchheizkörper\n- Fernwärmeanschluss aus 2024\n- Vermiete mit monatlicher Kaltmiete von 640 €",
+      "location_note": "Die Stadt Neusäß zählt zu den gefragtesten Wohnstandorten im westlichen Landkreis Augsburg und verbindet ein ruhiges, grünes Wohnumfeld mit der unmittelbaren Nähe zur Universitäts- und Wirtschaftsmetropole Augsburg. Dank der hervorragenden Infrastruktur, der hohen Lebensqualität und der ausgezeichneten Verkehrsanbindung erfreut sich der Standort seit Jahren einer konstant hohen Nachfrage auf dem Wohnungsmarkt.\nDie angebotene Immobilie befindet sich in der Karwendelstraße in einem gepflegten Wohngebiet mit angenehmer Nachbarschaft. Einkaufsmöglichkeiten für den täglichen Bedarf, Bäckereien, Apotheken, Ärzte sowie verschiedene gastronomische Angebote sind in wenigen Minuten erreichbar. Auch weiterführende Bildungseinrichtungen, die Universität Augsburg sowie zahlreiche Arbeitgeber in Augsburg und Umgebung sind sowohl mit dem Auto als auch mit öffentlichen Verkehrsmitteln gut erreichbar.\nBesonders attraktiv ist die ausgezeichnete Verkehrsanbindung. Die Bushaltestelle „Neusäß, Schulzentrum“ liegt sechs Gehminuten entfernt (400 m). Der Bahnhof Neusäß ist in zehn Gehminuten erreichbar (700 m) und bietet regelmäßige Zugverbindungen zum Augsburger Hauptbahnhof sowie in Richtung Ulm. Ergänzt wird dies durch die nahegelegene Bundesstraße B17 und die Autobahn A8, die eine schnelle Anbindung an die Ballungsräume München und Ulm gewährleisten.\nErholungssuchende profitieren von den umliegenden Grünflächen sowie den nahegelegenen Wald- und Freizeitgebieten, die vielfältige Möglichkeiten für Spaziergänge, Sport und Freizeit bieten. Die Kombination aus ruhigem Wohnumfeld, guter Infrastruktur und hervorragender Erreichbarkeit macht den Standort insbesondere für Singles, Berufspendler und Studierende attraktiv und schafft damit ausgezeichnete Voraussetzungen für eine nachhaltige Vermietbarkeit.\nInsgesamt überzeugt die Lage durch ihre gelungene Verbindung aus naturnahem Wohnen, urbaner Nähe und einer langfristig attraktiven Perspektive als Kapitalanlage.",
+      "custom_fields": {},
+      "images": [
+        {
+          "id": "900001",
+          "title": "Ansicht",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/n56NDRQGGockE5bn3b2bef63/CAM03122G0-PR0066-STILL016.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/n56NDRQGGockE5bn3b2bef63/CAM03122G0-PR0066-STILL016.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/n56NDRQGGockE5bn3b2bef63/big_CAM03122G0-PR0066-STILL016.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/n56NDRQGGockE5bn3b2bef63/medium_CAM03122G0-PR0066-STILL016.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/n56NDRQGGockE5bn3b2bef63/thumb_CAM03122G0-PR0066-STILL016.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/n56NDRQGGockE5bn3b2bef63/small_thumb_CAM03122G0-PR0066-STILL016.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/n56NDRQGGockE5bn3b2bef63/square_CAM03122G0-PR0066-STILL016.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 1,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900002",
+          "title": "Wohnen",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/gGKFbL1HanbRfdozaERvLTTb/CAM03122G0-PR0066-STILL010.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/gGKFbL1HanbRfdozaERvLTTb/CAM03122G0-PR0066-STILL010.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/gGKFbL1HanbRfdozaERvLTTb/big_CAM03122G0-PR0066-STILL010.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/gGKFbL1HanbRfdozaERvLTTb/medium_CAM03122G0-PR0066-STILL010.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/gGKFbL1HanbRfdozaERvLTTb/thumb_CAM03122G0-PR0066-STILL010.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/gGKFbL1HanbRfdozaERvLTTb/small_thumb_CAM03122G0-PR0066-STILL010.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/gGKFbL1HanbRfdozaERvLTTb/square_CAM03122G0-PR0066-STILL010.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 2,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900003",
+          "title": "Küche",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/C9oR8evfGLXuYXyCNFLeiTV6/CAM03122G0-PR0066-STILL006.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/C9oR8evfGLXuYXyCNFLeiTV6/CAM03122G0-PR0066-STILL006.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/C9oR8evfGLXuYXyCNFLeiTV6/big_CAM03122G0-PR0066-STILL006.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/C9oR8evfGLXuYXyCNFLeiTV6/medium_CAM03122G0-PR0066-STILL006.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/C9oR8evfGLXuYXyCNFLeiTV6/thumb_CAM03122G0-PR0066-STILL006.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/C9oR8evfGLXuYXyCNFLeiTV6/small_thumb_CAM03122G0-PR0066-STILL006.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/C9oR8evfGLXuYXyCNFLeiTV6/square_CAM03122G0-PR0066-STILL006.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 3,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900004",
+          "title": "Diele",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/bRS6XYbGSmZb5UGe6FPmXCgQ/CAM03122G0-PR0066-STILL003.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/bRS6XYbGSmZb5UGe6FPmXCgQ/CAM03122G0-PR0066-STILL003.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/bRS6XYbGSmZb5UGe6FPmXCgQ/big_CAM03122G0-PR0066-STILL003.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/bRS6XYbGSmZb5UGe6FPmXCgQ/medium_CAM03122G0-PR0066-STILL003.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/bRS6XYbGSmZb5UGe6FPmXCgQ/thumb_CAM03122G0-PR0066-STILL003.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/bRS6XYbGSmZb5UGe6FPmXCgQ/small_thumb_CAM03122G0-PR0066-STILL003.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/bRS6XYbGSmZb5UGe6FPmXCgQ/square_CAM03122G0-PR0066-STILL003.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 4,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900005",
+          "title": "Bad",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/VPNCFUwHinHNZ5vV9sDZjLyN/CAM03122G0-PR0066-STILL001.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/VPNCFUwHinHNZ5vV9sDZjLyN/CAM03122G0-PR0066-STILL001.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/VPNCFUwHinHNZ5vV9sDZjLyN/big_CAM03122G0-PR0066-STILL001.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/VPNCFUwHinHNZ5vV9sDZjLyN/medium_CAM03122G0-PR0066-STILL001.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/VPNCFUwHinHNZ5vV9sDZjLyN/thumb_CAM03122G0-PR0066-STILL001.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/VPNCFUwHinHNZ5vV9sDZjLyN/small_thumb_CAM03122G0-PR0066-STILL001.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/VPNCFUwHinHNZ5vV9sDZjLyN/square_CAM03122G0-PR0066-STILL001.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 5,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900006",
+          "title": "Küche",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/ZngYX7VGCDd9LqQKPKTy8qQW/CAM03122G0-PR0066-STILL008.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/ZngYX7VGCDd9LqQKPKTy8qQW/CAM03122G0-PR0066-STILL008.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/ZngYX7VGCDd9LqQKPKTy8qQW/big_CAM03122G0-PR0066-STILL008.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/ZngYX7VGCDd9LqQKPKTy8qQW/medium_CAM03122G0-PR0066-STILL008.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/ZngYX7VGCDd9LqQKPKTy8qQW/thumb_CAM03122G0-PR0066-STILL008.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/ZngYX7VGCDd9LqQKPKTy8qQW/small_thumb_CAM03122G0-PR0066-STILL008.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/ZngYX7VGCDd9LqQKPKTy8qQW/square_CAM03122G0-PR0066-STILL008.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 6,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900007",
+          "title": "Schlafen",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/x5oXsyqDSCnHq3vbpEo1H3Ht/CAM03122G0-PR0066-STILL009.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/x5oXsyqDSCnHq3vbpEo1H3Ht/CAM03122G0-PR0066-STILL009.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/x5oXsyqDSCnHq3vbpEo1H3Ht/big_CAM03122G0-PR0066-STILL009.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/x5oXsyqDSCnHq3vbpEo1H3Ht/medium_CAM03122G0-PR0066-STILL009.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/x5oXsyqDSCnHq3vbpEo1H3Ht/thumb_CAM03122G0-PR0066-STILL009.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/x5oXsyqDSCnHq3vbpEo1H3Ht/small_thumb_CAM03122G0-PR0066-STILL009.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/x5oXsyqDSCnHq3vbpEo1H3Ht/square_CAM03122G0-PR0066-STILL009.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 7,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900008",
+          "title": "Grundriss",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/kuBmXbQQJ3m5jy2wgTU3MqHJ/CAM03122G0-PR0066-BUILD01-FLOOR00.png",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/kuBmXbQQJ3m5jy2wgTU3MqHJ/CAM03122G0-PR0066-BUILD01-FLOOR00.png",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/kuBmXbQQJ3m5jy2wgTU3MqHJ/big_CAM03122G0-PR0066-BUILD01-FLOOR00.png",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/kuBmXbQQJ3m5jy2wgTU3MqHJ/medium_CAM03122G0-PR0066-BUILD01-FLOOR00.png",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/kuBmXbQQJ3m5jy2wgTU3MqHJ/thumb_CAM03122G0-PR0066-BUILD01-FLOOR00.png",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/kuBmXbQQJ3m5jy2wgTU3MqHJ/small_thumb_CAM03122G0-PR0066-BUILD01-FLOOR00.png",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/kuBmXbQQJ3m5jy2wgTU3MqHJ/square_CAM03122G0-PR0066-BUILD01-FLOOR00.png"
+          },
+          "is_floorplan": true,
+          "is_private": false,
+          "tags": null,
+          "position": 8,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        }
+      ],
+      "links": [],
+      "public_expose_url": null,
+      "created_at": "2026-07-08T10:00:00.000+02:00",
+      "updated_at": "2026-10-20T10:00:00.000+02:00"
+    },
+    {
+      "id": "910003",
+      "name": "20251227",
+      "unit_id": "20251227",
+      "exposee_id": "",
+      "title": "Zwei Nutzungen, eine attraktive Kapitalanlage: Ferienwohnung und Gewerbeeinheit in zentraler Lage",
+      "archived": "false",
+      "marketing_type": "BUY",
+      "object_type": "COMMERCIAL",
+      "rs_type": "OFFICE",
+      "rs_category": "LIVING_AND_COMMERCIAL_BUILDING",
+      "street": "Beispielstraße",
+      "house_number": "0",
+      "zip_code": "86152",
+      "city": "Augsburg",
+      "country": "DEU",
+      "property_status_id": "274",
+      "hide_address": "true",
+      "price_on_inquiry": "false",
+      "show_price_in_expose": "true",
+      "construction_year": 1968,
+      "condition": "WELL_KEPT",
+      "interior_quality": "NORMAL",
+      "last_refurbishment": 2024,
+      "rented": true,
+      "free_from": "nach Vereinbarung",
+      "price": 350000,
+      "base_rent": 6600,
+      "courtage": "2,38 % inkl. MwSt.",
+      "rent_subsidy": "707",
+      "maintenance_reserve": 428744,
+      "floor": "0",
+      "total_floor_space": 117,
+      "property_space_value": 117,
+      "cellar": true,
+      "built_in_kitchen": true,
+      "guest_toilet": true,
+      "energy_certificate_availability": "AVAILABLE",
+      "building_energy_rating_type": "ENERGY_CONSUMPTION",
+      "energy_certificate_start_date": "2018-09-08",
+      "energy_certificate_creation_date": "FROM_MAY_2014",
+      "energy_certificate_end_date": "2028-09-07",
+      "thermal_characteristic": 168,
+      "heating_type": "CENTRAL_HEATING",
+      "firing_types": "DISTRICT_HEATING",
+      "energy_efficiency_class": "F",
+      "equipment_technology_construction_year": 2001,
+      "description_note": "Zwei Einheiten. Zwei Ertragsquellen. Ein attraktives Investment.\nDiese vielseitige Gewerbeimmobilie vereint eine vermietete Ladeneinheit und eine genehmigte, erfolgreich betriebene Ferienwohnung innerhalb eines Objekts. Die Flächen erstrecken sich über das Erdgeschoss und Souterrain eines 1968 errichteten Wohn- und Geschäftshauses.\nDas Gemeinschaftseigentum wurde bereits in wesentlichen Bereichen modernisiert. Im Jahr 2024 erfolgten unter anderem die Dachsanierung, die Modernisierung der Aufzüge sowie die Erneuerung der Treppenhausbeleuchtung.\nDie Instandhaltungsrücklage der Eigentümergemeinschaft betrug zum 31.12.2025 insgesamt 428.744 €, der anteilige Rücklagenbestand der Einheit liegt bei 8.518 €. Für die geplante Tiefgaragensanierung ist aktuell eine Sonderumlage von ca. 14.350 € vorgesehen.\nVermietete Ladeneinheit mit Staffelmiete\nDie ca. 20,15 m² große Ladenfläche im Erdgeschoss verfügt über einen separaten, ebenerdigen Eingang, eine großzügige Schaufensterfront und ein eigenes WC.\nSeit dem 01.01.2026 ist die Einheit unbefristet an ein Kosmetikgeschäft vermietet. Die monatliche Nettokaltmiete beträgt 550 €, zuzüglich Betriebskosten und Umsatzsteuer. Mietrückstände bestehen nicht.\nEine vertraglich vereinbarte Staffelmiete sieht ab dem 01.01.2028 und anschließend alle zwei Jahre eine Erhöhung der Nettokaltmiete um jeweils 10 % vor. Damit bietet die Einheit planbare Einnahmen mit zusätzlichem Entwicklungspotenzial.\nGenehmigte Ferienwohnung mit laufenden Einnahmen\nDie ca. 93,50 m² große Ferienwohnung erstreckt sich über Erdgeschoss und Souterrain und bietet Platz für bis zu sechs Personen. Sie verfügt über zwei Schlafzimmer, zwei Badezimmer, einen großzügigen Wohnbereich und eine voll ausgestattete Einbauküche.\nDie moderne, erst rund ein Jahr alte Möblierung ist im Kauf enthalten und ermöglicht die direkte Fortführung der bestehenden Vermietung.\nDie Genehmigung zur Nutzung als Ferienwohnung liegt vor. Die Einheit wird bereits erfolgreich über Airbnb vermietet.\n- Umsatz 2025: 20.602 €\n- Prognostizierter Umsatz 2026: 25.622 €\nDie Kombination aus langfristig vermieteter Gewerbefläche mit vereinbarter Mietsteigerung und einer vollständig ausgestatteten, genehmigten Ferienwohnung mit bestehenden Umsätzen macht diese Immobilie zu einer interessanten Kapitalanlage mit zwei unterschiedlichen Ertragsquellen.",
+      "location_note": "Zentrale Lage am Rande der historischen Augsburger Altstadt\nAugsburg zählt zu den bedeutendsten Wirtschafts-, Kultur- und Tourismusstandorten Süddeutschlands. Die historische Altstadt mit Sehenswürdigkeiten wie dem Rathaus, der Fuggerei und der Maximilianstraße sowie zahlreiche Restaurants, Cafés und Einkaufsmöglichkeiten machen die Stadt zu einem attraktiven Standort für Besucher und Gewerbetreibende.\nDie Immobilie befindet sich in der Wertachbrucker-Tor-Straße, am nördlichen Rand der historischen Altstadt im Bereich des Georgs- und Kreuzviertels. Zahlreiche Sehenswürdigkeiten, gastronomische Angebote und Einkaufsmöglichkeiten sind bequem fußläufig erreichbar. Die zentrale Lage bietet damit ideale Voraussetzungen sowohl für die Ferienvermietung als auch für eine gewerbliche Nutzung mit Kundenverkehr.\nDie Verkehrsanbindung ist hervorragend: Die Haltestelle „Senkelbach“ liegt nur ca. 140 m entfernt und ist in rund zwei Gehminuten erreichbar. Weitere Straßenbahn- und Busverbindungen ermöglichen eine schnelle Anbindung an die Innenstadt und den Hauptbahnhof. Über die B17, B2 und A8 bestehen zudem gute Verbindungen in Richtung München, Ulm und Donauwörth.\nErgänzt wird die attraktive Innenstadtlage durch nahegelegene Grünanlagen und vielfältige Freizeitmöglichkeiten.\nDie Kombination aus zentraler Lage, touristischer Attraktivität und guter Infrastruktur bietet optimale Voraussetzungen für die beiden Nutzungskonzepte und macht den Standort besonders interessant für Kapitalanleger.",
+      "other_note": "Highlights der Immobilie\n- Zwei Einheiten mit separaten Ertragsquellen\n- Zentrale Lage nahe der Augsburger Altstadt\n- Ca. 113,65 m² Gesamtnutzfläche\n- Vermietete Ladenfläche mit ca. 20,15 m²\n- 550 € monatliche Nettokaltmiete\n- Staffelmiete mit 10 % Erhöhung alle zwei Jahre ab 2028\n- Genehmigte Ferienwohnung mit ca. 93,50 m²\n- Platz für bis zu sechs Feriengäste\n- 20.602 € Ferienwohnungsumsatz in 2025\n- Umsatzprognose 2026: 25.622 €\n- Moderne Möblierung inklusive Einbauküche\n- Bestehende Ferienvermietung direkt fortführbar\n- Dach und Aufzüge 2024 modernisiert\n- Sehr gute ÖPNV-Anbindung\n- Attraktives Investment mit Ertragspotenzial",
+      "custom_fields": {},
+      "images": [
+        {
+          "id": "900001",
+          "title": "Küche / Wohnen / Schlafen",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/6MQSqjBuzPbt6KvTSXupSshH/CAM03122G0-PR0060-STILL005.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/6MQSqjBuzPbt6KvTSXupSshH/CAM03122G0-PR0060-STILL005.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/6MQSqjBuzPbt6KvTSXupSshH/big_CAM03122G0-PR0060-STILL005.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/6MQSqjBuzPbt6KvTSXupSshH/medium_CAM03122G0-PR0060-STILL005.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/6MQSqjBuzPbt6KvTSXupSshH/thumb_CAM03122G0-PR0060-STILL005.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/6MQSqjBuzPbt6KvTSXupSshH/small_thumb_CAM03122G0-PR0060-STILL005.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/6MQSqjBuzPbt6KvTSXupSshH/square_CAM03122G0-PR0060-STILL005.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 1,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900002",
+          "title": "Bad",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Tp9uUJwmjvQB8eNygizYeBeQ/CAM03122G0-PR0060-STILL001.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Tp9uUJwmjvQB8eNygizYeBeQ/CAM03122G0-PR0060-STILL001.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Tp9uUJwmjvQB8eNygizYeBeQ/big_CAM03122G0-PR0060-STILL001.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Tp9uUJwmjvQB8eNygizYeBeQ/medium_CAM03122G0-PR0060-STILL001.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Tp9uUJwmjvQB8eNygizYeBeQ/thumb_CAM03122G0-PR0060-STILL001.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Tp9uUJwmjvQB8eNygizYeBeQ/small_thumb_CAM03122G0-PR0060-STILL001.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Tp9uUJwmjvQB8eNygizYeBeQ/square_CAM03122G0-PR0060-STILL001.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 2,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900003",
+          "title": "Küche / Wohnen / Schlafen",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/suF42PJPaUGqWb5aTkVFvnSn/CAM03122G0-PR0060-STILL006.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/suF42PJPaUGqWb5aTkVFvnSn/CAM03122G0-PR0060-STILL006.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/suF42PJPaUGqWb5aTkVFvnSn/big_CAM03122G0-PR0060-STILL006.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/suF42PJPaUGqWb5aTkVFvnSn/medium_CAM03122G0-PR0060-STILL006.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/suF42PJPaUGqWb5aTkVFvnSn/thumb_CAM03122G0-PR0060-STILL006.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/suF42PJPaUGqWb5aTkVFvnSn/small_thumb_CAM03122G0-PR0060-STILL006.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/suF42PJPaUGqWb5aTkVFvnSn/square_CAM03122G0-PR0060-STILL006.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 3,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900004",
+          "title": "Küche / Wohnen / Schlafen",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/k8XJZrxDCBXQHsMiPsq4nGF6/CAM03122G0-PR0060-STILL014.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/k8XJZrxDCBXQHsMiPsq4nGF6/CAM03122G0-PR0060-STILL014.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/k8XJZrxDCBXQHsMiPsq4nGF6/big_CAM03122G0-PR0060-STILL014.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/k8XJZrxDCBXQHsMiPsq4nGF6/medium_CAM03122G0-PR0060-STILL014.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/k8XJZrxDCBXQHsMiPsq4nGF6/thumb_CAM03122G0-PR0060-STILL014.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/k8XJZrxDCBXQHsMiPsq4nGF6/small_thumb_CAM03122G0-PR0060-STILL014.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/k8XJZrxDCBXQHsMiPsq4nGF6/square_CAM03122G0-PR0060-STILL014.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 4,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900005",
+          "title": "Schlafen",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Bsv3ERHY2jc1hrpUaKRJF1gU/CAM03122G0-PR0060-STILL021.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Bsv3ERHY2jc1hrpUaKRJF1gU/CAM03122G0-PR0060-STILL021.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Bsv3ERHY2jc1hrpUaKRJF1gU/big_CAM03122G0-PR0060-STILL021.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Bsv3ERHY2jc1hrpUaKRJF1gU/medium_CAM03122G0-PR0060-STILL021.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Bsv3ERHY2jc1hrpUaKRJF1gU/thumb_CAM03122G0-PR0060-STILL021.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Bsv3ERHY2jc1hrpUaKRJF1gU/small_thumb_CAM03122G0-PR0060-STILL021.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Bsv3ERHY2jc1hrpUaKRJF1gU/square_CAM03122G0-PR0060-STILL021.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 5,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900006",
+          "title": "Bad",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Yd12vN9UrttfXPVKWv8pVwni/CAM03122G0-PR0060-STILL024.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Yd12vN9UrttfXPVKWv8pVwni/CAM03122G0-PR0060-STILL024.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Yd12vN9UrttfXPVKWv8pVwni/big_CAM03122G0-PR0060-STILL024.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Yd12vN9UrttfXPVKWv8pVwni/medium_CAM03122G0-PR0060-STILL024.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Yd12vN9UrttfXPVKWv8pVwni/thumb_CAM03122G0-PR0060-STILL024.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Yd12vN9UrttfXPVKWv8pVwni/small_thumb_CAM03122G0-PR0060-STILL024.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/Yd12vN9UrttfXPVKWv8pVwni/square_CAM03122G0-PR0060-STILL024.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 6,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900007",
+          "title": "Schlafen",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/JuHwefJF1LVch4yNFT4NFE45/CAM03122G0-PR0060-STILL028.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/JuHwefJF1LVch4yNFT4NFE45/CAM03122G0-PR0060-STILL028.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/JuHwefJF1LVch4yNFT4NFE45/big_CAM03122G0-PR0060-STILL028.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/JuHwefJF1LVch4yNFT4NFE45/medium_CAM03122G0-PR0060-STILL028.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/JuHwefJF1LVch4yNFT4NFE45/thumb_CAM03122G0-PR0060-STILL028.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/JuHwefJF1LVch4yNFT4NFE45/small_thumb_CAM03122G0-PR0060-STILL028.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/JuHwefJF1LVch4yNFT4NFE45/square_CAM03122G0-PR0060-STILL028.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 7,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900008",
+          "title": "Verkaufsraum",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/fFs1CeV2oiBXWDNMzFf7eUyz/CAM03122G0-PR0063-STILL005.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/fFs1CeV2oiBXWDNMzFf7eUyz/CAM03122G0-PR0063-STILL005.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/fFs1CeV2oiBXWDNMzFf7eUyz/big_CAM03122G0-PR0063-STILL005.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/fFs1CeV2oiBXWDNMzFf7eUyz/medium_CAM03122G0-PR0063-STILL005.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/fFs1CeV2oiBXWDNMzFf7eUyz/thumb_CAM03122G0-PR0063-STILL005.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/fFs1CeV2oiBXWDNMzFf7eUyz/small_thumb_CAM03122G0-PR0063-STILL005.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/fFs1CeV2oiBXWDNMzFf7eUyz/square_CAM03122G0-PR0063-STILL005.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 8,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900009",
+          "title": "Verkaufsraum",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/XbnBn5Th2zo8hd3benJxg9Nx/CAM03122G0-PR0063-STILL006.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/XbnBn5Th2zo8hd3benJxg9Nx/CAM03122G0-PR0063-STILL006.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/XbnBn5Th2zo8hd3benJxg9Nx/big_CAM03122G0-PR0063-STILL006.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/XbnBn5Th2zo8hd3benJxg9Nx/medium_CAM03122G0-PR0063-STILL006.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/XbnBn5Th2zo8hd3benJxg9Nx/thumb_CAM03122G0-PR0063-STILL006.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/XbnBn5Th2zo8hd3benJxg9Nx/small_thumb_CAM03122G0-PR0063-STILL006.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/XbnBn5Th2zo8hd3benJxg9Nx/square_CAM03122G0-PR0063-STILL006.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 9,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900010",
+          "title": "Außenansicht",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/KGGgEq3WcBRNo41pzpaHuija/CAM03122G0-PR0064-STILL003.jpg",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/KGGgEq3WcBRNo41pzpaHuija/CAM03122G0-PR0064-STILL003.jpg",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/KGGgEq3WcBRNo41pzpaHuija/big_CAM03122G0-PR0064-STILL003.jpg",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/KGGgEq3WcBRNo41pzpaHuija/medium_CAM03122G0-PR0064-STILL003.jpg",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/KGGgEq3WcBRNo41pzpaHuija/thumb_CAM03122G0-PR0064-STILL003.jpg",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/KGGgEq3WcBRNo41pzpaHuija/small_thumb_CAM03122G0-PR0064-STILL003.jpg",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/KGGgEq3WcBRNo41pzpaHuija/square_CAM03122G0-PR0064-STILL003.jpg"
+          },
+          "is_floorplan": false,
+          "is_private": false,
+          "tags": null,
+          "position": 10,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        },
+        {
+          "id": "900011",
+          "title": "Grundriss",
+          "url": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/h4st54ML9J4GCNcyr9M9rmQL/CAM03122G0-PR0060-BUILD01-2.png",
+          "urls": {
+            "original": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/h4st54ML9J4GCNcyr9M9rmQL/CAM03122G0-PR0060-BUILD01-2.png",
+            "big": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/h4st54ML9J4GCNcyr9M9rmQL/big_CAM03122G0-PR0060-BUILD01-2.png",
+            "medium": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/h4st54ML9J4GCNcyr9M9rmQL/medium_CAM03122G0-PR0060-BUILD01-2.png",
+            "thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/h4st54ML9J4GCNcyr9M9rmQL/thumb_CAM03122G0-PR0060-BUILD01-2.png",
+            "small_thumb": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/h4st54ML9J4GCNcyr9M9rmQL/small_thumb_CAM03122G0-PR0060-BUILD01-2.png",
+            "square": "https://images.propstack.de/photos/je4DLQ7j2cVWMNqKkigCNQ7c/photo/h4st54ML9J4GCNcyr9M9rmQL/square_CAM03122G0-PR0060-BUILD01-2.png"
+          },
+          "is_floorplan": true,
+          "is_private": false,
+          "tags": null,
+          "position": 11,
+          "connection_ids": [
+            123,
+            4711
+          ],
+          "updated_at": "2026-10-20T10:00:00.000+02:00"
+        }
+      ],
+      "links": [],
+      "public_expose_url": null,
+      "created_at": "2025-12-27T10:00:00.000+01:00",
+      "updated_at": "2026-10-20T10:00:00.000+02:00"
+    }
+  ]
+}

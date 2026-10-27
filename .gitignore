@@ -2,3 +2,5 @@
 # Lizenzierte Schriften: per scripts/schriften.sh holen
 site/wp-content/uploads/2022/05/soehne-*.woff2
 _site/
+# Lokale Vorschau mit Beispielangeboten (scripts/angebote.py --beispiel)
+_beispiel/

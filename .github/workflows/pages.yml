@@ -43,7 +43,9 @@ jobs:
       # Angebote und Detailseiten aus der Propstack-API erzeugen (scripts/angebote.py). Ohne das Secret
       # PROPSTACK_API_KEY bleibt der eingecheckte Stand. Ist Propstack nicht erreichbar, scheitert der Lauf
       # und die zuletzt veröffentlichte Seite bleibt online. Die erzeugten Dateien werden nicht committet.
+      # Erst einschalten (Repository-Variable ANGEBOTE_AUS_PROPSTACK = true), wenn der Filter geprüft ist.
       - name: Angebote aus Propstack laden
+        if: vars.ANGEBOTE_AUS_PROPSTACK == 'true'
         env:
           PROPSTACK_API_KEY: ${{ secrets.PROPSTACK_API_KEY }}
           PROPSTACK_PORTAL_ID: ${{ vars.PROPSTACK_PORTAL_ID }}

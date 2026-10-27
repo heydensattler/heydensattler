@@ -4,3 +4,9 @@ site/wp-content/uploads/2022/05/soehne-*.woff2
 _site/
 # Lokale Vorschau mit Beispielangeboten (scripts/angebote.py --beispiel)
 _beispiel/
+# Erzeugt von scripts/blog.py beim Build, nicht committen
+site/blog/
+# Lokale Vorschau mit Beispielbeiträgen (scripts/blog.py --beispiel)
+_beispiel-blog/
+# Lokale Python-Umgebung (pip install -r requirements.txt)
+.venv/

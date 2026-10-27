@@ -1,6 +1,6 @@
 # Baut site/ und veröffentlicht es als Vorschau auf GitHub Pages.
-# Läuft bei jedem Push auf main, der die Seite betrifft, alle 30 Minuten (frische Angebote aus Propstack)
-# und lässt sich von Hand starten.
+# Läuft bei jedem Push auf main, der die Seite betrifft, alle 30 Minuten (frische Angebote aus Propstack,
+# Blogbeiträge ab ihrem Veröffentlichungsdatum) und lässt sich von Hand starten.
 name: GitHub Pages
 
 on:
@@ -9,6 +9,8 @@ on:
     paths:
       - "site/**"
       - "scripts/**"
+      - "inhalte/**"
+      - "requirements.txt"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
   schedule:
@@ -56,6 +58,20 @@ jobs:
             exit 0
           fi
           python3 scripts/angebote.py
+
+      # Blog aus inhalte/blog/ (scripts/blog.py), unabhängig vom Propstack-Secret. Nur Beiträge, deren
+      # publish_date (Europe/Berlin) erreicht ist und die kein Entwurf sind. Ein Fehler in einem Beitrag lässt
+      # den Lauf scheitern; dann bleibt die zuletzt veröffentlichte Seite online.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Blog-Abhängigkeiten installieren
+        run: pip install -r requirements.txt
+
+      - name: Blog erzeugen
+        run: python scripts/blog.py
 
       - name: Seite für den Pages-Unterpfad bauen
         run: python3 scripts/pages.py "${{ steps.pages.outputs.base_path }}"

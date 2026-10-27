@@ -20,6 +20,9 @@
 Die aktuellen Angebote stehen auf https://heydensattler.com/#angebote.
 <!-- angebote:liste:ende -->
 
+<!-- blog:liste:start -->
+<!-- blog:liste:ende -->
+
 ## Team
 
 - Cedric Heyden, M. Eng.: Fachmann für Immobilienbewertung und Marketing. Mehrere Jahre Berufserfahrung in Architektur und Stadtplanung. Master „Energie Effizienz Design“, Bachelor „Energieeffizientes Planen und Bauen“.

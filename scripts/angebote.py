@@ -9,7 +9,9 @@ Liest PROPSTACK_API_KEY aus der Umgebung, lädt die öffentlichen Objekte und sc
 Welche Objekte erscheinen:
 - Ist PROPSTACK_PORTAL_ID gesetzt (API V2), nur Objekte mit einer Veröffentlichung auf diesem Portal und
   davon nur Bilder, die für dieses Portal freigegeben sind.
-- Sonst alle nicht archivierten Objekte in einem öffentlichen Status (property_statuses, nonpublic = false).
+- Sonst alle nicht archivierten Objekte in einem der Status aus PROPSTACK_STATUS (Namen, kommagetrennt; Standard
+  „Vermarktung, Reserviert“). Ein Status mit nonpublic = true zählt nie. Mehr als PROPSTACK_MAX_ANGEBOTE Treffer
+  (Standard 40) bricht den Lauf ab, damit nie versehentlich Akquise- oder Altobjekte erscheinen.
 Nie ausgegeben werden private Bilder, Straße und Hausnummer, Koordinaten, Eigentümer-, Makler- und
 Kontaktdaten sowie interne Felder: die Seiten nutzen nur die Felder, die unten ausdrücklich genannt sind.
 
@@ -377,12 +379,20 @@ def v1_normal(o):
     return o
 
 
+STATUS_STANDARD = "Vermarktung, Reserviert"
+
+
 def vorauswahl(objekte, status, veroeffentlicht):
-    oeffentlich = {str(s.get("id")) for s in status if not wahr(s.get("nonpublic"))}
+    gewuenscht = {n.strip().casefold() for n in (os.environ.get("PROPSTACK_STATUS") or STATUS_STANDARD).split(",")
+                  if n.strip()}
     namen = {str(s.get("id")): text(s.get("name")) for s in status}
-    if veroeffentlicht is None:
-        log(f"Filter: öffentliche Status ({', '.join(namen[i] for i in sorted(oeffentlich)) or 'keine'}), "
-            "nicht archiviert")
+    oeffentlich = {str(s.get("id")) for s in status
+                   if text(s.get("name")).casefold() in gewuenscht and not wahr(s.get("nonpublic"))}
+    if not oeffentlich:
+        raise Abbruch(f"Keiner der Status aus PROPSTACK_STATUS gibt es in Propstack. Vorhanden: "
+                      f"{', '.join(namen.values())}.")
+    log(f"Filter: Status {', '.join(namen[i] for i in sorted(oeffentlich))}, nicht archiviert"
+        + (", auf dem Portal veröffentlicht" if veroeffentlicht is not None else ""))
     auswahl, ohne_status = [], 0
     for o in objekte:
         if wahr(o.get("archived")):
@@ -399,6 +409,10 @@ def vorauswahl(objekte, status, veroeffentlicht):
     if ohne_status:
         log(f"{ohne_status} Objekte ohne Status übersprungen")
     log(f"{len(auswahl)} von {len(objekte)} Objekten sind öffentlich")
+    grenze = int(os.environ.get("PROPSTACK_MAX_ANGEBOTE") or 40)
+    if len(auswahl) > grenze:
+        raise Abbruch(f"{len(auswahl)} Objekte würden veröffentlicht, mehr als die Grenze von {grenze}. Stimmt der "
+                      "Filter (PROPSTACK_STATUS)? Wenn ja, die Variable PROPSTACK_MAX_ANGEBOTE erhöhen.")
     return auswahl
 
 

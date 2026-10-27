@@ -69,8 +69,12 @@ online.
   dieses Portal freigegeben sind. Dafür die Website in Propstack als eigenes Portal anlegen und Objekte dort wie bei
   ImmoScout freigeben; die ID des Portals steht im Log, wenn die Variable falsch ist. Geht nur mit API V2
   (`PROPSTACK_API_VERSION=2`); mit V1 filtert der Build nach Status und warnt im Log.
-- Ohne Variable alle nicht archivierten Objekte in einem öffentlichen Status (`nonpublic` = nein, z. B. „Verfügbar“
-  und „Reserviert“).
+- Ohne Variable alle nicht archivierten Objekte im Status „Vermarktung“ oder „Reserviert“. Andere Status über die
+  Repository-Variable `PROPSTACK_STATUS` (Namen, kommagetrennt). Das Feld `nonpublic` reicht nicht: Im Konto ist kein
+  Status so markiert, auch „Akquise“ (rund 600 Objekte) und „Abgeschlossen“ nicht.
+- Sicherheitsgrenze: Würden mehr als 40 Objekte erscheinen, bricht der Lauf ab und die bisherige Seite bleibt online
+  (Grenze über `PROPSTACK_MAX_ANGEBOTE`). `python3 scripts/angebote.py --diagnose` (mit Schlüssel) zeigt je Status
+  die Anzahl der Objekte, ohne etwas zu schreiben.
 
 In beiden Fällen gilt: nie als privat markierte Bilder, nie Straße, Hausnummer oder Koordinaten (nur PLZ und Ort),
 nie Eigentümer-, Makler- oder Kontaktdaten; „Preis auf Anfrage“, wenn der Preis in Propstack verborgen ist.

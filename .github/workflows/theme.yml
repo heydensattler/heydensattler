@@ -63,6 +63,10 @@ jobs:
           if ! ssh-keyscan -T 20 -t ed25519 "$server" > known_hosts 2> scan.log || [ ! -s known_hosts ]; then
             echo "::error::Der Server aus IONOS_SFTP_HOST antwortet nicht auf Port 22 (oder der Name stimmt nicht)."
             sed "s#$server#<server>#g" scan.log
+            # Zum Vergleichen, ohne den Namen ins öffentliche Log zu schreiben
+            echo "Prüfsumme des Namens: $(printf '%s' "$server" | sha256sum | cut -c1-12)"
+            getent hosts "$server" >/dev/null && echo "Name lässt sich auflösen" || echo "Name lässt sich NICHT auflösen"
+            timeout 10 bash -c "</dev/tcp/$server/22" 2>/dev/null && echo "Port 22 ist erreichbar" || echo "Port 22 ist NICHT erreichbar"
             exit 1
           fi
           fingerabdruck="$(ssh-keygen -lf known_hosts | awk '{print $2}')"

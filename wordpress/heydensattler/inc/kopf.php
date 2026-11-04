@@ -66,7 +66,9 @@ function hs_kopf(): void {
         echo $s['extra'] ?? '';
         echo "<meta name=\"twitter:card\" content=\"summary_large_image\">\n";
     }
-    echo "<link rel=\"icon\" href=\"https://heydensattler.com/favicon.ico\">\n";
+    echo '<link rel="icon" href="' . esc_url(get_theme_file_uri('assets/icons/favicon.ico')) . "\" sizes=\"16x16 32x32 48x48\">\n"
+        . '<link rel="icon" type="image/png" href="' . esc_url(get_theme_file_uri('assets/icons/icon-192.png')) . "\" sizes=\"192x192\">\n"
+        . '<link rel="apple-touch-icon" href="' . esc_url(get_theme_file_uri('assets/icons/apple-touch-icon.png')) . "\">\n";
     foreach ($s['ld'] ?? [] as $ld) {
         echo "\n<script type=\"application/ld+json\">\n" . hs_json($ld) . "\n</script>\n";
     }

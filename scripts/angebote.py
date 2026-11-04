@@ -1010,7 +1010,9 @@ def detailseite(a, kopf, fuss):
 <meta property="og:description" content="{e(beschreibung)}">
 <meta property="og:url" content="{e(a.url)}">
 {og_bild}<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="https://heydensattler.com/favicon.ico">
+<link rel="icon" href="/assets/icons/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" href="/assets/icons/icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 
 <script type="application/ld+json">
 {json_ld(detail_ld(a))}

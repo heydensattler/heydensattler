@@ -27,6 +27,7 @@ mkdir -p "$ziel"
 done)
 mkdir -p "$ziel/assets/bilder"
 cp "$wurzel/site/assets/style.css" "$wurzel/site/assets/site.js" "$wurzel/site/assets/galerie.js" "$ziel/assets/"
+cp -R "$wurzel/site/assets/icons" "$ziel/assets/"
 # Die Söhne-Schriften nicht: sie sind lizenziert und liegen schon in der Mediathek von heydensattler.com
 cp "$wurzel"/site/wp-content/uploads/2022/05/cover3-* "$ziel/assets/bilder/"
 sed "s/^Version: .*/Version: $version/" "$wurzel/wordpress/heydensattler/style.css" > "$ziel/style.css"

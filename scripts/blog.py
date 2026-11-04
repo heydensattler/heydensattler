@@ -494,7 +494,9 @@ def kopfdaten(titel, beschreibung, url, og_typ, og_bild, og_alt, ld, extra=""):
 <meta property="og:image:height" content="{hoehe}">
 <meta property="og:image:alt" content="{e(og_alt)}">
 {extra}<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="https://heydensattler.com/favicon.ico">
+<link rel="icon" href="/assets/icons/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" href="/assets/icons/icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
 
 <script type="application/ld+json">
 {json_ld(ld)}

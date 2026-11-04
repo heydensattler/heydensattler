@@ -99,10 +99,9 @@ jobs:
           mv heydensattler heydensattler.alt
           set cmd:fail-exit yes
           mv heydensattler.neu heydensattler
-          # Eine favicon.ico im Hauptordner (WordPress-Logo von 2022) liefert Apache vor WordPress aus; ohne sie
-          # kommt das HS-Zeichen des Themes. Umbenannt statt gelöscht; fehlt sie, passiert nichts.
-          set cmd:fail-exit no
-          mv ../../favicon.ico ../../favicon.ico.alt
+          # /favicon.ico erreicht WordPress bei IONOS nie: Apache liefert die Datei im Hauptordner aus, und fehlt sie,
+          # kommt die 404-Seite von IONOS. Darum liegt dort das HS-Zeichen des Themes.
+          put _theme/heydensattler/assets/icons/favicon.ico -o ../../favicon.ico
           EOF
 
       - name: Auf der Website prüfen

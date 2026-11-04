@@ -29,6 +29,20 @@ add_action('init', function () {
     remove_action('template_redirect', 'rest_output_link_header', 11);
 });
 
+// Favicon: Ohne eigenes Website-Icon zeigt WordPress sein Logo, unter /favicon.ico (do_favicon, das Browser und
+// Suchmaschinen von selbst abfragen), im Admin und auf der Anmeldeseite. Überall gilt das HS-Zeichen des Themes.
+add_filter('get_site_icon_url', function ($url, $groesse) {
+    return get_theme_file_uri($groesse > 48 ? 'assets/icons/icon-192.png' : 'assets/icons/favicon.ico');
+}, 10, 2);
+add_action('do_favicon', function () {
+    $datei = get_theme_file_path('assets/icons/favicon.ico');
+    header('Content-Type: image/vnd.microsoft.icon');
+    header('Content-Length: ' . filesize($datei));
+    header('Cache-Control: public, max-age=86400');
+    readfile($datei);
+    exit;
+}, 1);
+
 // robots: Die Angabe der Seite (hs_seite, sonst „index, follow, …“) geht in den Filter von WordPress. So kommt noindex
 // von WordPress selbst („Suchmaschinen davon abhalten“, Suche) und von Plugins (WooCommerce im Warenkorb) dazu.
 add_filter('wp_robots', function (array $robots) {

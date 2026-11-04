@@ -53,24 +53,35 @@ jobs:
         env:
           HOST: ${{ secrets.IONOS_SFTP_HOST }}
         run: |
-          ssh-keyscan -t ed25519 "$HOST" 2>/dev/null > known_hosts
+          # Nur der Name: ohne Leerzeichen, sftp://, Port oder Pfad, falls das Secret so eingetragen ist
+          server="$(printf '%s' "$HOST" | tr -d '[:space:]' | sed -e 's#^s*ftp://##' -e 's#/.*$##' -e 's#:22$##')"
+          echo "::add-mask::$server"
+          if [ -z "$server" ]; then
+            echo "::error::Das Secret IONOS_SFTP_HOST ist leer oder fehlt im Environment production."
+            exit 1
+          fi
+          if ! ssh-keyscan -T 20 -t ed25519 "$server" > known_hosts 2> scan.log || [ ! -s known_hosts ]; then
+            echo "::error::Der Server aus IONOS_SFTP_HOST antwortet nicht auf Port 22 (oder der Name stimmt nicht)."
+            sed "s#$server#<server>#g" scan.log
+            exit 1
+          fi
           fingerabdruck="$(ssh-keygen -lf known_hosts | awk '{print $2}')"
           if [ "$fingerabdruck" != "SHA256:1gx2w8Rtv3wCgi7Jh8myf/KVd72cRQbow03UP8P095Q" ]; then
             echo "::error::Unerwarteter Schlüssel des Servers ($fingerabdruck); Abbruch."
             exit 1
           fi
+          echo "SFTP_SERVER=$server" >> "$GITHUB_ENV"
 
       # Erst in einen neuen Ordner, dann tauschen: Ein Abbruch beim Hochladen lässt die laufende Version stehen.
       # Der alte Stand bleibt als heydensattler.alt bis zum nächsten Deploy liegen.
       - name: Hochladen
         env:
-          HOST: ${{ secrets.IONOS_SFTP_HOST }}
           BENUTZER: ${{ secrets.IONOS_SFTP_USER }}
           LFTP_PASSWORD: ${{ secrets.IONOS_SFTP_PASSWORD }}
           ZIEL: ${{ secrets.IONOS_THEME_DIR }}
         run: |
           sudo apt-get install -y -qq lftp >/dev/null
-          lftp --env-password -u "$BENUTZER" "sftp://$HOST" <<EOF
+          lftp --env-password -u "$BENUTZER" "sftp://$SFTP_SERVER" <<EOF
           set net:max-retries 3
           set sftp:connect-program "ssh -a -x -o UserKnownHostsFile=$PWD/known_hosts -o StrictHostKeyChecking=yes"
           set cmd:fail-exit yes

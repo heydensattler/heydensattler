@@ -74,9 +74,10 @@ add_action('template_redirect', function () {
 // Andere Inhaltstypen haben keine eigene Seite: Anhänge führen zur Datei, wie seit WordPress 6.4 üblich
 add_action('template_redirect', function () {
     if (is_attachment()) {
+        // wp_redirect wie WordPress selbst: Die Datei darf auf einem anderen Server liegen (CDN)
         $datei = wp_get_attachment_url(get_queried_object_id());
         if ($datei) {
-            wp_safe_redirect($datei, 301);
+            wp_redirect($datei, 301);
             exit;
         }
     }

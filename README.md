@@ -22,7 +22,7 @@ Corporate Identity (Schriften, Farben, Bilder); neu sind das responsive Layout, 
 - `scripts/angebote.py` – erzeugt Angebote und Detailseiten aus Propstack (siehe unten)
 - `scripts/beispiel-angebote.json` – drei Beispielobjekte in der Struktur der Propstack-API V2
 - `scripts/blog.py` – erzeugt den Blog aus `inhalte/blog/` (siehe unten), `scripts/beispiel-blog/` Beispielbeiträge
-- `requirements.txt` – Python-Markdown in fester Version, nur für `scripts/blog.py`
+- `requirements.txt` – Python-Markdown in fester Version, für `scripts/blog.py` und die Beispielbeiträge des Test-WordPress
 - `scripts/pages.py` – baut die Vorschau für GitHub Pages (Unterpfad, noindex)
 - `.github/workflows/pages.yml` – veröffentlicht `site/` bei jedem Push auf `main` und alle 30 Minuten auf GitHub
   Pages
@@ -187,7 +187,8 @@ JavaScript auch: `scripts/theme.sh` kopiert sie aus `site/assets/` ins Theme.
 Geplante Beiträge erscheinen ab ihrem Datum, Entwürfe nie; vorher stehen sie nirgends (keine Karte, kein Feed, keine
 Sitemap, kein Menüpunkt). Ein Link aus einem anderen Beitrag auf einen geplanten Beitrag bleibt bis dahin nur Text,
 wie bisher in `blog.py`, ebenso HTML-Kommentare: Sie erscheinen nicht. Beiträge mit Passwort stehen nur unter ihrer
-eigenen Adresse (mit dem Passwortfeld von WordPress), nicht in Übersicht, Feed, Sitemap oder `llms.txt`. Ohne
+eigenen Adresse (mit dem Passwortfeld von WordPress), nicht in Übersicht, Archiven, Feed, Sitemap, `llms.txt`
+oder als Nachbar. Die eigenen Feeds von WordPress (`/feed/`, `/blog/feed/`) führen zu `/blog/feed.xml`. Ohne
 veröffentlichten Beitrag gibt es `/blog/`, den Feed und den Menüpunkt nicht.
 
 Die Adressen sind dieselben wie bisher, dazu `/blog/feed.xml`, `/sitemap.xml`, `/llms.txt` und `/robots.txt`; die

@@ -52,24 +52,48 @@ add_action('save_post_post', function (int $id) {
     update_post_meta($id, 'hs_autor', array_key_exists($wert, HS_AUTOREN) ? $wert : '');
 });
 
-// Auf der Blogübersicht alle Beiträge, wie bisher ohne Seitenzahlen
-// Beiträge mit Passwort stehen nur unter ihrer eigenen Adresse, nicht in Übersicht, Karten, Feed, Sitemap oder llms.txt
+// Auf der Blogübersicht alle Beiträge, wie bisher ohne Seitenzahlen und nach Datum (auch „oben halten“ ändert nichts).
+// Beiträge mit Passwort stehen nur unter ihrer eigenen Adresse, in keiner Liste und bei keinem Nachbarn.
 add_action('pre_get_posts', function (WP_Query $q) {
-    if (!is_admin() && $q->is_main_query() && $q->is_home()) {
+    if (is_admin() || !$q->is_main_query()) {
+        return;
+    }
+    if ($q->is_home()) {
         $q->set('posts_per_page', -1);
+        $q->set('ignore_sticky_posts', true);
+    }
+    if ($q->is_home() || $q->is_archive() || $q->is_search()) {
         $q->set('has_password', false);
     }
 });
 
-// /blog/ gibt es nur mit veröffentlichten Beiträgen, wie bisher, und nur als eine Seite: /blog/page/2/ ist 404
+$hs_ohne_passwort = function (string $where): string {
+    return $where . " AND p.post_password = ''";
+};
+add_filter('get_previous_post_where', $hs_ohne_passwort);
+add_filter('get_next_post_where', $hs_ohne_passwort);
+
+// /blog/ gibt es nur mit veröffentlichten Beiträgen, wie bisher, und nur als eine Seite: /blog/page/2/ ist 404,
+// ebenso /page/2/ der Startseite
 add_action('template_redirect', function () {
-    if (is_home() && !is_front_page() && (!hs_blog_hat_beitraege() || (int) get_query_var('paged') > 1)) {
+    $blog_ohne = is_home() && !is_front_page() && (!hs_blog_hat_beitraege() || (int) get_query_var('paged') > 1);
+    $start_seite = is_front_page() && max((int) get_query_var('paged'), (int) get_query_var('page')) > 1;
+    if ($blog_ohne || $start_seite) {
         global $wp_query;
         $wp_query->set_404();
         status_header(404);
         nocache_headers();
     }
 }, 9);
+
+// Die Feeds von WordPress (/feed/, /blog/feed/, Kommentare) führen zum Feed der Website: Nur der zeigt keine
+// Notizen in Kommentaren, keine Links auf geplante Beiträge und keine Beiträge mit Passwort
+add_action('template_redirect', function () {
+    if (is_feed() && !get_query_var('hs_datei')) {
+        wp_redirect(hs_url('/blog/feed.xml'), 301);
+        exit;
+    }
+}, 1);
 
 // ---------------------------------------------------------------------------------------------------------
 // Ein Beitrag mit allem, was Seiten, Karten, Feed, Sitemap und llms.txt brauchen
@@ -122,11 +146,17 @@ function hs_beitrag_html(WP_Post $beitrag): string {
     if (post_password_required($beitrag)) {
         return $fertig[$beitrag->ID] = get_the_password_form($beitrag);
     }
-    // Filter und Shortcodes erwarten den Beitrag als globalen $post
+    // Notizen in HTML-Kommentaren schon vor den Filtern entfernen (sonst bleibt ein leerer Absatz); die
+    // Block-Kommentare <!-- wp:… --> braucht WordPress noch
+    $inhalt = preg_replace('/<!--(?!\s*\/?wp:).*?-->/s', '', hs_ohne_wpbakery_huellen($beitrag->post_content));
+    // Filter und Shortcodes erwarten den Beitrag als globalen $post. Bilder im Text laden erst beim Scrollen,
+    // wie bisher; zuerst lädt das Beitragsbild.
     $vorher = $GLOBALS['post'] ?? null;
     $GLOBALS['post'] = $beitrag;
     setup_postdata($beitrag);
-    $html = apply_filters('the_content', hs_ohne_wpbakery_huellen($beitrag->post_content));
+    add_filter('wp_omit_loading_attr_threshold', '__return_zero');
+    $html = apply_filters('the_content', $inhalt);
+    remove_filter('wp_omit_loading_attr_threshold', '__return_zero');
     $GLOBALS['post'] = $vorher;
     if ($vorher instanceof WP_Post) {
         setup_postdata($vorher);
@@ -135,7 +165,26 @@ function hs_beitrag_html(WP_Post $beitrag): string {
     $html = preg_replace('/<!--.*?-->/s', '', $html);
     $html = preg_replace('#<(/?)h1\b#i', '<$1h2', $html);
     $html = preg_replace('#<table\b.*?</table>#is', '<div class="beitrag-tabelle">$0</div>', $html);
-    return $fertig[$beitrag->ID] = hs_ohne_links_auf_kuenftige($html);
+    return $fertig[$beitrag->ID] = hs_ohne_links_auf_kuenftige(hs_anker($html));
+}
+
+/** Zwischenüberschriften bekommen eine id wie bisher in blog.py, damit Links wie #wer-stellt-was-aus springen. */
+function hs_anker(string $html): string {
+    $vergeben = [];
+    return preg_replace_callback('#<(h[2-6])((?:(?!\bid=)[^>])*)>(.*?)</\1>#is', function ($m) use (&$vergeben) {
+        $text = strtr(mb_strtolower(html_entity_decode(wp_strip_all_tags($m[3]), ENT_QUOTES, 'UTF-8')),
+            ['ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue', 'ß' => 'ss']);
+        $id = trim(preg_replace('/[^a-z0-9]+/', '-', remove_accents($text)), '-');
+        if ($id === '') {
+            return $m[0];
+        }
+        $basis = $id;
+        for ($n = 1; isset($vergeben[$id]); $n++) {
+            $id = $basis . '_' . $n;
+        }
+        $vergeben[$id] = true;
+        return '<' . $m[1] . $m[2] . ' id="' . esc_attr($id) . '">' . $m[3] . '</' . $m[1] . '>';
+    }, $html);
 }
 
 /**
@@ -163,6 +212,10 @@ function hs_ohne_links_auf_kuenftige(string $html): string {
         foreach ($ids as $id) {
             $kuenftige[$id] = get_post_field('post_name', $id);
         }
+        // Ein Entwurf kann den Slug eines erschienenen Beitrags tragen (neue Fassung): dessen Links bleiben
+        $erschienen = $kuenftige ? get_posts(['post_type' => 'post', 'post_status' => 'publish', 'numberposts' => -1,
+            'post_name__in' => array_values(array_filter($kuenftige)), 'suppress_filters' => true]) : [];
+        $kuenftige = array_diff($kuenftige, wp_list_pluck($erschienen, 'post_name'));
     }
     if (!$kuenftige || stripos($html, '<a') === false) {
         return $html;

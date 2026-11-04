@@ -40,8 +40,11 @@ function hs_einrichtung_offen(): array {
         $offen[] = 'Dem PHP des Servers fehlt die Erweiterung mbstring; ohne sie gehen Angebote und Blog nicht.';
     }
     $blog = get_page_by_path('blog');
-    if (get_option('show_on_front') !== 'page' || !get_option('page_on_front')) {
+    $start = (int) get_option('page_on_front');
+    if (get_option('show_on_front') !== 'page' || !$start) {
         $offen[] = 'Die Startseite ist keine feste Seite (Einstellungen → Lesen).';
+    } elseif (get_post_status($start) !== 'publish') {
+        $offen[] = 'Die Startseite (Seite „' . get_the_title($start) . '“) ist nicht veröffentlicht (Seiten).';
     }
     if (!$blog || (int) get_option('page_for_posts') !== $blog->ID) {
         $offen[] = 'Die Blogübersicht ist nicht die Seite „blog“ (Einstellungen → Lesen → Beitragsseite).';
@@ -49,7 +52,7 @@ function hs_einrichtung_offen(): array {
     if (get_option('permalink_structure') !== HS_PERMALINKS) {
         $offen[] = 'Beiträge haben nicht die Adresse /blog/beitragsname/ (Einstellungen → Permalinks).';
     }
-    foreach (['blog' => 'Blog', 'leistungen/vermieten' => 'Vermieten', 'leistungen/verkaufen' => 'Verkaufen'] as $pfad => $name) {
+    foreach (['blog' => 'Blog', 'leistungen' => 'Leistungen', 'leistungen/vermieten' => 'Vermieten', 'leistungen/verkaufen' => 'Verkaufen'] as $pfad => $name) {
         $seite = get_page_by_path($pfad);
         if ($seite && $seite->post_status !== 'publish') {
             $offen[] = "Die Seite „{$name}“ unter /{$pfad}/ ist nicht veröffentlicht (Seiten → {$name}).";

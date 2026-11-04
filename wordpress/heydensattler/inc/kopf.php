@@ -78,9 +78,12 @@ function hs_json($daten): string {
     return (string) wp_json_encode($daten, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG);
 }
 
-/** Für Seiten aus dem Editor (z. B. Impressum, Datenschutz): Titel und Auszug, sonst der Anfang des Texts. */
-function hs_seite_aus_wordpress(): array {
-    $beitrag = get_queried_object();
+/**
+ * Für Seiten aus dem Editor (z. B. Impressum, Datenschutz): Titel und Auszug, sonst der Anfang des Texts. $beitrag ist
+ * der Beitrag der Schleife; nur er hat in der Vorschau die ungespeicherten Änderungen.
+ */
+function hs_seite_aus_wordpress(?WP_Post $beitrag = null): array {
+    $beitrag = $beitrag ?? get_queried_object();
     if (!($beitrag instanceof WP_Post)) {
         return ['titel' => wp_get_document_title(), 'beschreibung' => get_bloginfo('description'), 'url' => ''];
     }

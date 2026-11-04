@@ -6,7 +6,7 @@ defined('ABSPATH') || exit;
 
 the_post();
 $seite = get_post();
-hs_seite(hs_seite_aus_wordpress());
+hs_seite(hs_seite_aus_wordpress($seite));
 get_header();
 ?>
 <main id="inhalt">

@@ -552,12 +552,12 @@ class Angebot:
         # Preis: „Preis auf Anfrage“, wenn Propstack ihn verbirgt
         self.preis_label = "Kaufpreis" if self.kauf else "Kaltmiete"
         betrag = zahl(o.get("price") if self.kauf else o.get("base_rent"))
-        verborgen = wahr(o.get("price_on_inquiry")) or falsch(o.get("show_price_in_expose"))
+        # Nur „Preis auf Anfrage“ verbirgt ihn; „Preis im Exposé anzeigen“ zählt nicht, wie in Propstacks eigener Ansicht
+        verborgen = wahr(o.get("price_on_inquiry"))
         self.preis = None if verborgen or not betrag else betrag
         if verborgen and betrag:
             print(f"::notice title=Preis auf Anfrage::Objekt {self.nr}: price_on_inquiry="
-                  f"{roh(o.get('price_on_inquiry'))!r}, show_price_in_expose={roh(o.get('show_price_in_expose'))!r}",
-                  flush=True)
+                  f"{roh(o.get('price_on_inquiry'))!r}", flush=True)
         self.preis_text = euro(self.preis) if self.preis else "Preis auf Anfrage"
 
         if self.typ == "APARTMENT" or self.typ == "HOUSE":

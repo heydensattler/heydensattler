@@ -96,11 +96,12 @@ function hs_ang_angebot(array $eintrag): array {
     // Preis: „Preis auf Anfrage“, wenn Propstack ihn verbirgt
     $a['preis_label'] = $a['kauf'] ? 'Kaufpreis' : 'Kaltmiete';
     $betrag = hs_ang_zahl($a['kauf'] ? ($o['price'] ?? null) : ($o['base_rent'] ?? null));
-    $verborgen = hs_ang_wahr($o['price_on_inquiry'] ?? null) || hs_ang_falsch($o['show_price_in_expose'] ?? null);
+    // Nur „Preis auf Anfrage“ verbirgt ihn; „Preis im Exposé anzeigen“ zählt nicht, wie in Propstacks eigener Ansicht
+    $verborgen = hs_ang_wahr($o['price_on_inquiry'] ?? null);
     $a['preis'] = $verborgen || !$betrag ? null : $betrag;
     if ($verborgen && $betrag) {
-        hs_ang_log("Preis auf Anfrage: Objekt {$a['nr']}: price_on_inquiry=" . hs_ang_py_repr(hs_ang_roh($o['price_on_inquiry'] ?? null))
-            . ', show_price_in_expose=' . hs_ang_py_repr(hs_ang_roh($o['show_price_in_expose'] ?? null)), 'hinweis');
+        hs_ang_log("Preis auf Anfrage: Objekt {$a['nr']}: price_on_inquiry="
+            . hs_ang_py_repr(hs_ang_roh($o['price_on_inquiry'] ?? null)), 'hinweis');
     }
     $a['preis_text'] = $a['preis'] ? hs_ang_euro($a['preis']) : 'Preis auf Anfrage';
 

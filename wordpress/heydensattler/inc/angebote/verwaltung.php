@@ -141,7 +141,7 @@ function hs_angebote_seite(): void {
     zuletzt geladenen Angebote online.</p>
   <p>Nie auf der Website: als privat markierte Bilder, Straße, Hausnummer und Koordinaten (nur PLZ und Ort),
     Eigentümer-, Makler- und Kontaktdaten. „Preis auf Anfrage“ steht da, wenn in Propstack „Preis auf Anfrage“ gesetzt
-    oder „Preis im Exposé anzeigen“ ausgeschaltet ist.</p>
+    ist.</p>
 <?php if ($beispiel !== '') : ?>
   <div class="notice notice-info inline"><p>Beispielmodus: Die Angebote kommen aus <code><?= esc_html($beispiel) ?></code>
     (Konstante <code>HS_ANGEBOTE_BEISPIEL</code>), nicht aus Propstack.</p></div>

@@ -26,6 +26,9 @@ Corporate Identity (Schriften, Farben, Bilder); neu sind das responsive Layout, 
 - `scripts/pages.py` – baut die Vorschau für GitHub Pages (Unterpfad, noindex)
 - `.github/workflows/pages.yml` – veröffentlicht `site/` bei jedem Push auf `main` und alle 30 Minuten auf GitHub
   Pages
+- `wordpress/heydensattler/` – dieselbe Website als WordPress-Theme (siehe [WordPress-Theme](#wordpress-theme)),
+  `wordpress/test/` ein lokales WordPress zum Testen
+- `scripts/theme.sh` – baut das installierbare Theme nach `_theme/` (Ordner und ZIP)
 
 ## Vorschau auf GitHub Pages
 
@@ -168,6 +171,84 @@ Mit `--jetzt "2027-01-15 08:00"` zeigt das Beispiel den Stand zu einem anderen Z
 inhalte/blog` die echten Beiträge, ebenfalls in `_beispiel-blog/`. Zusammen mit den Beispielangeboten:
 `python3 scripts/angebote.py --beispiel` und danach `.venv/bin/python scripts/blog.py --beispiel --ordner _beispiel`.
 
+## WordPress-Theme
+
+`wordpress/heydensattler/` ist die Website als Theme für das WordPress von heydensattler.com (IONOS, PHP 8.0).
+Seiten, Adressen, strukturierte Daten, Sitemap, `llms.txt` und Feed sind dieselben wie in `site/`, CSS und
+JavaScript auch: `scripts/theme.sh` kopiert sie aus `site/assets/` ins Theme.
+
+| Seite | Woher der Inhalt kommt |
+| --- | --- |
+| Startseite, Vermieten, Verkaufen | Vorlagen im Theme: `front-page.php`, `page-vermieten.php`, `page-verkaufen.php` (Ablauf in `template-parts/leistung.php`). Texte, Fragen und Ablauf dort ändern; das JSON-LD entsteht aus denselben Listen |
+| Blog | WordPress-Beiträge: Titel, Textauszug (= `description`), Beitragsbild (= `image`, Alternativtext aus der Mediathek) und das Feld „Autor“ in der Seitenleiste (Cedric Heyden, Anna Heyden oder HeydenSattler) |
+| Impressum, Datenschutzerklärung | normale Seiten aus dem Editor (`page.php`) |
+| Angebote | lädt das Theme selbst aus Propstack (siehe unten) |
+
+Geplante Beiträge erscheinen ab ihrem Datum, Entwürfe nie; vorher stehen sie nirgends (keine Karte, kein Feed, keine
+Sitemap, kein Menüpunkt). Ein Link aus einem anderen Beitrag auf einen geplanten Beitrag bleibt bis dahin nur Text,
+wie bisher in `blog.py`, ebenso HTML-Kommentare: Sie erscheinen nicht. Beiträge mit Passwort stehen nur unter ihrer
+eigenen Adresse (mit dem Passwortfeld von WordPress), nicht in Übersicht, Feed, Sitemap oder `llms.txt`. Ohne
+veröffentlichten Beitrag gibt es `/blog/`, den Feed und den Menüpunkt nicht.
+
+Die Adressen sind dieselben wie bisher, dazu `/blog/feed.xml`, `/sitemap.xml`, `/llms.txt` und `/robots.txt`; die
+eigene Sitemap von WordPress (`wp-sitemap.xml`) ist aus. `/leistungen/` führt zu den Leistungen auf der Startseite,
+Anhangseiten der Mediathek führen zur Datei.
+
+**Installieren:**
+
+```bash
+scripts/theme.sh
+```
+
+`_theme/heydensattler.zip` unter Design → Themes → Theme hochladen und aktivieren. Oben im Admin steht dann, was an
+den Einstellungen noch fehlt, mit dem Knopf „Jetzt einrichten“: Er legt fehlende Seiten an (Startseite, Blog,
+Leistungen mit Vermieten und Verkaufen), stellt Start- und Beitragsseite ein und setzt die Beitragsadressen auf
+`/blog/beitragsname/`. Bestehende Seiten bleiben, wie sie sind, auch unveröffentlichte; der Hinweis nennt sie dann.
+
+Vor dem Umstieg auf heydensattler.com:
+
+- Die 8 Beispielbeiträge des bisherigen Themes Sway („Hello world!“, „Classic“, „Video Post“ …) löschen, sonst
+  erscheinen sie im Blog; ebenso die Demoseiten (`/leistungen/team-members/`, `/portfolios/…` usw.).
+- Impressum und Datenschutzerklärung stecken in Layout-Shortcodes von WPBakery (`[vc_row]`, `[vc_column_text]` …).
+  Das Theme lässt die Hüllen weg und zeigt nur den Text, auch wenn WPBakery später abgeschaltet wird. Plugins, die
+  nur zum alten Theme gehören (WPBakery, Slider Revolution, KeyDesign Addon, Redux), danach prüfen und abschalten;
+  sie laden sonst weiter ihr CSS und JavaScript.
+- Liegt im Hauptverzeichnis des Servers eine echte `robots.txt`, `sitemap.xml` oder `llms.txt`, liefert der Server
+  diese statt der des Themes aus: dann löschen.
+- PHP braucht die Erweiterung mbstring; fehlt sie, sagt es der Hinweis im Admin. Getestet mit PHP 8.0 und 8.3.
+
+Eine neue Version ist dieselbe ZIP-Datei (WordPress fragt, ob es das Theme ersetzen soll), oder die Dateien werden
+über den alten Theme-Ordner kopiert. Danach ist nichts zu tun: Fehlt eine Adressregel des Themes in WordPress oder
+lautet sie anders, liest das Theme beim nächsten Aufruf alle Regeln neu ein. Die Version im Theme setzt
+`scripts/theme.sh` (Datum und Commit, `-lokal` bei ungespeicherten Änderungen, oder `VERSION=…`).
+
+**Angebote:** Das Theme lädt die Angebote alle 30 Minuten aus Propstack (WP-Cron) und speichert sie in WordPress; die
+Seiten zeigen immer den zuletzt gespeicherten Stand, Propstack wird beim Aufruf einer Seite nie gefragt. Regeln wie
+oben unter „Angebote aus Propstack“: dieselben Filter, dieselbe Obergrenze, nie private Bilder, Adressen oder
+Kontaktdaten. Scheitert ein Lauf, bleibt der bisherige Stand online.
+
+- Einstellungen → Angebote: Propstack-Schlüssel, API-Version, Portal-ID, Status und Höchstzahl, dazu „Jetzt
+  aktualisieren“, das Protokoll des letzten Laufs und „Diagnose starten“ (wie `angebote.py --diagnose`). Der
+  Schlüssel wird nach dem Speichern nie wieder angezeigt.
+- Statt im Admin auch in `wp-config.php`, dann ist das Feld gesperrt: `HS_PROPSTACK_API_KEY`,
+  `HS_PROPSTACK_API_VERSION`, `HS_PROPSTACK_PORTAL_ID`, `HS_PROPSTACK_STATUS`, `HS_PROPSTACK_MAX_ANGEBOTE`. Der
+  Schlüssel gehört nie ins Repository.
+- WP-Cron läuft nur, wenn jemand die Website aufruft. Pünktlicher ist, falls der IONOS-Tarif Cronjobs hat, einer, der
+  alle 15 Minuten `https://heydensattler.com/wp-cron.php` aufruft, mit `define('DISABLE_WP_CRON', true);` in
+  `wp-config.php`.
+
+**Lokal testen** (Docker und die Python-Umgebung aus „Blog“):
+
+```bash
+wordpress/test/einrichten.sh
+```
+
+Startet WordPress mit PHP 8.0 unter http://localhost:8733 (nur von diesem Rechner aus; Admin unter `/wp-admin/`,
+admin / admin), mit den Beispielbeiträgen aus `scripts/beispiel-blog/` (einer geplant, einer Entwurf), den Angeboten
+aus `scripts/beispiel-angebote.json` und einer Datenschutzerklärung in WPBakery-Shortcodes. WP-Cron läuft dort über
+den Container `cli` jede Minute. Theme und `site/assets/` sind eingehängt; Änderungen gelten beim nächsten Laden der
+Seite, neue Adressregeln auch. Von vorn: `docker compose -f wordpress/test/compose.yaml down -v`.
+
 ## Corporate Identity
 
 | Rolle | Wert |
@@ -192,4 +273,12 @@ der grauen Fläche). Weiße Schrift auf dem Mint (`#69E1A4`) hätte nur 1,6:1; d
 - Die eingecheckte Startseite enthält noch die Angebote vom 27.10.2026 (mit Links zu Propstack); im Build ersetzt
   sie `scripts/angebote.py`.
 - Impressum und Datenschutzerklärung verlinken noch auf die bestehenden Seiten.
-- `404.html` spricht nur von Angeboten; eine nicht mehr vorhandene Blogadresse zeigt denselben Text.
+- `404.html` spricht nur von Angeboten; eine nicht mehr vorhandene Blogadresse zeigt denselben Text (im Theme
+  ebenso, `404.php`).
+- Ziel für das Theme: Es liegt hier auf GitHub und wird hier bearbeitet; ein Tag spielt es per Pipeline auf das
+  WordPress bei IONOS. Die Inhalte in WordPress lassen sich über ein MCP-Plugin aus Claude bearbeiten. Noch nicht
+  eingerichtet: die Pipeline (dafür fehlt der Zugang zu IONOS) und das MCP-Plugin. Offen ist auch, ob die Texte von
+  Startseite, Vermieten und Verkaufen im Theme bleiben (Änderung über GitHub und Tag) oder nach WordPress umziehen
+  (Änderung über das MCP).
+- Solange beides läuft, gibt es die Seite zweimal: statisch in `site/` (Vorschau auf GitHub Pages) und als Theme.
+  Gemeinsam sind nur CSS und JavaScript; Texte und Vorlagen müssen in beiden geändert werden.

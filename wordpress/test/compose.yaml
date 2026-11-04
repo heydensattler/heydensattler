@@ -1,0 +1,62 @@
+# Lokales WordPress zum Testen des Themes, mit PHP 8.0 wie auf heydensattler.com. Start und Einrichtung:
+# wordpress/test/einrichten.sh, dann http://localhost:8733 (Admin: admin / admin unter /wp-admin/, nur von diesem
+# Rechner aus erreichbar). Das Theme ist eingehängt, nicht kopiert: Änderungen in wordpress/heydensattler/ und
+# site/assets/ gelten sofort.
+name: heydensattler-wp
+
+x-umgebung: &umgebung
+  WORDPRESS_DB_HOST: db
+  WORDPRESS_DB_USER: wp
+  WORDPRESS_DB_PASSWORD: wp
+  WORDPRESS_DB_NAME: wp
+  WORDPRESS_DEBUG: "1"
+  # Angebote aus den Beispieldaten statt aus Propstack. WP-Cron läuft über den Container cli (jede Minute) statt über
+  # Seitenaufrufe: Der Aufruf, mit dem WordPress sich dafür selbst anstößt, kommt in Docker oft nicht an.
+  WORDPRESS_CONFIG_EXTRA: |
+    define('HS_ANGEBOTE_BEISPIEL', '/beispiel/beispiel-angebote.json');
+    define('WP_DEBUG_LOG', true);
+    define('DISABLE_WP_CRON', true);
+
+x-theme: &theme
+  - html:/var/www/html
+  - ../heydensattler:/var/www/html/wp-content/themes/heydensattler
+  - ../../site/assets:/var/www/html/wp-content/themes/heydensattler/assets
+  - ../../site/wp-content/uploads/2022/05:/var/www/html/wp-content/themes/heydensattler/assets/bilder:ro
+  # Schriften (nach scripts/schriften.sh) an derselben Stelle wie auf heydensattler.com
+  - ../../site/wp-content/uploads/2022/05:/var/www/html/wp-content/uploads/2022/05:ro
+  - ../../scripts:/beispiel:ro
+  - .:/arbeit:ro
+
+services:
+  db:
+    image: mariadb:11
+    container_name: hs-wp-db
+    environment:
+      MARIADB_ROOT_PASSWORD: test
+      MARIADB_DATABASE: wp
+      MARIADB_USER: wp
+      MARIADB_PASSWORD: wp
+
+  wp:
+    image: wordpress:php8.0-apache
+    container_name: hs-wp
+    depends_on: [db]
+    # Apache auf 8733 auch im Container: So erreicht WordPress sich selbst unter http://localhost:8733 (WP-Cron,
+    # Website-Zustand), wie auf dem Server
+    command: ["sh", "-c", "sed -i 's/^Listen 80$/Listen 8733/' /etc/apache2/ports.conf && sed -i 's/:80>/:8733>/' /etc/apache2/sites-available/000-default.conf && exec docker-entrypoint.sh apache2-foreground"]
+    ports: ["127.0.0.1:8733:8733"]
+    environment: *umgebung
+    volumes: *theme
+
+  cli:
+    image: wordpress:cli-php8.0
+    container_name: hs-wp-cli
+    depends_on: [db]
+    user: "33:33"
+    environment: *umgebung
+    volumes: *theme
+    # Fällige Aufgaben von WP-Cron jede Minute, wie ein Cronjob auf dem Server (z. B. die Angebote alle 30 Minuten)
+    entrypoint: ["sh", "-c", "while :; do wp cron event run --due-now --quiet --path=/var/www/html >/dev/null 2>&1; sleep 60; done"]
+
+volumes:
+  html:

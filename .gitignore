@@ -10,3 +10,7 @@ site/blog/
 _beispiel-blog/
 # Lokale Python-Umgebung (pip install -r requirements.txt)
 .venv/
+# Gebautes WordPress-Theme (scripts/theme.sh)
+_theme/
+# Beispielbeiträge für das Test-WordPress (wordpress/test/beitraege.py)
+wordpress/test/_import/

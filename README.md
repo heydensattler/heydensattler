@@ -222,6 +222,21 @@ Eine neue Version ist dieselbe ZIP-Datei (WordPress fragt, ob es das Theme erset
 lautet sie anders, liest das Theme beim nächsten Aufruf alle Regeln neu ein. Die Version im Theme setzt
 `scripts/theme.sh` (Datum und Commit, `-lokal` bei ungespeicherten Änderungen, oder `VERSION=…`).
 
+**Veröffentlichen per Tag:** Ein Tag `v…` auf einem Commit von `main` spielt das Theme auf heydensattler.com
+(`.github/workflows/theme.yml`):
+
+```bash
+git tag v2026.11.04.1 && git push origin v2026.11.04.1
+```
+
+Der Workflow baut das Theme mit dem Tag als Version, prüft die PHP-Syntax mit PHP 8.0, lädt es per SFTP in einen
+neuen Ordner und tauscht ihn gegen den alten (der als `heydensattler.alt` bis zum nächsten Mal liegen bleibt). Der
+Server muss den Schlüssel haben, den IONOS veröffentlicht. Zum Schluss prüft er, dass
+`/wp-content/themes/heydensattler/style.css` die neue Version zeigt. Zugang im GitHub-Environment `production`:
+`IONOS_SFTP_HOST`, `IONOS_SFTP_USER`, `IONOS_SFTP_PASSWORD`, `IONOS_THEME_DIR`
+(`/clickandbuilds/Heydensattler/wp-content/themes`). Zurück auf eine frühere Version: den Lauf ihres Tags unter
+Actions neu starten.
+
 **Angebote:** Das Theme lädt die Angebote alle 30 Minuten aus Propstack (WP-Cron) und speichert sie in WordPress; die
 Seiten zeigen immer den zuletzt gespeicherten Stand, Propstack wird beim Aufruf einer Seite nie gefragt. Regeln wie
 oben unter „Angebote aus Propstack“: dieselben Filter, dieselbe Obergrenze, nie private Bilder, Adressen oder

@@ -1,0 +1,99 @@
+# Spielt das WordPress-Theme bei einem Tag v… auf heydensattler.com (IONOS). Das Theme stellt sich danach selbst
+# ein (fehlende Adressregeln liest es neu ein); weiter ist auf dem Server nichts zu tun.
+#
+# Zugang im Environment „production“ (Settings → Environments): IONOS_SFTP_HOST, IONOS_SFTP_USER,
+# IONOS_SFTP_PASSWORD und IONOS_THEME_DIR (der Ordner wp-content/themes aus Sicht des SFTP-Zugangs).
+name: Theme nach IONOS
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+# Nie zwei Deploys gleichzeitig; ein neuer wartet, statt einen laufenden abzubrechen
+concurrency:
+  group: theme-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Nur Tags auf main
+        run: |
+          git fetch origin main
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "::error::Der Tag $GITHUB_REF_NAME zeigt auf einen Commit, der nicht auf main liegt."
+            exit 1
+          fi
+
+      - name: Theme bauen
+        run: VERSION="${GITHUB_REF_NAME#v}" scripts/theme.sh
+
+      # Auf dem Server läuft PHP 8.0; die Syntax muss dort gehen
+      - name: PHP-Syntax prüfen (PHP 8.0)
+        run: |
+          docker run --rm -v "$PWD/_theme/heydensattler:/theme:ro" php:8.0-cli sh -c '
+            fehler=0
+            for f in $(find /theme -name "*.php"); do
+              ausgabe="$(php -l "$f" 2>&1)" || { echo "$ausgabe"; fehler=1; }
+            done
+            exit $fehler'
+
+      # Nur der Schlüssel, den IONOS veröffentlicht, wird akzeptiert:
+      # https://www.ionos.de/hilfe/hosting/ssh-zugaenge-einrichten-und-verwalten/uebersicht-der-ssh-fingerabdruecke-im-ionos-webhosting/
+      - name: Server prüfen
+        env:
+          HOST: ${{ secrets.IONOS_SFTP_HOST }}
+        run: |
+          ssh-keyscan -t ed25519 "$HOST" 2>/dev/null > known_hosts
+          fingerabdruck="$(ssh-keygen -lf known_hosts | awk '{print $2}')"
+          if [ "$fingerabdruck" != "SHA256:1gx2w8Rtv3wCgi7Jh8myf/KVd72cRQbow03UP8P095Q" ]; then
+            echo "::error::Unerwarteter Schlüssel des Servers ($fingerabdruck); Abbruch."
+            exit 1
+          fi
+
+      # Erst in einen neuen Ordner, dann tauschen: Ein Abbruch beim Hochladen lässt die laufende Version stehen.
+      # Der alte Stand bleibt als heydensattler.alt bis zum nächsten Deploy liegen.
+      - name: Hochladen
+        env:
+          HOST: ${{ secrets.IONOS_SFTP_HOST }}
+          BENUTZER: ${{ secrets.IONOS_SFTP_USER }}
+          LFTP_PASSWORD: ${{ secrets.IONOS_SFTP_PASSWORD }}
+          ZIEL: ${{ secrets.IONOS_THEME_DIR }}
+        run: |
+          sudo apt-get install -y -qq lftp >/dev/null
+          lftp --env-password -u "$BENUTZER" "sftp://$HOST" <<EOF
+          set net:max-retries 3
+          set sftp:connect-program "ssh -a -x -o UserKnownHostsFile=$PWD/known_hosts -o StrictHostKeyChecking=yes"
+          set cmd:fail-exit yes
+          cd "$ZIEL"
+          set cmd:fail-exit no
+          rm -rf heydensattler.neu
+          set cmd:fail-exit yes
+          mirror -R --parallel=4 _theme/heydensattler heydensattler.neu
+          set cmd:fail-exit no
+          rm -rf heydensattler.alt
+          mv heydensattler heydensattler.alt
+          set cmd:fail-exit yes
+          mv heydensattler.neu heydensattler
+          EOF
+
+      - name: Auf der Website prüfen
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          sleep 5
+          live="$(curl -fsS "https://heydensattler.com/wp-content/themes/heydensattler/style.css" | sed -n 's/^Version: //p')"
+          if [ "$live" != "$version" ]; then
+            echo "::error::Auf dem Server steht Version '$live', erwartet '$version'."
+            exit 1
+          fi
+          curl -fsS -o /dev/null https://heydensattler.com/
+          echo "Theme $version ist auf heydensattler.com."

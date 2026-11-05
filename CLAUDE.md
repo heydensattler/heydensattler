@@ -56,9 +56,9 @@ Servernamen oder Schlüssel in Dateien oder Commits.
 - Offen bei IONOS: PHP von 8.0 auf 8.3 umstellen (live PHP 8.0.30; PHP Extended Support kostet laut Preisliste
   rund 15,62 € im Monat); einen Cronjob auf `wp-cron.php` alle 15 Minuten mit `DISABLE_WP_CRON` (der Tarif hat
   Cronjobs).
-- Offen bei IONOS (DNS): `www.heydensattler.com` geht nicht. Der `www`-Eintrag zeigt noch auf Perspective
-  (`cname.perspective-dns.com`, früherer Funnel); https scheitert am Zertifikat, http zeigt „Error 1001“. Der
-  Eintrag muss auf die Website zeigen, das SSL-Zertifikat `www` abdecken und www auf heydensattler.com weiterleiten.
+- www (05.11.): Der DNS-Eintrag `www` ist ein A-Eintrag auf den IONOS-Server (vorher CNAME auf Perspective). Ein
+  AAAA-Eintrag für www geht bei IONOS nicht, ohne den A-Eintrag zu verlieren. Das Zertifikat gilt für
+  `*.heydensattler.com`; das Theme leitet jeden anderen Namen per 301 auf heydensattler.com (`grundlagen.php`).
 - Offen: `site/` und die GitHub-Pages-Vorschau abschalten, damit es die Seite nur einmal gibt.
 - Kleinere Punkte: `404.php`/`404.html` sprechen nur von Angeboten, auch bei einer alten Blogadresse. Die Workflows
   warnen vor dem Ende von Node.js 20 (Actions in `@v4`/`@v5`) und dem Wechsel von `ubuntu-latest` auf Ubuntu 26.

@@ -28,7 +28,7 @@ Servernamen oder Schlüssel in Dateien oder Commits.
   Konstanten `HS_PROPSTACK_*` in `wp-config.php`. Seiten lesen nur den gespeicherten Stand.
 - Nach dem Hochladen stellt sich das Theme selbst ein: fehlt eine seiner Adressregeln (`hs_regel()`), liest es die
   Regeln neu ein. Kein Klick in WordPress nötig.
-- Läuft mit PHP 8.0 (live) und 8.3; keine Sprachmittel neuer als PHP 8.0.
+- Läuft live mit PHP 8.3 (seit 05.11.2026); keine Sprachmittel neuer als PHP 8.0, der Deploy prüft mit 8.0.
 
 ## Deploy
 
@@ -43,19 +43,22 @@ Servernamen oder Schlüssel in Dateien oder Commits.
 
 ## Stand (05.11.2026)
 
-- Das Theme „HeydenSattler“ ist live (zuletzt `v2026.11.05.5`) und lädt die Angebote selbst aus Propstack. Auf
+- Das Theme „HeydenSattler“ ist live (zuletzt `v2026.11.05.7`) und lädt die Angebote selbst aus Propstack. Auf
   den Seiten laden keine Plugins mehr etwas; `/blog/` gibt 404 (noch keine Beiträge).
 - Seit 05.11.: Der Preis ist nur bei „Preis auf Anfrage“ (`price_on_inquiry`) verborgen; `show_price_in_expose`
   zählt nicht, die API meldete es bei Objekten mit sichtbarem Preis als aus. Favicon ist das alte Website-Icon von
   2022 (grünes HS-Zeichen, transparent; Apple-Touch-Icon mit weißem Grund). `/favicon.ico` erreicht WordPress bei
   IONOS nie, darum legt der Deploy die Datei in den Hauptordner (die alte liegt dort als `favicon.ico.alt`).
-- Offen in WordPress (Sven), nicht von außen prüfbar:
-  1. Plugins des alten Themes Sway prüfen und abschalten (WPBakery, Slider Revolution, KeyDesign Addon, Redux,
-     WooCommerce 7.4.2, onOffice), vor allem das alte WooCommerce.
-  2. Die 8 Demo-Beiträge und die Demoseiten von Sway löschen, falls noch da (sonst erscheinen sie im Blog).
-- Offen bei IONOS: PHP von 8.0 auf 8.3 umstellen (live PHP 8.0.30; PHP Extended Support kostet laut Preisliste
-  rund 15,62 € im Monat); einen Cronjob auf `wp-cron.php` alle 15 Minuten mit `DISABLE_WP_CRON` (der Tarif hat
-  Cronjobs).
+- Aufgeräumt am 05.11.: Die Plugins von Sway (WooCommerce, WPBakery, Slider Revolution, KeyDesign Addon, Redux,
+  onOffice, Contact Form 7, Envato Market) und die Themes Sway/Sway Child sind gelöscht; übrig sind Really Simple
+  SSL und Twenty Twenty-Five als Reserve. Die Subdomain `tour` (Ogulo-Rundgänge) ist gelöscht. PHP 8.3 auf
+  heydensattler.com und `s912022626.online.de`; der Zusatzartikel „PHP 8.0 Extended Support“ ist zum 25.11.2026
+  gekündigt. Jede Adresse über http oder einen anderen Namen leitet per 301 auf https://heydensattler.com.
+- WP-Cron: Cronjobs bei IONOS gehen im Tarif nur täglich, darum ruft `.github/workflows/wp-cron.yml` alle
+  15 Minuten `wp-cron.php` auf (ohne `DISABLE_WP_CRON`, damit Besuche es weiter anstoßen, falls GitHub den Workflow
+  pausiert).
+- Offen in WordPress (Sven): Die 8 Demo-Beiträge und Demoseiten von Sway löschen, falls noch da (sonst erscheinen
+  sie im Blog).
 - www (05.11.): Der DNS-Eintrag `www` ist ein A-Eintrag auf den IONOS-Server (vorher CNAME auf Perspective). Ein
   AAAA-Eintrag für www geht bei IONOS nicht, ohne den A-Eintrag zu verlieren. Das Zertifikat gilt für
   `*.heydensattler.com`; das Theme leitet jeden anderen Namen per 301 auf heydensattler.com (`grundlagen.php`).

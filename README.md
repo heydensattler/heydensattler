@@ -291,9 +291,11 @@ der grauen Fläche). Weiße Schrift auf dem Mint (`#69E1A4`) hätte nur 1,6:1; d
 - Impressum und Datenschutzerklärung verlinken noch auf die bestehenden Seiten.
 - `404.html` spricht nur von Angeboten; eine nicht mehr vorhandene Blogadresse zeigt denselben Text (im Theme
   ebenso, `404.php`).
+- `www.heydensattler.com` geht nicht: Der DNS-Eintrag zeigt noch auf Perspective. Er muss bei IONOS auf die
+  Website zeigen, mit Zertifikat für `www` und Weiterleitung auf heydensattler.com.
 - Ziel für das Theme: Es liegt hier auf GitHub und wird hier bearbeitet; ein Tag spielt es per Pipeline auf das
-  WordPress bei IONOS. Die Inhalte in WordPress lassen sich über ein MCP-Plugin aus Claude bearbeiten. Noch nicht
-  eingerichtet: die Pipeline (dafür fehlt der Zugang zu IONOS) und das MCP-Plugin. Offen ist auch, ob die Texte von
+  WordPress bei IONOS (läuft, das Theme ist live). Die Inhalte in WordPress lassen sich über ein MCP-Plugin aus
+  Claude bearbeiten; das ist noch nicht eingerichtet. Offen ist auch, ob die Texte von
   Startseite, Vermieten und Verkaufen im Theme bleiben (Änderung über GitHub und Tag) oder nach WordPress umziehen
   (Änderung über das MCP).
 - Solange beides läuft, gibt es die Seite zweimal: statisch in `site/` (Vorschau auf GitHub Pages) und als Theme.

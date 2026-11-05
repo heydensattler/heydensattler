@@ -75,12 +75,15 @@ add_filter('request', function (array $werte) {
     return $werte;
 });
 
-// Eine Adresse für alles: Wer über einen anderen Namen kommt (www.), landet auf der Adresse der Website. Die
-// Weiterleitung von WordPress (redirect_canonical) lässt Angebote, Suche, sitemap.xml und llms.txt aus.
+// Eine Adresse für alles: Wer über einen anderen Namen (www.) oder über http kommt, landet auf der Adresse der
+// Website. Die Weiterleitung von WordPress (redirect_canonical) lässt Angebote, Suche, sitemap.xml und llms.txt
+// aus und bei Seiten auch http.
 add_action('template_redirect', function () {
     $host = wp_parse_url(home_url(), PHP_URL_HOST);
     $anfrage = strtolower(preg_replace('/:\d+$/', '', (string) ($_SERVER['HTTP_HOST'] ?? '')));
-    if ($host && $anfrage !== '' && $anfrage !== $host && in_array($_SERVER['REQUEST_METHOD'] ?? 'GET', ['GET', 'HEAD'], true)) {
+    $anderer_name = $host && $anfrage !== '' && $anfrage !== $host;
+    $ohne_https = !is_ssl() && wp_parse_url(home_url(), PHP_URL_SCHEME) === 'https';
+    if (($anderer_name || $ohne_https) && in_array($_SERVER['REQUEST_METHOD'] ?? 'GET', ['GET', 'HEAD'], true)) {
         wp_safe_redirect(home_url($_SERVER['REQUEST_URI'] ?? '/'), 301);
         exit;
     }

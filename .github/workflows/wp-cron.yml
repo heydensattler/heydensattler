@@ -1,0 +1,31 @@
+# Stößt alle 15 Minuten WP-Cron auf heydensattler.com an (Angebote aus Propstack, geplante Beiträge). Ohne Anstoß
+# läuft WP-Cron nur bei Besuchen; Cronjobs bei IONOS gehen im Tarif WP Business höchstens täglich.
+# GitHub pausiert zeitgesteuerte Workflows nach 60 Tagen ohne Aktivität im Repository (E-Mail vorher); dann unter
+# Actions → WP-Cron „Enable workflow“. Bis dahin läuft WP-Cron weiter bei Besuchen.
+name: WP-Cron
+
+on:
+  schedule:
+    - cron: "7,22,37,52 * * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: wp-cron
+  cancel-in-progress: false
+
+jobs:
+  anstossen:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: wp-cron.php aufrufen
+        run: |
+          status="$(curl -sS -o /dev/null -w '%{http_code}' --max-time 120 -A 'heydensattler.com-WP-Cron' \
+            'https://heydensattler.com/wp-cron.php?doing_wp_cron')"
+          echo "Antwort: $status"
+          if [ "$status" != "200" ]; then
+            echo "::error::wp-cron.php antwortete mit $status."
+            exit 1
+          fi

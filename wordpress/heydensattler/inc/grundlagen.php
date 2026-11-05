@@ -75,6 +75,17 @@ add_filter('request', function (array $werte) {
     return $werte;
 });
 
+// Eine Adresse für alles: Wer über einen anderen Namen kommt (www.), landet auf der Adresse der Website. Die
+// Weiterleitung von WordPress (redirect_canonical) lässt Angebote, Suche, sitemap.xml und llms.txt aus.
+add_action('template_redirect', function () {
+    $host = wp_parse_url(home_url(), PHP_URL_HOST);
+    $anfrage = strtolower(preg_replace('/:\d+$/', '', (string) ($_SERVER['HTTP_HOST'] ?? '')));
+    if ($host && $anfrage !== '' && $anfrage !== $host && in_array($_SERVER['REQUEST_METHOD'] ?? 'GET', ['GET', 'HEAD'], true)) {
+        wp_safe_redirect(home_url($_SERVER['REQUEST_URI'] ?? '/'), 301);
+        exit;
+    }
+}, 0);
+
 // /leistungen/ gibt es nur als Elternseite von Vermieten und Verkaufen (für die Adressen); sie führt zu den
 // Leistungen auf der Startseite, wie im Brotkrümelpfad
 add_action('template_redirect', function () {

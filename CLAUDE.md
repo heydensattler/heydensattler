@@ -41,21 +41,22 @@ Servernamen oder Schlüssel in Dateien oder Commits.
 - Tags nur, wenn Sven es will. Die Logs der Läufe sind öffentlich, darum Diagnosen ohne Servernamen
   (`::notice::`-Hinweise sind ohne Anmeldung über die API lesbar).
 
-## Stand (04.11.2026)
+## Stand (05.11.2026)
 
-- Theme fertig, gegen die statische Seite verglichen, von Agenten geprüft (alle Befunde behoben), committet.
-- Deploy funktioniert: `v2026.11.04.5` liegt auf dem Server unter `wp-content/themes/heydensattler`, ist aber
-  **nicht aktiviert** – live läuft noch das alte Theme Sway (sway-child) mit WPBakery, Slider Revolution,
-  KeyDesign Addon, Redux, WooCommerce 7.4.2 und onOffice. Die Tags `.1` bis `.4` waren Fehlversuche ohne Upload.
-- Offen für den Umstieg (Sven, in WordPress):
-  1. Die 8 Demo-Beiträge und die Demoseiten von Sway löschen (sonst erscheinen sie im Blog).
-  2. Theme „HeydenSattler“ aktivieren, im Admin-Hinweis „Jetzt einrichten“ (Start- und Beitragsseite, Permalinks
-     `/blog/%postname%/`, fehlende Seiten).
-  3. Propstack-Schlüssel unter Einstellungen → Angebote, dann „Jetzt aktualisieren“.
-  4. Danach Plugins des alten Themes prüfen und abschalten.
-- Offen bei IONOS: PHP von 8.0 auf 8.3 umstellen (PHP Extended Support kostet laut Preisliste rund 15,62 € im
-  Monat); einen Cronjob auf `wp-cron.php` alle 15 Minuten mit `DISABLE_WP_CRON` (der Tarif hat Cronjobs).
-- Wenn das Theme live ist: `site/` und die GitHub-Pages-Vorschau abschalten, damit es die Seite nur einmal gibt.
+- Das Theme „HeydenSattler“ ist live (zuletzt `v2026.11.05.5`) und lädt die Angebote selbst aus Propstack. Auf
+  den Seiten laden keine Plugins mehr etwas; `/blog/` gibt 404 (noch keine Beiträge).
+- Seit 05.11.: Der Preis ist nur bei „Preis auf Anfrage“ (`price_on_inquiry`) verborgen; `show_price_in_expose`
+  zählt nicht, die API meldete es bei Objekten mit sichtbarem Preis als aus. Favicon ist das alte Website-Icon von
+  2022 (grünes HS-Zeichen, transparent; Apple-Touch-Icon mit weißem Grund). `/favicon.ico` erreicht WordPress bei
+  IONOS nie, darum legt der Deploy die Datei in den Hauptordner (die alte liegt dort als `favicon.ico.alt`).
+- Offen in WordPress (Sven), nicht von außen prüfbar:
+  1. Plugins des alten Themes Sway prüfen und abschalten (WPBakery, Slider Revolution, KeyDesign Addon, Redux,
+     WooCommerce 7.4.2, onOffice), vor allem das alte WooCommerce.
+  2. Die 8 Demo-Beiträge und die Demoseiten von Sway löschen, falls noch da (sonst erscheinen sie im Blog).
+- Offen bei IONOS: PHP von 8.0 auf 8.3 umstellen (live PHP 8.0.30; PHP Extended Support kostet laut Preisliste
+  rund 15,62 € im Monat); einen Cronjob auf `wp-cron.php` alle 15 Minuten mit `DISABLE_WP_CRON` (der Tarif hat
+  Cronjobs).
+- Offen: `site/` und die GitHub-Pages-Vorschau abschalten, damit es die Seite nur einmal gibt.
 
 ## Ziel und offene Entscheidungen
 

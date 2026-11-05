@@ -23,21 +23,18 @@ Corporate Identity (Schriften, Farben, Bilder); neu sind das responsive Layout, 
 - `scripts/beispiel-angebote.json` – drei Beispielobjekte in der Struktur der Propstack-API V2
 - `scripts/blog.py` – erzeugt den Blog aus `inhalte/blog/` (siehe unten), `scripts/beispiel-blog/` Beispielbeiträge
 - `requirements.txt` – Python-Markdown in fester Version, für `scripts/blog.py` und die Beispielbeiträge des Test-WordPress
-- `scripts/pages.py` – baut die Vorschau für GitHub Pages (Unterpfad, noindex)
-- `.github/workflows/pages.yml` – veröffentlicht `site/` bei jedem Push auf `main` und alle 30 Minuten auf GitHub
-  Pages
+- `.github/workflows/theme.yml` – spielt das Theme bei einem Tag `v…` auf heydensattler.com,
+  `.github/workflows/wp-cron.yml` stößt dort alle 15 Minuten WP-Cron an
 - `wordpress/heydensattler/` – dieselbe Website als WordPress-Theme (siehe [WordPress-Theme](#wordpress-theme)),
   `wordpress/test/` ein lokales WordPress zum Testen
 - `scripts/theme.sh` – baut das installierbare Theme nach `_theme/` (Ordner und ZIP)
 
-## Vorschau auf GitHub Pages
+## Vorschau auf GitHub Pages (abgeschaltet)
 
-https://svenfritsch.github.io/heydensattler/
-
-Die Vorschau ist für Suchmaschinen gesperrt, damit sie nicht mit heydensattler.com konkurriert. Die Söhne-Schriften
-lädt der Build nur, wenn die Repository-Variable `SCHRIFTEN_LADEN` auf `true` steht (Settings → Secrets and
-variables → Actions → Variables); sonst zeigt die Vorschau die Ersatzschrift. Einmalig nötig: Settings → Pages →
-Source „GitHub Actions“.
+Bis zum 05.11.2026 lief `site/` als Vorschau auf GitHub Pages. Seit das Theme live ist, gibt es die Seite nur noch
+auf heydensattler.com; Workflow und Build-Skript sind entfernt. `site/` bleibt als Quelle für CSS und JavaScript
+(`scripts/theme.sh` kopiert `site/assets/` ins Theme) und lässt sich weiter lokal ansehen (siehe unten). Texte und
+Vorlagen ändern sich nur noch im Theme.
 
 ## Lokal ansehen
 
@@ -289,12 +286,10 @@ der grauen Fläche). Weiße Schrift auf dem Mint (`#69E1A4`) hätte nur 1,6:1; d
 - Die eingecheckte Startseite enthält noch die Angebote vom 27.10.2026 (mit Links zu Propstack); im Build ersetzt
   sie `scripts/angebote.py`.
 - Impressum und Datenschutzerklärung verlinken noch auf die bestehenden Seiten.
-- `404.html` spricht nur von Angeboten; eine nicht mehr vorhandene Blogadresse zeigt denselben Text (im Theme
-  ebenso, `404.php`).
 - Ziel für das Theme: Es liegt hier auf GitHub und wird hier bearbeitet; ein Tag spielt es per Pipeline auf das
   WordPress bei IONOS (läuft, das Theme ist live). Die Inhalte in WordPress lassen sich über ein MCP-Plugin aus
   Claude bearbeiten; das ist noch nicht eingerichtet. Offen ist auch, ob die Texte von
   Startseite, Vermieten und Verkaufen im Theme bleiben (Änderung über GitHub und Tag) oder nach WordPress umziehen
   (Änderung über das MCP).
-- Solange beides läuft, gibt es die Seite zweimal: statisch in `site/` (Vorschau auf GitHub Pages) und als Theme.
-  Gemeinsam sind nur CSS und JavaScript; Texte und Vorlagen müssen in beiden geändert werden.
+- `site/` ist seit dem 05.11.2026 nicht mehr online; Texte und Vorlagen dort (auch `404.html`) bleiben auf dem
+  Stand von damals.

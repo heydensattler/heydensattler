@@ -7,12 +7,12 @@ Servernamen oder Schlüssel in Dateien oder Commits.
 
 ## Zwei Fassungen derselben Seite
 
-- `site/` – die statische Seite (Vorschau auf GitHub Pages), mit `scripts/angebote.py` (Propstack) und
+- `site/` – die statische Seite (bis 05.11.2026 Vorschau auf GitHub Pages, jetzt nur noch lokal), mit `scripts/angebote.py` (Propstack) und
   `scripts/blog.py` (Markdown-Blog). Referenz für Aussehen und Inhalt.
 - `wordpress/heydensattler/` – dieselbe Seite als WordPress-Theme für das WordPress bei IONOS. Es muss die statische
   Seite genau wiedergeben („so wie sie ist“): HTML, JSON-LD, Sitemap, `llms.txt`, `robots.txt`, Feed. Gemeinsam sind
-  nur CSS und JavaScript (`site/assets/`, `scripts/theme.sh` kopiert sie ins Theme). Texte und Vorlagen ändern sich
-  in beiden, solange beide laufen.
+  nur CSS und JavaScript (`site/assets/`, `scripts/theme.sh` kopiert sie ins Theme). Seit die Vorschau aus ist
+  (05.11.2026), ändern sich Texte und Vorlagen nur noch im Theme; `site/` bleibt auf dem Stand von damals.
 - Prüfen: `wordpress/test/einrichten.sh` (Docker, PHP 8.0, http://localhost:8733) und dann die Seiten mit
   `python3 scripts/angebote.py --beispiel` und `.venv/bin/python scripts/blog.py --beispiel --ordner _beispiel`
   (Ausgabe in `_beispiel/`) vergleichen. Abweichen dürfen nur absolute statt relative Adressen, Bilder aus der
@@ -62,10 +62,11 @@ Servernamen oder Schlüssel in Dateien oder Commits.
 - www (05.11.): Der DNS-Eintrag `www` ist ein A-Eintrag auf den IONOS-Server (vorher CNAME auf Perspective). Ein
   AAAA-Eintrag für www geht bei IONOS nicht, ohne den A-Eintrag zu verlieren. Das Zertifikat gilt für
   `*.heydensattler.com`; das Theme leitet jeden anderen Namen per 301 auf heydensattler.com (`grundlagen.php`).
-- Offen: `site/` und die GitHub-Pages-Vorschau abschalten, damit es die Seite nur einmal gibt.
-- Kleinere Punkte: `404.php`/`404.html` sprechen nur von Angeboten, auch bei einer alten Blogadresse. Die Workflows
-  warnen vor dem Ende von Node.js 20 (Actions in `@v4`/`@v5`) und dem Wechsel von `ubuntu-latest` auf Ubuntu 26.
-  `favicon.ico.alt` (WordPress-Logo) im Hauptordner auf dem Server kann weg.
+- Vorschau auf GitHub Pages seit 05.11. abgeschaltet (`pages.yml`, `scripts/pages.py` entfernt). `site/` bleibt
+  Quelle für `site/assets/`; Texte und Vorlagen ändern sich nur noch im Theme.
+- `404.php` unterscheidet seit 05.11. verschwundene Angebote (`/angebote/…`) von anderen Adressen. Workflows nutzen
+  `actions/checkout@v5` (Node.js 24) und `ubuntu-24.04`. Offen: `favicon.ico.alt` (WordPress-Logo) im Hauptordner
+  auf dem Server kann weg.
 
 ## Ziel und offene Entscheidungen
 

@@ -72,10 +72,10 @@ Servernamen oder Schlüssel in Dateien oder Commits.
 
 - Ziel: Das Theme liegt auf GitHub und wird dort von Claude bearbeitet (Cloud-Workspace); ein Tag spielt es nach
   IONOS (erledigt). Inhalte in WordPress bearbeitet Claude über ein MCP.
-- MCP (noch nicht eingerichtet): Empfehlung aus der Recherche vom 04.11.2026 – offizielles Plugin „MCP Adapter“
-  (vor 1.0) mit eigenen Abilities im Theme, eigener WordPress-Benutzer mit wenigen Rechten (Entwürfe, kein
-  Veröffentlichen, kein Löschen) und Anwendungspasswort. Claude Code kann es per Header nutzen; claude.ai braucht
-  OAuth, das der Adapter noch nicht hat. Erst auf einer Kopie testen.
+- MCP (Einrichtung ab 06.11.2026): offizielles Plugin „MCP Adapter“, eigene Abilities im Theme (`inc/mcp.php`:
+  Beiträge auflisten, lesen, anlegen/ändern/veröffentlichen, Bilder hochladen; nichts löschen, keine Seiten), eigener
+  WordPress-Benutzer `claude` mit Rolle „Autor“ (entschieden: darf veröffentlichen) und Anwendungspasswort. Claude
+  Code nutzt es per Basic-Auth-Header auf `/wp-json/mcp/mcp-adapter-default-server`; claude.ai braucht OAuth, das
+  der Adapter noch nicht hat.
 - Offen: Bleiben die Texte von Startseite, Vermieten und Verkaufen im Theme (Änderung über GitHub und Tag;
   Empfehlung für jetzt) oder ziehen sie nach WordPress um, damit das MCP sie ändern kann?
-- Offen: Darf Claude über das MCP veröffentlichen oder nur Entwürfe anlegen (Empfehlung: nur Entwürfe)?

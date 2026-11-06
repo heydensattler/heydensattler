@@ -21,3 +21,4 @@ require __DIR__ . '/inc/blog.php';
 require __DIR__ . '/inc/angebote.php';
 require __DIR__ . '/inc/dateien.php';
 require __DIR__ . '/inc/einrichtung.php';
+require __DIR__ . '/inc/mcp.php';

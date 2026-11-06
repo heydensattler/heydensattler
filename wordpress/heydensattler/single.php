@@ -1,5 +1,5 @@
 <?php
-// Ein Blogbeitrag: Titel mit Autor, Datum und Lesedauer, Bild, Text, Autor, Kontakt und Nachbarbeiträge
+// Ein Blogbeitrag: Titel mit Autor, Datum und Lesedauer, Text, Autor, Kontakt und Nachbarbeiträge
 
 defined('ABSPATH') || exit;
 
@@ -67,11 +67,8 @@ get_header();
   <section class="abschnitt">
     <div class="wrap">
     <article class="beitrag">
-<?php if ($b['bild']) : ?>
-      <figure class="beitrag-bild"><?= wp_get_attachment_image($b['bild']['id'], 'full', false,
-          ['alt' => $b['bild']['alt'], 'fetchpriority' => 'high', 'loading' => false, 'decoding' => false,
-              'sizes' => '(min-width: 800px) 760px, 100vw']) ?></figure>
-<?php endif; ?>
+<?php // Das Beitragsbild (Titelgrafik im Instagram-Stil) erscheint nur auf den Karten und als Vorschaubild beim Teilen,
+      // nicht über dem Text: Es wiederholt den Titel (Entscheidung der Nutzerin, 06.11.2026). ?>
       <div class="beitrag-text">
 <?= $b['html'] ?>
       </div>

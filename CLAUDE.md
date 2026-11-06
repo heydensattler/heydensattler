@@ -21,7 +21,8 @@ Servernamen oder Schlüssel in Dateien oder Commits.
 ## Was im Theme wo herkommt
 
 - Startseite, Vermieten, Verkaufen, 404: Vorlagen im Theme (Texte, FAQ und JSON-LD aus denselben Listen).
-- Blog: WordPress-Beiträge (Auszug = description, Beitragsbild = image, Feld „Autor“). Geplante Beiträge, Entwürfe
+- Blog: WordPress-Beiträge (Auszug = description, Beitragsbild = image, Feld „Autor“). Das Beitragsbild erscheint nur
+  auf den Karten und als Vorschaubild beim Teilen, nicht über dem Text. Geplante Beiträge, Entwürfe
   und Beiträge mit Passwort erscheinen in keiner Liste, keinem Feed, keiner Sitemap; Links auf sie bleiben Text.
 - Impressum, Datenschutz: normale Seiten; ihre WPBakery-Shortcodes (`[vc_row]` …) blendet das Theme aus.
 - Angebote: das Theme lädt sie alle 30 Minuten selbst aus Propstack (WP-Cron), Einstellungen → Angebote oder

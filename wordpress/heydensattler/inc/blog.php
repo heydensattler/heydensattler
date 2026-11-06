@@ -150,7 +150,7 @@ function hs_beitrag_html(WP_Post $beitrag): string {
     // Block-Kommentare <!-- wp:… --> braucht WordPress noch
     $inhalt = preg_replace('/<!--(?!\s*\/?wp:).*?-->/s', '', hs_ohne_wpbakery_huellen($beitrag->post_content));
     // Filter und Shortcodes erwarten den Beitrag als globalen $post. Bilder im Text laden erst beim Scrollen,
-    // wie bisher; zuerst lädt das Beitragsbild.
+    // wie bisher.
     $vorher = $GLOBALS['post'] ?? null;
     $GLOBALS['post'] = $beitrag;
     setup_postdata($beitrag);

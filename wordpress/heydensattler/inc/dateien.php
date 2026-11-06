@@ -1,6 +1,6 @@
 <?php
-// Dateien neben den Seiten: /sitemap.xml, /llms.txt, /blog/feed.xml und robots.txt, mit denselben Inhalten wie
-// bisher im statischen site/. Die eigene Sitemap von WordPress (wp-sitemap.xml) ist aus, damit es nur eine gibt.
+// Dateien neben den Seiten: /sitemap.xml, /llms.txt, /immobilienwissen/feed.xml und robots.txt, mit denselben
+// Inhalten wie bisher im statischen site/. Die eigene Sitemap von WordPress (wp-sitemap.xml) ist aus, damit es nur eine gibt.
 
 defined('ABSPATH') || exit;
 
@@ -9,7 +9,7 @@ add_filter('wp_sitemaps_enabled', '__return_false');
 add_action('init', function () {
     hs_regel('^sitemap\.xml$', 'index.php?hs_datei=sitemap');
     hs_regel('^llms\.txt$', 'index.php?hs_datei=llms');
-    hs_regel('^blog/feed\.xml$', 'index.php?hs_datei=feed');
+    hs_regel('^' . HS_BLOG_PFAD . '/feed\.xml$', 'index.php?hs_datei=feed');
 });
 
 add_filter('query_vars', function (array $vars) {
@@ -82,7 +82,7 @@ function hs_llms(): string {
     $blog = '';
     $beitraege = hs_beitraege();
     if ($beitraege) {
-        $blog = "## Blog\n\nAlle Beiträge: " . hs_blog_url() . ' (Feed: ' . hs_url('/blog/feed.xml') . ")\n\n";
+        $blog = '## ' . HS_BLOG_NAME . "\n\nAlle Beiträge: " . hs_blog_url() . ' (Feed: ' . hs_feed_url() . ")\n\n";
         foreach ($beitraege as $b) {
             $blog .= '- [' . $b['titel'] . '](' . $b['url'] . ') (' . hs_de_datum($b['datum']) . ', ' . hs_autor_name($b) . '): '
                 . $b['beschreibung'] . "\n";
@@ -130,10 +130,10 @@ function hs_feed(): string {
     $start = hs_url('/');
     $neueste = $beitraege ? max(array_map(fn($b) => $b['geaendert'], $beitraege)) : new DateTimeImmutable('now', wp_timezone());
     $x = '<?xml version="1.0" encoding="utf-8"?>' . "\n" . '<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="de-DE">' . "\n"
-        . "  <title>HeydenSattler Blog</title>\n"
+        . "  <title>HeydenSattler " . HS_BLOG_NAME . "</title>\n"
         . "  <subtitle>Tipps und Wissenswertes zum Verkauf und zur Vermietung von Immobilien in Augsburg</subtitle>\n"
         . '  <link rel="alternate" type="text/html" href="' . hs_x($blog) . "\" />\n"
-        . '  <link rel="self" type="application/atom+xml" href="' . hs_x(hs_url('/blog/feed.xml')) . "\" />\n"
+        . '  <link rel="self" type="application/atom+xml" href="' . hs_x(hs_feed_url()) . "\" />\n"
         . '  <id>' . hs_x($blog) . "</id>\n"
         . '  <updated>' . $neueste->format('c') . "</updated>\n"
         . "  <author>\n    <name>HeydenSattler GmbH</name>\n    <uri>" . hs_x($start) . "</uri>\n  </author>\n"

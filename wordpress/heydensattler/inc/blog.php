@@ -18,6 +18,10 @@ const HS_AUTOREN = [
     ],
 ];
 
+// Name und Adresse des Bereichs: „Immobilienwissen“ unter /immobilienwissen/, wie die Instagram-Reihe (bis
+// 07.11.2026 „Blog“ unter /blog/; alte Adressen leiten weiter, siehe unten)
+const HS_BLOG_NAME = 'Immobilienwissen';
+const HS_BLOG_PFAD = 'immobilienwissen';
 const HS_BLOG_BESCHREIBUNG = 'Tipps und Wissenswertes von HeydenSattler zum Verkauf und zur Vermietung von Immobilien in Augsburg und Umgebung.';
 
 // ---------------------------------------------------------------------------------------------------------
@@ -73,8 +77,8 @@ $hs_ohne_passwort = function (string $where): string {
 add_filter('get_previous_post_where', $hs_ohne_passwort);
 add_filter('get_next_post_where', $hs_ohne_passwort);
 
-// /blog/ gibt es nur mit veröffentlichten Beiträgen, wie bisher, und nur als eine Seite: /blog/page/2/ ist 404,
-// ebenso /page/2/ der Startseite
+// /immobilienwissen/ gibt es nur mit veröffentlichten Beiträgen, wie bisher, und nur als eine Seite:
+// /immobilienwissen/page/2/ ist 404, ebenso /page/2/ der Startseite
 add_action('template_redirect', function () {
     $blog_ohne = is_home() && !is_front_page() && (!hs_blog_hat_beitraege() || (int) get_query_var('paged') > 1);
     $start_seite = is_front_page() && max((int) get_query_var('paged'), (int) get_query_var('page')) > 1;
@@ -86,11 +90,11 @@ add_action('template_redirect', function () {
     }
 }, 9);
 
-// Die Feeds von WordPress (/feed/, /blog/feed/, Kommentare) führen zum Feed der Website: Nur der zeigt keine
-// Notizen in Kommentaren, keine Links auf geplante Beiträge und keine Beiträge mit Passwort
+// Die Feeds von WordPress (/feed/, /immobilienwissen/feed/, Kommentare) führen zum Feed der Website: Nur der zeigt
+// keine Notizen in Kommentaren, keine Links auf geplante Beiträge und keine Beiträge mit Passwort
 add_action('template_redirect', function () {
     if (is_feed() && !get_query_var('hs_datei')) {
-        wp_redirect(hs_url('/blog/feed.xml'), 301);
+        wp_redirect(hs_feed_url(), 301);
         exit;
     }
 }, 1);
@@ -221,7 +225,8 @@ function hs_ohne_links_auf_kuenftige(string $html): string {
         return $html;
     }
 
-    // Pfad eines Beitrags nach den Permalink-Einstellungen, z. B. /blog/%postname%/ → ^blog/([^/]+)$
+    // Pfad eines Beitrags nach den Permalink-Einstellungen,
+    // z. B. /immobilienwissen/%postname%/ → ^immobilienwissen/([^/]+)$
     $struktur = trim((string) get_option('permalink_structure'), '/');
     $muster = null;
     if (strpos($struktur, '%postname%') !== false) {
@@ -284,8 +289,28 @@ function hs_beitrag_beschreibung(WP_Post $beitrag, string $html): string {
 
 function hs_blog_url(): string {
     $seite = (int) get_option('page_for_posts');
-    return $seite ? get_permalink($seite) : hs_url('/blog/');
+    return $seite ? get_permalink($seite) : hs_url('/' . HS_BLOG_PFAD . '/');
 }
+
+function hs_feed_url(): string {
+    return hs_url('/' . HS_BLOG_PFAD . '/feed.xml');
+}
+
+// Alte Adressen /blog/… (bis 07.11.2026) führen dauerhaft zur selben Adresse unter /immobilienwissen/
+add_action('template_redirect', function () {
+    if (!is_404()) {
+        return;
+    }
+    $pfad = (string) wp_parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+    $basis = rtrim((string) wp_parse_url(hs_url('/'), PHP_URL_PATH), '/');
+    if ($basis !== '' && strpos($pfad, $basis . '/') === 0) {
+        $pfad = substr($pfad, strlen($basis));
+    }
+    if (preg_match('#^/blog(/.*)?$#', $pfad, $m)) {
+        wp_redirect(hs_url('/' . HS_BLOG_PFAD . ($m[1] ?? '/')), 301);
+        exit;
+    }
+}, 2);
 
 function hs_blog_hat_beitraege(): bool {
     static $hat = null;
@@ -361,7 +386,7 @@ function hs_blog_aktuelles(): void {
         return;
     }
     echo "\n  <section class=\"abschnitt\" id=\"aktuelles\">\n    <div class=\"wrap\">\n"
-        . "      <h2>Aktuelles aus unserem Blog:</h2>\n      <ul class=\"beitraege\">\n";
+        . "      <h2>Aktuelles Immobilienwissen:</h2>\n      <ul class=\"beitraege\">\n";
     foreach ($beitraege as $b) {
         echo hs_beitrag_karte($b, 3);
     }

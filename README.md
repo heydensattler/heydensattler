@@ -177,7 +177,7 @@ JavaScript auch: `scripts/theme.sh` kopiert sie aus `site/assets/` ins Theme.
 | Seite | Woher der Inhalt kommt |
 | --- | --- |
 | Startseite, Vermieten, Verkaufen | Vorlagen im Theme: `front-page.php`, `page-vermieten.php`, `page-verkaufen.php` (Ablauf in `template-parts/leistung.php`). Texte, Fragen und Ablauf dort ändern; das JSON-LD entsteht aus denselben Listen |
-| Blog | WordPress-Beiträge: Titel, Textauszug (= `description`), Beitragsbild (= `image`, Alternativtext aus der Mediathek; erscheint auf den Karten in Blog und „Aktuelles“ und als Vorschaubild beim Teilen, nicht über dem Beitragstext; empfohlen 1800 × 1200 px, 3:2) und das Feld „Autor“ in der Seitenleiste (Cedric Heyden, Anna Heyden oder HeydenSattler) |
+| Immobilienwissen (Beiträge) | WordPress-Beiträge: Titel, Textauszug (= `description`), Beitragsbild (= `image`, Alternativtext aus der Mediathek; erscheint auf den Karten der Übersicht und unter „Aktuelles Immobilienwissen“ und als Vorschaubild beim Teilen, nicht über dem Beitragstext; empfohlen 1800 × 1200 px, 3:2) und das Feld „Autor“ in der Seitenleiste (Cedric Heyden, Anna Heyden oder HeydenSattler) |
 | Impressum, Datenschutzerklärung | normale Seiten aus dem Editor (`page.php`) |
 | Angebote | lädt das Theme selbst aus Propstack (siehe unten) |
 
@@ -185,10 +185,15 @@ Geplante Beiträge erscheinen ab ihrem Datum, Entwürfe nie; vorher stehen sie n
 Sitemap, kein Menüpunkt). Ein Link aus einem anderen Beitrag auf einen geplanten Beitrag bleibt bis dahin nur Text,
 wie bisher in `blog.py`, ebenso HTML-Kommentare: Sie erscheinen nicht. Beiträge mit Passwort stehen nur unter ihrer
 eigenen Adresse (mit dem Passwortfeld von WordPress), nicht in Übersicht, Archiven, Feed, Sitemap, `llms.txt`
-oder als Nachbar. Die eigenen Feeds von WordPress (`/feed/`, `/blog/feed/`) führen zu `/blog/feed.xml`. Ohne
-veröffentlichten Beitrag gibt es `/blog/`, den Feed und den Menüpunkt nicht.
+oder als Nachbar. Die eigenen Feeds von WordPress (`/feed/`, `/immobilienwissen/feed/`) führen zu `/immobilienwissen/feed.xml`. Ohne
+veröffentlichten Beitrag gibt es `/immobilienwissen/`, den Feed und den Menüpunkt nicht.
 
-Die Adressen sind dieselben wie bisher, dazu `/blog/feed.xml`, `/sitemap.xml`, `/llms.txt` und `/robots.txt`; die
+Der Bereich hieß bis 07.11.2026 „Blog“ unter `/blog/` (Entscheidung der Nutzerin: Name wie die Instagram-Reihe).
+Name und Adresse stehen in `HS_BLOG_NAME`/`HS_BLOG_PFAD` (`inc/blog.php`). Alte Adressen `/blog/…` leiten dauerhaft
+auf `/immobilienwissen/…` weiter; steht die Website noch auf `/blog/%postname%/`, stellt das Theme sie beim nächsten
+Aufruf selbst um (Seite „blog“ wird zu „immobilienwissen“, Permalinks neu).
+
+Die Adressen sind dieselben wie bisher, dazu `/immobilienwissen/feed.xml`, `/sitemap.xml`, `/llms.txt` und `/robots.txt`; die
 eigene Sitemap von WordPress (`wp-sitemap.xml`) ist aus. `/leistungen/` führt zu den Leistungen auf der Startseite,
 Anhangseiten der Mediathek führen zur Datei.
 
@@ -199,9 +204,9 @@ scripts/theme.sh
 ```
 
 `_theme/heydensattler.zip` unter Design → Themes → Theme hochladen und aktivieren. Oben im Admin steht dann, was an
-den Einstellungen noch fehlt, mit dem Knopf „Jetzt einrichten“: Er legt fehlende Seiten an (Startseite, Blog,
+den Einstellungen noch fehlt, mit dem Knopf „Jetzt einrichten“: Er legt fehlende Seiten an (Startseite, Immobilienwissen,
 Leistungen mit Vermieten und Verkaufen), stellt Start- und Beitragsseite ein und setzt die Beitragsadressen auf
-`/blog/beitragsname/`. Bestehende Seiten bleiben, wie sie sind, auch unveröffentlichte; der Hinweis nennt sie dann.
+`/immobilienwissen/beitragsname/`. Bestehende Seiten bleiben, wie sie sind, auch unveröffentlichte; der Hinweis nennt sie dann.
 
 Vor dem Umstieg auf heydensattler.com:
 

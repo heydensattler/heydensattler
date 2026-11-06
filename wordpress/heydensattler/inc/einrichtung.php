@@ -4,7 +4,9 @@
 
 defined('ABSPATH') || exit;
 
-const HS_PERMALINKS = '/blog/%postname%/';
+const HS_PERMALINKS = '/immobilienwissen/%postname%/';
+// Bis 07.11.2026 hieß der Bereich „Blog“ unter /blog/. Steht die Website noch so, stellt das Theme sie einmal um.
+const HS_PERMALINKS_ALT = '/blog/%postname%/';
 
 /** Eine Adressregel des Themes (oben in der Liste). Sie wird gemerkt, damit die Prüfung unten sie findet. */
 function hs_regel(string $muster, string $ziel): void {
@@ -18,6 +20,15 @@ function hs_regel(string $muster, string $ziel): void {
 // noch gar nicht aktiv.
 add_action('wp_loaded', function () {
     if (!get_option('permalink_structure') || is_customize_preview() || wp_installing()) {
+        return;
+    }
+    if (get_option('permalink_structure') === HS_PERMALINKS_ALT) {
+        hs_einrichten();
+        // Dieser Aufruf hat die Regeln schon mit der alten Struktur angemeldet und baut sie womöglich gleich damit
+        // neu auf; am Ende darum noch einmal leeren, damit der nächste Aufruf sie mit /immobilienwissen/ aufbaut
+        add_action('shutdown', function () {
+            update_option('rewrite_rules', '');
+        });
         return;
     }
     $gespeichert = get_option('rewrite_rules');
@@ -37,9 +48,9 @@ add_action('wp_loaded', function () {
 function hs_einrichtung_offen(): array {
     $offen = [];
     if (!extension_loaded('mbstring')) {
-        $offen[] = 'Dem PHP des Servers fehlt die Erweiterung mbstring; ohne sie gehen Angebote und Blog nicht.';
+        $offen[] = 'Dem PHP des Servers fehlt die Erweiterung mbstring; ohne sie gehen Angebote und Immobilienwissen nicht.';
     }
-    $blog = get_page_by_path('blog');
+    $blog = get_page_by_path(HS_BLOG_PFAD);
     $start = (int) get_option('page_on_front');
     if (get_option('show_on_front') !== 'page' || !$start) {
         $offen[] = 'Die Startseite ist keine feste Seite (Einstellungen → Lesen).';
@@ -47,16 +58,16 @@ function hs_einrichtung_offen(): array {
         $offen[] = 'Die Startseite (Seite „' . get_the_title($start) . '“) ist nicht veröffentlicht (Seiten).';
     }
     if (!$blog || (int) get_option('page_for_posts') !== $blog->ID) {
-        $offen[] = 'Die Blogübersicht ist nicht die Seite „blog“ (Einstellungen → Lesen → Beitragsseite).';
+        $offen[] = 'Die Übersicht „' . HS_BLOG_NAME . '“ ist nicht die Seite „' . HS_BLOG_PFAD . '“ (Einstellungen → Lesen → Beitragsseite).';
     }
     if (get_option('permalink_structure') !== HS_PERMALINKS) {
-        $offen[] = 'Beiträge haben nicht die Adresse /blog/beitragsname/ (Einstellungen → Permalinks).';
+        $offen[] = 'Beiträge haben nicht die Adresse /' . HS_BLOG_PFAD . '/beitragsname/ (Einstellungen → Permalinks).';
     }
-    foreach (['blog' => 'Blog', 'leistungen' => 'Leistungen', 'leistungen/vermieten' => 'Vermieten', 'leistungen/verkaufen' => 'Verkaufen'] as $pfad => $name) {
+    foreach ([HS_BLOG_PFAD => HS_BLOG_NAME, 'leistungen' => 'Leistungen', 'leistungen/vermieten' => 'Vermieten', 'leistungen/verkaufen' => 'Verkaufen'] as $pfad => $name) {
         $seite = get_page_by_path($pfad);
         if ($seite && $seite->post_status !== 'publish') {
             $offen[] = "Die Seite „{$name}“ unter /{$pfad}/ ist nicht veröffentlicht (Seiten → {$name}).";
-        } elseif (!$seite && $pfad !== 'blog') {
+        } elseif (!$seite && $pfad !== HS_BLOG_PFAD) {
             $offen[] = "Die Seite „{$name}“ unter /{$pfad}/ fehlt.";
         }
     }
@@ -78,7 +89,13 @@ function hs_einrichten(): void {
     };
 
     $start = (int) get_option('page_on_front') ?: $seite('startseite', 'Startseite');
-    $blog = $seite('blog', 'Blog');
+    // Die bisherige Beitragsseite „blog“ bekommt den neuen Namen und die neue Adresse, statt eine zweite anzulegen
+    $alt = get_page_by_path('blog');
+    if ($alt && !get_page_by_path(HS_BLOG_PFAD) && (int) get_option('page_for_posts') === $alt->ID) {
+        wp_update_post(['ID' => $alt->ID, 'post_name' => HS_BLOG_PFAD, 'post_title' => HS_BLOG_NAME]);
+        clean_post_cache($alt->ID);
+    }
+    $blog = $seite(HS_BLOG_PFAD, HS_BLOG_NAME);
     $leistungen = $seite('leistungen', 'Leistungen');
     $seite('leistungen/vermieten', 'Vermieten', $leistungen);
     $seite('leistungen/verkaufen', 'Verkaufen', $leistungen);
@@ -124,5 +141,5 @@ add_action('admin_notices', function () {
     wp_nonce_field('hs_einrichten');
     echo '<input type="hidden" name="action" value="hs_einrichten"><p>';
     submit_button('Jetzt einrichten', 'primary', 'submit', false);
-    echo ' Legt fehlende Seiten an (Startseite, Blog, Leistungen mit Vermieten und Verkaufen), stellt Start- und Beitragsseite ein und setzt die Beitragsadressen auf /blog/beitragsname/. Bestehende Seiten und Beiträge bleiben unverändert.</p></form></div>';
+    echo ' Legt fehlende Seiten an (Startseite, Immobilienwissen, Leistungen mit Vermieten und Verkaufen), stellt Start- und Beitragsseite ein und setzt die Beitragsadressen auf /immobilienwissen/beitragsname/. Bestehende Seiten und Beiträge bleiben unverändert.</p></form></div>';
 });

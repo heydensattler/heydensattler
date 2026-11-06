@@ -16,7 +16,7 @@ const HS_UPLOADS = 'https://heydensattler.com/wp-content/uploads';
  * - ld: Liste von JSON-LD-Objekten, je eines als <script>
  * - robots: Standard „index, follow, …“ (ausgegeben über den Filter wp_robots, siehe inc/grundlagen.php)
  * - geo: true für die Ortsangaben „Augsburg“ (Startseite, Leistungen) oder ein anderer Ort (Angebote)
- * - feed: true für den Link auf den Blog-Feed
+ * - feed: true für den Link auf den Feed des Immobilienwissens
  * - extra: weiteres HTML im <head> (z. B. article:published_time)
  */
 function hs_seite(array $seite): void {
@@ -37,7 +37,7 @@ function hs_kopf(): void {
         echo '<link rel="alternate" hreflang="de-DE" href="' . esc_url($s['url']) . "\">\n";
     }
     if (!empty($s['feed'])) {
-        echo '<link rel="alternate" type="application/atom+xml" title="HeydenSattler Blog" href="' . esc_url(hs_url('/blog/feed.xml')) . "\">\n";
+        echo '<link rel="alternate" type="application/atom+xml" title="HeydenSattler ' . HS_BLOG_NAME . '" href="' . esc_url(hs_feed_url()) . "\">\n";
     }
     echo "<meta name=\"theme-color\" content=\"#163C37\">\n";
     if (!empty($s['geo'])) {

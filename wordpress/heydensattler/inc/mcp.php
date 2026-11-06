@@ -104,7 +104,7 @@ add_action('wp_abilities_api_init', function () {
                 'titel' => ['type' => 'string'],
                 'inhalt' => ['type' => 'string', 'description' => 'HTML des Beitrags'],
                 'auszug' => ['type' => 'string'],
-                'slug' => ['type' => 'string', 'description' => 'Adresse unter /blog/…/, sonst aus dem Titel'],
+                'slug' => ['type' => 'string', 'description' => 'Adresse unter /immobilienwissen/…/, sonst aus dem Titel'],
                 'status' => ['type' => 'string', 'enum' => HS_MCP_STATUS],
                 'datum' => ['type' => 'string', 'description' => 'Veröffentlichungsdatum, z. B. 2026-11-20T09:00:00 (Ortszeit)'],
                 'autor' => ['type' => 'string', 'enum' => $autoren],

@@ -21,8 +21,9 @@ Servernamen oder Schlüssel in Dateien oder Commits.
 ## Was im Theme wo herkommt
 
 - Startseite, Vermieten, Verkaufen, 404: Vorlagen im Theme (Texte, FAQ und JSON-LD aus denselben Listen).
-- Blog: WordPress-Beiträge (Auszug = description, Beitragsbild = image, Feld „Autor“). Das Beitragsbild erscheint nur
-  auf den Karten und als Vorschaubild beim Teilen, nicht über dem Text. Geplante Beiträge, Entwürfe
+- Immobilienwissen (bis 07.11.2026 „Blog“; Adresse /immobilienwissen/, /blog/… leitet weiter): WordPress-Beiträge
+  (Auszug = description, Beitragsbild = image, Feld „Autor“). Das Beitragsbild erscheint nur auf den Karten und als
+  Vorschaubild beim Teilen, nicht über dem Text. Geplante Beiträge, Entwürfe
   und Beiträge mit Passwort erscheinen in keiner Liste, keinem Feed, keiner Sitemap; Links auf sie bleiben Text.
 - Impressum, Datenschutz: normale Seiten; ihre WPBakery-Shortcodes (`[vc_row]` …) blendet das Theme aus.
 - Angebote: das Theme lädt sie alle 30 Minuten selbst aus Propstack (WP-Cron), Einstellungen → Angebote oder
@@ -45,7 +46,7 @@ Servernamen oder Schlüssel in Dateien oder Commits.
 ## Stand (05.11.2026)
 
 - Das Theme „HeydenSattler“ ist live (zuletzt `v2026.11.05.7`) und lädt die Angebote selbst aus Propstack. Auf
-  den Seiten laden keine Plugins mehr etwas; `/blog/` gibt 404 (noch keine Beiträge).
+  den Seiten laden keine Plugins mehr etwas; `/immobilienwissen/` gibt 404, solange kein Beitrag veröffentlicht ist.
 - Seit 05.11.: Der Preis ist nur bei „Preis auf Anfrage“ (`price_on_inquiry`) verborgen; `show_price_in_expose`
   zählt nicht, die API meldete es bei Objekten mit sichtbarem Preis als aus. Favicon ist das alte Website-Icon von
   2022 (grünes HS-Zeichen, transparent; Apple-Touch-Icon mit weißem Grund). `/favicon.ico` erreicht WordPress bei

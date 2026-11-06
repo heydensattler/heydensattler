@@ -9,7 +9,7 @@ while (have_posts()) {
     the_post();
     $beitraege[] = hs_beitrag(get_post());
 }
-$titel = wp_strip_all_tags(get_the_archive_title()) ?: 'Blog';
+$titel = wp_strip_all_tags(get_the_archive_title()) ?: HS_BLOG_NAME;
 
 hs_seite(['titel' => $titel . ' | HeydenSattler', 'beschreibung' => HS_BLOG_BESCHREIBUNG, 'robots' => 'noindex, follow']);
 get_header();
@@ -18,7 +18,7 @@ get_header();
 
   <header class="seitentitel">
     <div class="wrap">
-<?php hs_brotkrumen([['Startseite', '/'], ['Blog', hs_blog_url()], [$titel, null]]); ?>
+<?php hs_brotkrumen([['Startseite', '/'], [HS_BLOG_NAME, hs_blog_url()], [$titel, null]]); ?>
       <h1><?= hs_e($titel) ?></h1>
     </div>
   </header>

@@ -49,7 +49,7 @@
         <li><a href="<?= esc_url(hs_url('/#team')) ?>">Über uns</a></li>
         <li><a href="<?= esc_url(hs_url('/#angebote')) ?>">Angebote</a></li>
 <?php if (hs_blog_hat_beitraege()) : ?>
-        <li><a href="<?= esc_url(hs_url('/blog/')) ?>"<?= hs_ist_blog() ? ' aria-current="page"' : '' ?>>Blog</a></li>
+        <li><a href="<?= esc_url(hs_blog_url()) ?>"<?= hs_ist_blog() ? ' aria-current="page"' : '' ?>><?= HS_BLOG_NAME ?></a></li>
 <?php endif; ?>
         <li><a href="<?= esc_url(hs_url('/#fragen')) ?>">Fragen</a></li>
       </ul>

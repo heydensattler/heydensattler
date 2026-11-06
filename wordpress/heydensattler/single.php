@@ -15,7 +15,7 @@ $blog = hs_blog_url();
 
 $graph = [
     hs_posting_ld($b, true),
-    hs_brotkrumen_ld($b['url'], [['Startseite', hs_url('/')], ['Blog', $blog], [$b['titel'], $b['url']]]),
+    hs_brotkrumen_ld($b['url'], [['Startseite', hs_url('/')], [HS_BLOG_NAME, $blog], [$b['titel'], $b['url']]]),
     hs_firma_ld(),
 ];
 if ($b['autor']) {
@@ -58,7 +58,7 @@ get_header();
 
   <header class="seitentitel">
     <div class="wrap">
-<?php hs_brotkrumen([['Startseite', '/'], ['Blog', $blog], [$b['titel'], null]]); ?>
+<?php hs_brotkrumen([['Startseite', '/'], [HS_BLOG_NAME, $blog], [$b['titel'], null]]); ?>
       <h1><?= hs_e($b['titel']) ?></h1>
       <p class="beitrag-meta"><?= implode(' · ', $meta) ?></p>
     </div>
@@ -83,7 +83,7 @@ get_header();
   </section>
 
 <?php hs_kontakt('Sie möchten Ihre Immobilie in Augsburg verkaufen oder vermieten? Rufen Sie uns an oder schreiben Sie uns, wir melden uns bei Ihnen.',
-    'Blog: Anfrage über heydensattler.com',
+    HS_BLOG_NAME . ': Anfrage über heydensattler.com',
     $nachbarn ? "      <nav class=\"weiter beitrag-nachbarn\" aria-label=\"Weitere Beiträge\">\n$nachbarn      </nav>\n" : ''); ?>
 </main>
 <?php

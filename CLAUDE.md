@@ -57,8 +57,8 @@ Servernamen oder Schlüssel in Dateien oder Commits.
 - WP-Cron: Cronjobs bei IONOS gehen im Tarif nur täglich, darum ruft `.github/workflows/wp-cron.yml` alle
   15 Minuten `wp-cron.php` auf (ohne `DISABLE_WP_CRON`, damit Besuche es weiter anstoßen, falls GitHub den Workflow
   pausiert).
-- Offen in WordPress (Sven): Die 8 Demo-Beiträge und Demoseiten von Sway löschen, falls noch da (sonst erscheinen
-  sie im Blog).
+- Offen in WordPress: die inaktiven Plugins Breadcrumb NavXT, Custom Fonts und Simple Banner löschen (das Theme
+  braucht sie nicht). Demo-Beiträge und alte Seiten liegen seit 06.11. im Papierkorb; der ist noch zu leeren.
 - www (05.11.): Der DNS-Eintrag `www` ist ein A-Eintrag auf den IONOS-Server (vorher CNAME auf Perspective). Ein
   AAAA-Eintrag für www geht bei IONOS nicht, ohne den A-Eintrag zu verlieren. Das Zertifikat gilt für
   `*.heydensattler.com`; das Theme leitet jeden anderen Namen per 301 auf heydensattler.com (`grundlagen.php`).

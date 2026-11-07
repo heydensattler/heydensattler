@@ -386,7 +386,7 @@ function hs_blog_aktuelles(): void {
         return;
     }
     echo "\n  <section class=\"abschnitt\" id=\"aktuelles\">\n    <div class=\"wrap\">\n"
-        . "      <h2>Aktuelles Immobilienwissen:</h2>\n      <ul class=\"beitraege\">\n";
+        . "      <h2>Gut zu wissen:</h2>\n      <ul class=\"beitraege\">\n";
     foreach ($beitraege as $b) {
         echo hs_beitrag_karte($b, 3);
     }

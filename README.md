@@ -177,7 +177,7 @@ JavaScript auch: `scripts/theme.sh` kopiert sie aus `site/assets/` ins Theme.
 | Seite | Woher der Inhalt kommt |
 | --- | --- |
 | Startseite, Vermieten, Verkaufen | Vorlagen im Theme: `front-page.php`, `page-vermieten.php`, `page-verkaufen.php` (Ablauf in `template-parts/leistung.php`). Texte, Fragen und Ablauf dort ändern; das JSON-LD entsteht aus denselben Listen |
-| Immobilienwissen (Beiträge) | WordPress-Beiträge: Titel, Textauszug (= `description`), Beitragsbild (= `image`, Alternativtext aus der Mediathek; erscheint auf den Karten der Übersicht und unter „Aktuelles Immobilienwissen“ und als Vorschaubild beim Teilen, nicht über dem Beitragstext; empfohlen 1800 × 1200 px, 3:2) und das Feld „Autor“ in der Seitenleiste (Cedric Heyden, Anna Heyden oder HeydenSattler) |
+| Immobilienwissen (Beiträge) | WordPress-Beiträge: Titel, Textauszug (= `description`), Beitragsbild (= `image`, Alternativtext aus der Mediathek; erscheint auf den Karten der Übersicht und auf der Startseite unter „Gut zu wissen:“ und als Vorschaubild beim Teilen, nicht über dem Beitragstext; empfohlen 1800 × 1200 px, 3:2) und das Feld „Autor“ in der Seitenleiste (Cedric Heyden, Anna Heyden oder HeydenSattler) |
 | Impressum, Datenschutzerklärung | normale Seiten aus dem Editor (`page.php`) |
 | Angebote | lädt das Theme selbst aus Propstack (siehe unten) |
 
